@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Registration</h1>
+
+<form id="registrationForm" onsubmit="registerUser(event)">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username" required><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br>
+
+    <label for="confirm_password">Confirm Password:</label><br>
+    <input type="password" id="confirm_password" name="confirm_password" required><br>
+
+    <label for="role">Role:</label><br>
+    <select id="role" name="role" required>
+        <option value="">Select</option>
+        <option value="Manager">Manager</option>
+        <option value="Employee">Employee</option>
+    </select><br>
+
+    <label for="first_name">First Name:</label><br>
+    <input type="text" id="first_name" name="first_name" required><br>
+
+    <label for="last_name">Last Name:</label><br>
+    <input type="text" id="last_name" name="last_name" required><br>
+
+    <button type="submit">Register</button>
+</form>
+
+<script>
+    function registerUser(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var form = document.getElementById("registrationForm");
+        var formData = new FormData(form);
+        var json = {};
+
+        formData.forEach(function(value, key) {
+            json[key] = value;
+        });
+
+        // Validate email
+        var emailInput = document.getElementById("email");
+        if (!validateEmail(emailInput.value)) {
+            alert('Invalid Email');
+            return; // Stop registration process
+        }
+
+        // Validate password confirmation
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return; // Stop registration process
+        }
+
+        fetch('/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Registration successful!'); // Show success message
+                window.location.href = "/login"; // Redirect to login route after successful registration
+            } else {
+                throw new Error('Registration failed. Please try again.'); // Error response
+            }
+        })
+        .then(data => {
+            // Handle success response
+            console.log(data);
+            alert('Registration successful'); // Show success message
+            window.location.href = "/login";// Redirect to login route after successful registration
+            // Reset form fields
+            form.reset();
+        })
+        .catch(error => {
+            // Handle error response
+            console.error('Error:', error);
+            alert(error.message); // Show error message
+        });
+    }
+
+    // Custom email validation function
+    function validateEmail(email) {
+        return email.endsWith("@nucleusteq.com");
+    }
+</script>
+{% endblock %}

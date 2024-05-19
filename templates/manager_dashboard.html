@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.role == 'Manager' %}
+        <h1>Welcome to the Manager Dashboard, {{ user.username }}</h1>
+        <p>Full Name: {{ user.first_name }} {{ user.last_name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Role: {{ user.role }}</p>
+        <!-- Add your dashboard content here -->
+        <form id="logoutForm" action="/logout" method="post">
+            <button type="submit">Logout</button>
+        </form>
+        <!-- Redirect back to home page after logout -->
+        <script>
+            // Function to redirect to home page after logout
+            function redirectToHome() {
+                window.location.href = "/";
+            }
+
+            // Add event listener to form submission
+            document.getElementById("logoutForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent default form submission
+                fetch("/logout", { method: "POST" })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // If logout successful, redirect to home page
+                            redirectToHome();
+                        } else {
+                            // If logout failed, log the error
+                            console.error("Logout failed:", data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error during logout:", error);
+                    });
+            });
+        </script>
+    {% else %}
+        <h1>Access Denied</h1>
+        <p>You do not have permission to access this page.</p>
+    {% endif %}
+{% endblock %}

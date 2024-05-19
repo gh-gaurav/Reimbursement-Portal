@@ -26,6 +26,17 @@ class User(db.Model):
     manager = db.relationship('User', remote_side=[id], backref='employees')
     reimbursement_requests = db.relationship('ReimbursementRequest', backref='user', lazy=True)
     
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'role': self.role.name if self.role else None,
+            'department_id': self.department_id,
+            'manager_id': self.manager_id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+    }
 
     @property
     def password(self):

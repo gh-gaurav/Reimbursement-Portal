@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Reimbursement Portal{% endblock %}
+
+{% block content %}
+    <section>
+        <h2>Overview</h2>
+        <p>Reimbursement Portal is an online portal where an employee can submit reimbursement claims related to relocation, medical, and office supplies, and the assigned manager can approve/reject the claims.</p>
+    </section>
+    
+    <section>
+        <h2>Functional Requirements</h2>
+        <ul>
+            <li>Three types of users: Admin, Manager, and Employee</li>
+            <li>Registration and login flow for Managers and Employees</li>
+            <li>Submission of reimbursement requests by Employees</li>
+            <li>Approval/rejection of reimbursement requests by Managers</li>
+            <li>Policy enforcement for reimbursement request categories and amounts</li>
+            <li>Ability for Admin to manage users and departments</li>
+            <!-- Add more functional requirements here -->
+        </ul>
+    </section>
+
+    <section>
+        <h2>Good to Have</h2>
+        <ul>
+            <li>Support for uploading multiple images for reimbursement requests</li>
+            <!-- Add more good-to-have features here -->
+        </ul>
+    </section>
+
+    <section>
+        <h2>Out of Scope</h2>
+        <ul>
+            <li>Deletion of departments</li>
+            <!-- Add more out-of-scope items here -->
+        </ul>
+    </section>
+{% endblock %}

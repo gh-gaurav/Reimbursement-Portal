@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.role == 'Admin' %}
+        <h1>Welcome to the Admin Dashboard, {{ user.username }}</h1>
+        <p>Full Name: {{ user.first_name }} {{ user.last_name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Role: {{ user.role }}</p>
+
+        <!-- Department Management Section -->
+        <h2>Manage Departments</h2>
+        
+        <!-- Form to Add Department -->
+        <form id="addDepartmentForm">
+            <label for="departmentName">Department Name:</label><br>
+            <input type="text" id="departmentName" name="departmentName" required><br>
+            <button type="button" onclick="addDepartment()">Add Department</button>
+        </form>
+
+        <!-- Form to Delete Department -->
+        <form id="deleteDepartmentForm">
+            <label for="departmentId">Department ID to Delete:</label><br>
+            <input type="number" id="departmentId" name="departmentId" required><br>
+            <button type="button" onclick="deleteDepartment()">Delete Department</button>
+        </form>
+
+        <!-- Table of Departments -->
+        <h3>Departments List</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Department ID</th>
+                    <th>Department Name</th>
+                </tr>
+            </thead>
+            <tbody id="departmentsTableBody">
+                <!-- Departments will be populated here -->
+            </tbody>
+        </table>
+
+        <!-- Logout Form -->
+        <form id="logoutForm" action="/logout" method="post">
+            <button type="submit">Logout</button>
+        </form>
+
+        <form id="assignForm">    
+            <label for="employeeSelect">Select Employee:</label><br>
+            <select id="employeeSelect" name="employeeSelect" required>
+                <!-- Employees options will be populated dynamically -->
+            </select><br>
+            <label for="managerSelect">Select Manager:</label><br>
+            <select id="managerSelect" name="managerSelect" required>
+                <!-- Managers options will be populated dynamically -->
+            </select><br>
+
+            <button type="button" onclick="assignManager()">Assign Manager</button>
+        </form>
+        <h2>Unassigned Employees</h2>
+        <table id="employeesTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                </tr>
+            </thead>
+            <tbody id="employeesBody">
+                <!-- Employee data will be dynamically inserted here -->
+            </tbody>
+        </table>
+
+        <!-- Scripts -->
+        <script>
+ fetch('/user/unasigned_employees')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Get the table body element
+                        const tbody = document.getElementById('employeesBody');
+
+                        // Iterate over the employee data and generate table rows
+                        data.data.forEach(employee => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${employee.id}</td>
+                                <td>${employee.username}</td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    } else {
+                        // Handle error if data retrieval fails
+                        console.error('Error:', data.error);
+                    }
+                })
+                .catch(error => {
+                    // Handle fetch error
+                    console.error('Fetch Error:', error);
+                });
+
+// Function to add a department
+            function addDepartment() {
+                var form = document.getElementById("addDepartmentForm");
+                var formData = new FormData(form);
+                var json = {};
+
+                formData.forEach(function(value, key) {
+                    json[key] = value;
+                });
+
+                fetch('/department/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(json)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'Department created successfully') {
+                        alert('Department added successfully!');
+                        listDepartments();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while adding the department.');
+                });
+            }
+
+            // Function to delete a department
+            function deleteDepartment() {
+                var departmentId = document.getElementById("departmentId").value;
+
+                fetch(`/department/${departmentId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'Department deleted successfully') {
+                        alert('Department deleted successfully!');
+                        listDepartments();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the department.');
+                });
+            }
+
+            // Function to list departments
+            function listDepartments() {
+                fetch('/departments')
+                .then(response => response.json())
+                .then(data => {
+                    var departmentsTableBody = document.getElementById("departmentsTableBody");
+                    departmentsTableBody.innerHTML = '';
+                    data.forEach(department => {
+                        var row = document.createElement("tr");
+                        var cellId = document.createElement("td");
+                        var cellName = document.createElement("td");
+                        cellId.textContent = department.id;
+                        cellName.textContent = department.name;
+                        row.appendChild(cellId);
+                        row.appendChild(cellName);
+                        departmentsTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while fetching the departments.');
+                });
+            }
+
+            // Function to redirect to home page after logout
+            function redirectToHome() {
+                window.location.href = "/";
+            }
+
+            // Add event listener to form submission
+            document.getElementById("logoutForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent default form submission
+                fetch("/logout", { method: "POST" })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // If logout successful, redirect to home page
+                            redirectToHome();
+                        } else {
+                            // If logout failed, log the error
+                            console.error("Logout failed:", data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error during logout:", error);
+                    });
+            });
+
+            // List departments on page load
+            document.addEventListener("DOMContentLoaded", function() {
+                listDepartments();
+            });
+
+
+            function populateManagers() {
+            fetch('/user/managers')
+                .then(response => response.json())
+                .then(data => {
+                    const managerSelect = document.getElementById('managerSelect');
+                    data.forEach(manager => {
+                        const option = document.createElement('option');
+                        option.text = manager.username;
+                        option.value = manager.id;
+                        managerSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Function to populate employee options
+        function populateEmployees() {
+            fetch('/user/employees')
+                .then(response => response.json())
+                .then(data => {
+                    const employeeSelect = document.getElementById('employeeSelect');
+                    data.forEach(employee => {
+                        const option = document.createElement('option');
+                        option.text = employee.username;
+                        option.value = employee.id;
+                        employeeSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Function to assign manager to employee
+        function assignManager() {
+            const managerId = document.getElementById('managerSelect').value;
+            const employeeId = document.getElementById('employeeSelect').value;
+
+            fetch('/user/assign-manager', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ managerId, employeeId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success = true) {
+                    alert('Manager assigned successfully!');
+                } else {
+                    alert('Error assigning manager. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        }
+
+        // Populate manager and employee options when the page loads
+        window.onload = function() {
+            populateManagers();
+            populateEmployees();
+        };
+        </script>
+    {% else %}
+        <h1>Access Denied</h1>
+        <p>You do not have permission to access this page.</p>
+    {% endif %}
+{% endblock %}

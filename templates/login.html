@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form id="loginForm" onsubmit="login(event)">
+        <label for="username">Username or Email:</label><br>
+        <input type="text" id="username" name="username" placeholder="Enter username or email" required><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        function login(event) {
+            event.preventDefault(); // Prevent the default form submission
+            var form = document.getElementById("loginForm");
+            var formData = new FormData(form);
+            var json = {};
+
+            formData.forEach(function(value, key) {
+                json[key] = value;
+            });
+
+            fetch('/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(json)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Redirect to the appropriate dashboard based on the received redirect URL
+                    window.location.href = data.redirect;
+                } else {
+                    alert(data.error); // Show error message
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.'); // Show generic error message
+            });
+        }
+    </script>
+{% endblock %}
