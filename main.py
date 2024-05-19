@@ -5,6 +5,7 @@ from models.department import Department
 from models.reimbursement_request import ReimbursementRequest
 from routes.user_routes import user_blueprint
 from routes.department_routes import department_blueprint
+from routes.reimbursement_request_routes import rr_blueprint
 
 
 
@@ -77,7 +78,8 @@ def logout():
 
 
 app.register_blueprint(user_blueprint, url_prefix='/user')
-app.register_blueprint(department_blueprint)
+app.register_blueprint(department_blueprint, url_prefix ='/department')
+app.register_blueprint(rr_blueprint, url_prefix ='/rr')
 
 
 if __name__ == "__main__":

@@ -10,6 +10,31 @@
         <form id="logoutForm" action="/logout" method="post">
             <button type="submit">Logout</button>
         </form>
+        <h2>Submit Reimbursement Request</h2>
+        <form id="reimbursementForm">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" required><br>
+            
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required><br>
+            
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"></textarea><br>
+            
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="Travelling" data-max-amount="15000">Travelling</option>
+                <option value="Relocation" data-max-amount="20000">Relocation</option>
+                <option value="Tech Asset" data-max-amount="5000">Tech Asset</option>
+            </select><br>
+            
+            <label for="receipt">Receipt (optional):</label>
+            <input type="text" id="receipt" name="receipt"><br>
+            
+            <input type="hidden" id="employee_id" name="employee_id" value="{{ user.id }}">
+            
+            <button type="submit">Submit Request</button>
+        </form>
         <!-- Redirect back to home page after logout -->
         <script>
             // Function to redirect to home page after logout
@@ -34,6 +59,49 @@
                     .catch(error => {
                         console.error("Error during logout:", error);
                     });
+            });
+
+            document.getElementById("reimbursementForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const amount = parseFloat(document.getElementById("amount").value);
+                const categoryElement = document.getElementById("category");
+                const selectedCategory = categoryElement.value;
+                const maxAmount = parseFloat(categoryElement.options[categoryElement.selectedIndex].getAttribute('data-max-amount'));
+
+                if (amount > maxAmount) {
+                    alert(`The maximum amount for ${selectedCategory} is ${maxAmount}.`);
+                    return;
+                }
+
+                const formData = {
+                    amount: amount,
+                    date: document.getElementById("date").value,
+                    description: document.getElementById("description").value,
+                    category: selectedCategory,
+                    employee_id: document.getElementById("employee_id").value,
+                    receipt_path: document.getElementById("receipt").value
+                };
+
+                fetch("/rr", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Reimbursement request submitted successfully!");
+                        document.getElementById("reimbursementForm").reset();
+                    } else {
+                        alert("Failed to submit request: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error during submission:", error);
+                });
             });
         </script>
     {% else %}

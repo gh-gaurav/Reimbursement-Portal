@@ -155,7 +155,7 @@
 
             // Function to list departments
             function listDepartments() {
-                fetch('/departments')
+                fetch('/department')
                 .then(response => response.json())
                 .then(data => {
                     var departmentsTableBody = document.getElementById("departmentsTableBody");

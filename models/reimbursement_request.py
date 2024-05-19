@@ -42,3 +42,6 @@ class ReimbursementRequest(db.Model):
 
     def __repr__(self):
         return f"ReimbursementRequest('{self.amount}', '{self.date}', '{self.category.name}', '{self.status}')"
+
+    
+    
