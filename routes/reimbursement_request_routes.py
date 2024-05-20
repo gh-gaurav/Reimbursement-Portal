@@ -1,13 +1,9 @@
 from flask import Blueprint, jsonify, request
 from db import db
-from models import ReimbursementRequest, Category, Status
+from models import ReimbursementRequest, Category, Status, User
 from datetime import datetime
 
 rr_blueprint = Blueprint('reimbursement_request', __name__)
-
-@rr_blueprint.get('/')
-def ad():
-    return 'das'
 
 @rr_blueprint.post('/')
 def create_reimbursement_request():
@@ -26,6 +22,9 @@ def create_reimbursement_request():
         # Convert category and status strings to their respective enum types
         category = Category[category_str]
 
+        emp_data = User.query.get(employee_id)
+        
+        
         # Create a new ReimbursementRequest object
         rr = ReimbursementRequest(
             amount=amount,
@@ -33,7 +32,8 @@ def create_reimbursement_request():
             description=description,
             category=category,
             employee_id=employee_id,
-            receipt_path=receipt_path
+            receipt_path=receipt_path,
+            manager_id=emp_data.manager_id
         )
         
         # Add and commit the record to the database
@@ -65,7 +65,11 @@ def create_reimbursement_request():
 
 @rr_blueprint.get('/')
 def get_reimbursement_requests():
-    requests = ReimbursementRequest.query.all()
+    manager_id = request.args['manager_id']
+    print(224, manager_id)
+    # requests = ReimbursementRequest.query.all()
+    requests = ReimbursementRequest.query.filter_by(manager_id=manager_id).all()
+    # manager_id = manager_id,
     result = []
     for req in requests:
         result.append({

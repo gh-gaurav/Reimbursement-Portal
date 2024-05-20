@@ -9,6 +9,7 @@
         <form id="logoutForm" action="/logout" method="post">
             <button type="submit">Logout</button>
         </form>
+        <button onclick="fetchReimbursementRequests({{user.id}})">Get All Reimbursement</button>
         <h2>Pending Reimbursement Requests</h2>
         <div id="requestsContainer"></div>
         <script>
@@ -32,8 +33,8 @@
                     });
             });
 
-            function fetchReimbursementRequests() {
-                fetch("/api/reimbursement_requests")
+            function fetchReimbursementRequests(manager_id) {
+                fetch(`/rr?manager_id=${manager_id}`)
                     .then(response => response.json())
                     .then(data => {
                         const container = document.getElementById("requestsContainer");
@@ -79,7 +80,7 @@
             }
 
             function updateReimbursementRequest(id, status, manager_comment) {
-                fetch(`/api/reimbursement_requests/${id}`, {
+                fetch(`/rr/${id}`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
@@ -89,7 +90,7 @@
                 .then(response => response.json())
                 .then(data => {
                     alert(data.message);
-                    fetchReimbursementRequests();
+                    fetchReimbursementRequests(user.id);  // Pass the manager_id again after update
                 })
                 .catch(error => {
                     console.error("Error updating request:", error);
@@ -97,7 +98,7 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                fetchReimbursementRequests();
+                fetchReimbursementRequests(user.id);  // Pass the manager_id when the page loads
             });
         </script>
     {% else %}

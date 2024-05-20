@@ -4,7 +4,7 @@ from db import db
 class Category(Enum):
     Travelling = "Travelling"
     Relocation = "Relocation"
-    TechAssets = "Tech Assets"
+    TechAssets = "TechAssets"
 
 class Status(Enum):
     Pending = "Pending"
@@ -21,6 +21,7 @@ class ReimbursementRequest(db.Model):
     category = db.Column(db.Enum(Category), nullable=False)
     status = db.Column(db.Enum(Status), default=Status.Pending)
     employee_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # Ensure 'users.id' is correct
+    manager_id = db.Column(db.Integer, nullable=False)  # Ensure 'users.id' is correct
     manager_comment = db.Column(db.String(255))  # Added for manager comments
     receipt_path = db.Column(db.String(255))  # Optional field for receipt storage path
 
