@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, session, url_for, redirect
+from flask import Flask, jsonify, render_template, session, url_for, redirect, request
 from db import db  # Import the SQLAlchemy object from db.py
 from models.user import User, Role
 from models.department import Department
@@ -6,6 +6,7 @@ from models.reimbursement_request import ReimbursementRequest
 from routes.user_routes import user_blueprint
 from routes.department_routes import department_blueprint
 from routes.reimbursement_request_routes import rr_blueprint
+import logging_config
 
 
 
@@ -23,7 +24,29 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 
+# Set up logging
+logging_config.setup_logging()
 
+
+@app.before_request
+def log_request_info():
+    app.logger.info('Request Headers: %s', request.headers)
+    app.logger.info('Request Body: %s', request.get_data())
+
+@app.errorhandler(500)
+def internal_error(error):
+    app.logger.error('Server Error: %s', error)
+    return "Internal Server Error", 500
+
+@app.errorhandler(404)
+def not_found_error(error):
+    app.logger.error('Not Found: %s', error)
+    return "Not Found", 404
+
+
+
+
+#frontend routes
 
 @app.get('/')
 def root():
@@ -70,10 +93,6 @@ def admin_dashboard():
 def logout():
     session.clear()  # Clear all session data
     return jsonify({'success': True, 'message': 'Logout successful'}), 200
-
-
-
-
 
 
 
