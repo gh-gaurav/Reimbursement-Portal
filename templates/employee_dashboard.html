@@ -6,6 +6,10 @@
         <p>Full Name: {{ user.first_name }} {{ user.last_name }}</p>
         <p>Email: {{ user.email }}</p>
         <p>Role: {{ user.role }}</p>
+        <p>Department id: {{ user.department_id}}</p>
+        <p>Department Name: {{ user.department_name}}</p>
+        
+
         <!-- Add your dashboard content here -->
         <form id="logoutForm" action="/logout" method="post">
             <button type="submit">Logout</button>

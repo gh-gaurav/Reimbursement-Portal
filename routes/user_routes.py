@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request, session, url_for, redirect
 from db import db
-from models import User, Role
+from models import User, Role, Department, ReimbursementRequest, Category, Status
 import json
 
 user_blueprint = Blueprint('user', __name__)
@@ -15,17 +15,31 @@ def create_user():
         password = payload.get('password')
         first_name = payload.get('first_name')
         last_name = payload.get('last_name')
-
+        department_id = payload.get('department_id')
+        
+        
+        # Fetch the admin user to get the admin's ID
+        admin_user = User.query.filter_by(role=Role.Admin).first()
+        if not admin_user:
+            return jsonify({
+                'success': False,
+                'error': 'Admin user not found'
+            }), 500
+            
+        # Set the default manager_id to the admin's ID
+        manager_id = admin_user.id
+        
         # validate data
 
-#hash password
         user = User(
             username=username,
             email=email,
             role=role,
             password=password,
             first_name=first_name,
-            last_name=last_name
+            last_name=last_name,
+            manager_id=manager_id,  # Set the default manager_id to admin's ID
+            department_id=department_id  # Set the department_id from the payload
             )
         # user = User(payload)
         db.session.add(user)
@@ -152,8 +166,21 @@ def assign_manager():
 @user_blueprint.get('/unasigned_employees')
 def unasigned_employees():
     try:
-        employees = User.query.filter(User.role == Role.Employee, User.manager_id.is_(None)).all()
-        return jsonify({'success' : True, 'message': 'Employee fetched successfully', 'data':[{'id': emp.id, 'username': emp.username} for emp in employees]}), 200
+        # Fetch the admin user's ID
+        admin_user = User.query.filter_by(role=Role.Admin).order_by(User.id).first()
+        if not admin_user:
+            return jsonify({
+                'success': False,
+                'error': 'Admin user not found'
+            }), 500
+        
+        admin_id = admin_user.id
+        employees = User.query.filter(User.role == Role.Employee, User.manager_id == admin_id).all()
+        # employees = User.query.filter(User.role == Role.Employee, User.manager_id.is_(None)).all()
+        return jsonify({'success' : True, 
+                        'message': 'Employee fetched successfully', 
+                        'data':[{'id': emp.id, 'username': emp.username} for emp in employees]
+                        }), 200
 
     except Exception as e:
         return jsonify({'success': False,    'error': str(e)}), 500
@@ -204,13 +231,19 @@ def login():
         user = User.query.filter_by(username=username_or_email).first()
 
     if user and user.verify_password(password):
+        # Fetch department details
+        department = Department.query.get(user.department_id)
+        department_name = department.name if department else None
+        
         session['user'] = {
             'id': user.id,
             'username': user.username,
             'email': user.email,
             'role': user.role.value,  # Assuming user.role is an Enum
             'first_name': user.first_name,
-            'last_name': user.last_name
+            'last_name': user.last_name,
+            'department_id':user.department_id,
+            'department_name': department_name
         }
         # Authentication successful
         if user.role == Role.Manager:

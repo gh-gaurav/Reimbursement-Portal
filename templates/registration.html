@@ -30,6 +30,12 @@
     <label for="last_name">Last Name:</label><br>
     <input type="text" id="last_name" name="last_name" required><br>
 
+    <label for="department">Department:</label><br>
+    <select id="department" name="department_id" required>
+        <option value="">Select</option>
+        <!-- Department options will be populated dynamically -->
+    </select><br>
+
     <button type="submit">Register</button>
 </form>
 
@@ -94,5 +100,27 @@
     function validateEmail(email) {
         return email.endsWith("@nucleusteq.com");
     }
+    // Function to populate department options
+    function populateDepartments() {
+        fetch('/department')
+            .then(response => response.json())
+            .then(data => {
+                const departmentSelect = document.getElementById('department');
+                data.forEach(department => {
+                    const option = document.createElement('option');
+                    option.text = department.name;
+                    option.value = department.id;
+                    departmentSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    // Populate department options when the page loads
+    window.onload = function() {
+        populateDepartments();
+    };
 </script>
 {% endblock %}
