@@ -14,14 +14,12 @@ Before you begin, make sure you have the following installed on your system:
 
 **Clone the Repository**
 
-First, clone the repository to your local machine using Git. Open your terminal and run the following command:
+First,Navigate to the Directory where you want to Clone the Repository:
 
-```bash
-
-Navigate to the Directory where you want to Clone the Repository:
-
-Use the cd command to change directories. For example, if you want to clone the repository into a folder called projects in your home directory,
-you would run: cd ~/projects
+Use the cd command to change directories.
+For example, if you want to clone the repository into a folder called projects in your home directory,
+you would run: 
+**cd ~/projects**
 
 Copy the URL provided below.
 git clone https://github.com/gh-gaurav/Reimbursement-Portal.git
