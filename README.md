@@ -19,7 +19,7 @@ First,Navigate to the Directory where you want to Clone the Repository:
 Use the cd command to change directories.
 For example, if you want to clone the repository into a folder called projects in your home directory,
 you would run: 
-**cd ~/projects**
+__cd ~/projects__
 
 Copy the URL provided below.
 git clone https://github.com/gh-gaurav/Reimbursement-Portal.git
