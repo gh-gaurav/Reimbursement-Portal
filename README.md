@@ -11,6 +11,7 @@ Before you begin, make sure you have the following installed on your system:
 
 * Python 3.7+
 * Git
+* Mysql
 
 **Clone the Repository**
 
