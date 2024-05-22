@@ -58,7 +58,7 @@ Install Dependencies
 
 
 Make a file named requirements.txt in your root directory. 
-Your requirements.txt must includes the following dependencies:
+Your requirements.txt must include the following dependencies:
 
 ```
 alembic==1.13.1
