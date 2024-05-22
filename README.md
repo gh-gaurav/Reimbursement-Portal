@@ -19,17 +19,17 @@ First,Navigate to the Directory where you want to Clone the Repository:
 Use the cd command to change directories.
 For example, if you want to clone the repository into a folder called projects in your home directory,
 you would run: 
-__cd ~/projects__
+##cd ~/projects
 
 Copy the URL provided below.
-git clone https://github.com/gh-gaurav/Reimbursement-Portal.git
+##git clone https://github.com/gh-gaurav/Reimbursement-Portal.git
 
 
 **Setting Up a Virtual Environment**
 
 It's a good practice to use a virtual environment to manage dependencies. Run the following commands to create and activate a virtual environment:
 
-python -m venv venv
+##python -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
 
@@ -37,7 +37,7 @@ Install Dependencies
 
 Now, install the required dependencies using pip:
 
-pip install -r requirements.txt
+##pip install -r requirements.txt
 
 Your requirements.txt includes the following dependencies:
 
@@ -59,7 +59,7 @@ Before running the application, you'll need to set up the database. Run the foll
 
 bash
 
-flask db upgrade
+##flask db upgrade
 
 Running the Application
 
@@ -67,7 +67,7 @@ You’re all set! Start the Flask application by running:
 
 bash
 
-flask run
+##flask run
 
 Open your browser and navigate to http://127.0.0.1:5000 to see your application in action.
 Enjoy!
