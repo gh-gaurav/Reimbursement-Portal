@@ -39,7 +39,7 @@
             });
 
             function fetchReimbursementRequests(manager_id) {
-                fetch(`/rr?manager_id=${manager_id}`)
+                fetch(`/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`)
                     .then(response => response.json())
                     .then(data => {
                         const container = document.getElementById("requestsContainer");

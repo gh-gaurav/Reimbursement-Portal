@@ -63,10 +63,10 @@ def create_reimbursement_request():
         }), 400
 
 
-@rr_blueprint.get('/')
+@rr_blueprint.get('/get_reimbursement_requests_manager')
 def get_reimbursement_requests_manager():
     manager_id = request.args['manager_id']
-    print(224, manager_id)
+    # print(224, manager_id)
     # requests = ReimbursementRequest.query.all()
     requests = ReimbursementRequest.query.filter_by(manager_id=manager_id).all()
     # manager_id = manager_id,
@@ -99,28 +99,22 @@ def update_reimbursement_request(id):
     return jsonify({'message': 'Request updated successfully'}), 200
 
 
-@rr_blueprint.get('/')
+
+@rr_blueprint.get('/get_reimbursement_requests_employee')
 def get_reimbursement_requests_employee():
-    try:
-        employee_id = request.args['employee_id']
-        print(224, employee_id)
-        # requests = ReimbursementRequest.query.all()
-        requests = ReimbursementRequest.query.filter_by(employee_id=employee_id).all()
-        # manager_id = manager_id,
-        result = []
-        for req in requests:
-            result.append({
-                'id': req.id,
-                'amount': req.amount,
-                'date': req.date.strftime('%Y-%m-%d'),
-                'description': req.description,
-                'category': req.category.value,
-                'status': req.status.value,
-                'employee_id': req.employee_id,
-                'manager_comment': req.manager_comment,
-                'receipt_path': req.receipt_path
-            })
-        return jsonify(result), 200
-    except Exception as e:
-        print(e)
-        return jsonify({'success': False, 'error': str(e)}), 400
+    employee_id = request.args['employee_id']
+    requests = ReimbursementRequest.query.filter_by(employee_id=employee_id).all()
+    result = []
+    for req in requests:
+        result.append({
+            'id': req.id,
+            'amount': req.amount,
+            'date': req.date.strftime('%Y-%m-%d'),
+            'description': req.description,
+            'category': req.category.value,
+            'status': req.status.value,
+            'employee_id': req.employee_id,
+            'manager_comment': req.manager_comment,
+            'receipt_path': req.receipt_path
+        })
+    return jsonify({"success": True, "data": result}), 200

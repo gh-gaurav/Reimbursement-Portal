@@ -14,6 +14,7 @@
         <form id="logoutForm" action="/logout" method="post">
             <button type="submit">Logout</button>
         </form>
+
         <h2>Submit Reimbursement Request</h2>
         <form id="reimbursementForm">
             <label for="amount">Amount:</label>
@@ -39,8 +40,30 @@
             
             <button type="submit">Submit Request</button>
         </form>
+          <!-- Button to fetch and display employee's requests -->
+        <button onclick="fetchEmployeeRequests('{{user.id}}')">Show my all requests</button>
+        <h2>My Reimbursement Requests</h2>
+        <div id="employeeRequestsContainer" style="display: none;">
+            <table id="requestsTable" border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Manager Comment</th>
+                        <th>Receipt Path</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
         <!-- Redirect back to home page after logout -->
         <script>
+
             // Function to redirect to home page after logout
             function redirectToHome() {
                 window.location.href = "/";
@@ -64,6 +87,37 @@
                         console.error("Error during logout:", error);
                     });
             });
+
+            function fetchEmployeeRequests(employee_id) {
+                fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const container = document.getElementById("employeeRequestsContainer");
+                            const tbody = document.getElementById("requestsTable").getElementsByTagName("tbody")[0];
+                            tbody.innerHTML = ""; // Clear existing rows
+                            container.style.display = "block"; // Show the table
+                            data.data.forEach(req => {
+                                const row = tbody.insertRow();
+                                row.insertCell(0).innerText = req.id;
+                                row.insertCell(1).innerText = req.amount;
+                                row.insertCell(2).innerText = req.date;
+                                row.insertCell(3).innerText = req.description;
+                                row.insertCell(4).innerText = req.category;
+                                row.insertCell(5).innerText = req.status;
+                                row.insertCell(6).innerText = req.manager_comment || '';
+                                row.insertCell(7).innerText = req.receipt_path || '';
+                            });
+                        } else {
+                            console.error("Error fetching requests:", data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching requests:", error);
+                    });
+                }
+
+        
 
             document.getElementById("reimbursementForm").addEventListener("submit", function(event) {
                 event.preventDefault();
