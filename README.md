@@ -1,25 +1,23 @@
 # Reimbursement-Portal
 Reimbursement Portal is an online portal where an employee can submit reimbursement claims  related to relocation, medical, and office supplies and the assigned manager can approve/reject  the claims.
 
-Getting Started
+## Getting Started
 
-Welcome to this awesome project! 
-Follow these steps to get up and running on your machine.
+Welcome to this awesome project! Follow these steps to get up and running on your machine.
 
-Prerequisites
+**Prerequisites**
 
 Before you begin, make sure you have the following installed on your system:
 
-    Python 3.7+
-    Git
+* Python 3.7+
+* Git
 
-Clone the Repository
+**Clone the Repository**
 
 First, clone the repository to your local machine using Git. Open your terminal and run the following command:
 
-bash
-
-git clone https://github.com/your-username/your-repository.git
+```bash
+git clone [https://github.com/your-username/your-repository.git](https://github.com/your-username/your-repository.git)
 
 Navigate to the project directory:
 
