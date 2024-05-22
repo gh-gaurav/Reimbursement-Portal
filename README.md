@@ -17,28 +17,27 @@ Before you begin, make sure you have the following installed on your system:
 First, clone the repository to your local machine using Git. Open your terminal and run the following command:
 
 ```bash
-git clone [https://github.com/your-username/your-repository.git](https://github.com/your-username/your-repository.git)
 
-Navigate to the project directory:
+Navigate to the Directory where you want to Clone the Repository:
 
-bash
+Use the cd command to change directories. For example, if you want to clone the repository into a folder called projects in your home directory,
+you would run: cd ~/projects
 
-cd your-repository
+Copy the URL provided below.
+git clone https://github.com/gh-gaurav/Reimbursement-Portal.git
 
-Setting Up a Virtual Environment
+
+**Setting Up a Virtual Environment**
 
 It's a good practice to use a virtual environment to manage dependencies. Run the following commands to create and activate a virtual environment:
-
-bash
 
 python -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
+
 Install Dependencies
 
 Now, install the required dependencies using pip:
-
-bash
 
 pip install -r requirements.txt
 
