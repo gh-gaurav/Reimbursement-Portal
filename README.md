@@ -55,9 +55,10 @@ source myenv/bin/activate
 
 Install Dependencies
 
-__Your requirements.txt includes the following dependencies:__
 
-makefile
+Make a file named requirements.txt in your root directory. 
+__Your requirements.txt must includes the following dependencies:__
+
 ```
 alembic==1.13.1
 Flask==3.0.3
