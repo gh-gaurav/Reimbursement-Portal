@@ -124,7 +124,11 @@ def update_user(id):
 @user_blueprint.get('/managers')
 def get_managers():
     try:
-        users = User.query.filter(User.role.in_([Role.Manager]))
+        department_id = request.args.get('department_id')
+        if department_id:
+            users = User.query.filter(User.role == Role.Manager, User.department_id == department_id).all()
+        else:
+            users = User.query.filter(User.role == Role.Manager).all()
         return jsonify([{'id': user.id, 'username': user.username} for user in users]), 200
     except Exception as e:
         return f"Error: {e}"
@@ -132,8 +136,10 @@ def get_managers():
 @user_blueprint.get('/employees')
 def get_employees():
     try:
-        users = User.query.filter(User.role.in_([Role.Employee]))
-        return jsonify([{'id': user.id, 'username': user.username} for user in users]), 200
+        # users = User.query.filter(User.role.in_([Role.Employee]))
+        users = User.query.filter(User.role == Role.Employee).all()  # Added .all()
+        return jsonify([{'id': user.id, 'username': user.username, 'department_id': user.department_id} for user in users]), 200  # Added department_id in response
+        # return jsonify([{'id': user.id, 'username': user.username} for user in users]), 200
     except Exception as e:
         return f"Error: {e}"
 
@@ -154,7 +160,7 @@ def assign_manager():
             return jsonify({'error': 'Employee not found'}), 404
 
         # Assign the manager to the employee
-        employee.manager = manager
+        employee.manager_id = manager.id
         db.session.commit()
 
         return jsonify({'success' : True, 'message': 'Manager assigned successfully'}), 200
@@ -257,5 +263,3 @@ def login():
     else:
         # Authentication failed
         return jsonify({'success': False, 'error': 'Login failed. Please check your credentials.'}), 401
-
-

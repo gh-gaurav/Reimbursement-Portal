@@ -118,3 +118,29 @@ def get_reimbursement_requests_employee():
             'receipt_path': req.receipt_path
         })
     return jsonify({"success": True, "data": result}), 200
+
+
+@rr_blueprint.get('/get_reimbursement_requests')
+def get_reimbursement_requests():
+    try:
+        requests = ReimbursementRequest.query.all()
+        result = []
+        for req in requests:
+            result.append({
+                'id': req.id,
+                'amount': req.amount,
+                'date': req.date.strftime('%Y-%m-%d'),
+                'description': req.description,
+                'category': req.category.value,
+                'status': req.status.value,
+                'employee_id': req.employee_id,
+                'manager_id': req.manager_id,
+                'manager_comment': req.manager_comment,
+                'receipt_path': req.receipt_path
+            })
+        return jsonify(result), 200
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 400

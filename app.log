@@ -1,31 +1,53 @@
-2024-05-22 08:20:50,583 - werkzeug - INFO -  * Restarting with stat
-2024-05-22 08:20:50,583 - werkzeug - INFO -  * Restarting with stat
-2024-05-22 08:20:52,707 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
-2024-05-22 08:20:52,707 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-22 08:20:52,707 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
-2024-05-22 08:20:52,707 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-22 08:20:52,707 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
-2024-05-22 08:20:52,707 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-22 08:20:52,723 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-05-22 08:20:52,723 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-05-22 08:20:52,723 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-22 08:20:52,764 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
-2024-05-22 08:20:52,765 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-22 08:20:52,769 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
-2024-05-22 08:20:52,770 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-22 08:20:52,773 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-05-22 08:20:52,789 - werkzeug - WARNING -  * Debugger is active!
-2024-05-22 08:20:52,789 - werkzeug - WARNING -  * Debugger is active!
-2024-05-22 08:20:52,789 - werkzeug - INFO -  * Debugger PIN: 141-995-502
-2024-05-22 08:20:52,789 - werkzeug - INFO -  * Debugger PIN: 141-995-502
-2024-05-22 08:23:57,194 - main - INFO - Request Headers: Host: localhost:5000
+2024-05-23 14:40:11,427 - werkzeug - INFO -  * Restarting with stat
+2024-05-23 14:40:11,427 - werkzeug - INFO -  * Restarting with stat
+2024-05-23 14:40:12,483 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-05-23 14:40:12,483 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:40:12,483 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-05-23 14:40:12,483 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:40:12,483 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-05-23 14:40:12,483 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:40:12,483 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-05-23 14:40:12,483 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-05-23 14:40:12,483 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:40:12,500 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-05-23 14:40:12,500 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:40:12,500 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-05-23 14:40:12,500 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:40:12,500 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-05-23 14:40:12,517 - werkzeug - WARNING -  * Debugger is active!
+2024-05-23 14:40:12,517 - werkzeug - WARNING -  * Debugger is active!
+2024-05-23 14:40:12,517 - werkzeug - INFO -  * Debugger PIN: 141-995-502
+2024-05-23 14:40:12,517 - werkzeug - INFO -  * Debugger PIN: 141-995-502
+2024-05-23 14:41:40,926 - werkzeug - INFO -  * Detected change in 'G:\\nucleusteq\\Reimbursement-Portal\\routes\\user_routes.py', reloading
+2024-05-23 14:41:40,926 - werkzeug - INFO -  * Detected change in 'G:\\nucleusteq\\Reimbursement-Portal\\routes\\user_routes.py', reloading
+2024-05-23 14:41:41,078 - werkzeug - INFO -  * Restarting with stat
+2024-05-23 14:41:41,078 - werkzeug - INFO -  * Restarting with stat
+2024-05-23 14:41:42,266 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-05-23 14:41:42,266 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:41:42,281 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-05-23 14:41:42,281 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:41:42,281 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-05-23 14:41:42,281 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:41:42,281 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-05-23 14:41:42,281 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-05-23 14:41:42,281 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:41:42,281 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-05-23 14:41:42,281 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:41:42,297 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-05-23 14:41:42,297 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-23 14:41:42,297 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-05-23 14:41:42,313 - werkzeug - WARNING -  * Debugger is active!
+2024-05-23 14:41:42,313 - werkzeug - WARNING -  * Debugger is active!
+2024-05-23 14:41:42,313 - werkzeug - INFO -  * Debugger PIN: 141-995-502
+2024-05-23 14:41:42,313 - werkzeug - INFO -  * Debugger PIN: 141-995-502
+2024-05-23 14:41:44,596 - main - INFO - Request Headers: Host: localhost:5000
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br, zstd
 Referer: http://localhost:5000/login
 Connection: keep-alive
-Cookie: session=.eJxNjrEOwjAMRP_Fc8QAWyYWZphYkdUeUpCdBCcZUNV_JxEVMPrds30LtQIjv9CMzFYVsd7CTP7g_klkBXk6ZxjXkGIhR1AO0mE2jg-WY2yToJWK525K2oV7sPJdvXysjsf1vSPhX3iFKffIkozxpFnSC-hktNuk7Q-t6xuM1j6T.Zk1bXg.Ni-o6gGiHFc5sgMjviXWVpIZXMA
+Cookie: session=.eJxNjjsOAjEMRO8ydYREmwoqDsABkLUxYMnJgvNpVnt3EmAF5Tw_27OgZjb4BYEfZCVyKhcJ8Kmqun-YKPKGOZIoPG5Ujdoh1Um55sLP3TRHOFzF8raB01vqdJzdOyj9Zue7SeuZGnXBZh3wGKKkHkezr_d5hHV9Aa7LPYE.Zk684Q.w7sizeAJ4BhIfo4DxN_Z1TyOsIU
 Upgrade-Insecure-Requests: 1
 Sec-Fetch-Dest: document
 Sec-Fetch-Mode: navigate
@@ -34,17 +56,17 @@ Sec-Fetch-User: ?1
 Priority: u=1
 
 
-2024-05-22 08:23:57,210 - main - INFO - Request Body: b''
-2024-05-22 08:23:57,395 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:23:57] "GET /employee_dashboard HTTP/1.1" 200 -
-2024-05-22 08:23:57,395 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:23:57] "GET /employee_dashboard HTTP/1.1" 200 -
-2024-05-22 08:23:57,626 - main - INFO - Request Headers: Host: localhost:5000
+2024-05-23 14:41:44,596 - main - INFO - Request Body: b''
+2024-05-23 14:41:44,727 - werkzeug - INFO - 127.0.0.1 - - [23/May/2024 14:41:44] "GET /admin_dashboard HTTP/1.1" 200 -
+2024-05-23 14:41:44,727 - werkzeug - INFO - 127.0.0.1 - - [23/May/2024 14:41:44] "GET /admin_dashboard HTTP/1.1" 200 -
+2024-05-23 14:41:44,912 - main - INFO - Request Headers: Host: localhost:5000
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
 Accept: text/css,*/*;q=0.1
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br, zstd
 Connection: keep-alive
-Referer: http://localhost:5000/employee_dashboard
-Cookie: session=.eJxNjrEOwjAMRP_Fc8QAWyYWZphYkdUeUpCdBCcZUNV_JxEVMPrds30LtQIjv9CMzFYVsd7CTP7g_klkBXk6ZxjXkGIhR1AO0mE2jg-WY2yToJWK525K2oV7sPJdvXysjsf1vSPhX3iFKffIkozxpFnSC-hktNuk7Q-t6xuM1j6T.Zk1bXg.Ni-o6gGiHFc5sgMjviXWVpIZXMA
+Referer: http://localhost:5000/admin_dashboard
+Cookie: session=.eJxNjjsOAjEMRO8ydYREmwoqDsABkLUxYMnJgvNpVnt3EmAF5Tw_27OgZjb4BYEfZCVyKhcJ8Kmqun-YKPKGOZIoPG5Ujdoh1Um55sLP3TRHOFzF8raB01vqdJzdOyj9Zue7SeuZGnXBZh3wGKKkHkezr_d5hHV9Aa7LPYE.Zk684Q.w7sizeAJ4BhIfo4DxN_Z1TyOsIU
 Sec-Fetch-Dest: style
 Sec-Fetch-Mode: no-cors
 Sec-Fetch-Site: same-origin
@@ -53,126 +75,61 @@ If-None-Match: "1716112417.4902704-1707-1611339191"
 Priority: u=2
 
 
-2024-05-22 08:23:57,626 - main - INFO - Request Body: b''
-2024-05-22 08:23:57,680 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:23:57] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-2024-05-22 08:23:57,680 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:23:57] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-2024-05-22 08:24:03,173 - main - INFO - Request Headers: Host: localhost:5000
+2024-05-23 14:41:44,912 - main - INFO - Request Body: b''
+2024-05-23 14:41:44,997 - werkzeug - INFO - 127.0.0.1 - - [23/May/2024 14:41:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2024-05-23 14:41:44,997 - werkzeug - INFO - 127.0.0.1 - - [23/May/2024 14:41:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2024-05-23 14:41:45,028 - main - INFO - Request Headers: Host: localhost:5000
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
 Accept: */*
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br, zstd
-Referer: http://localhost:5000/employee_dashboard
-Origin: http://localhost:5000
+Referer: http://localhost:5000/admin_dashboard
 Connection: keep-alive
-Cookie: session=.eJxNjrEOwjAMRP_Fc8QAWyYWZphYkdUeUpCdBCcZUNV_JxEVMPrds30LtQIjv9CMzFYVsd7CTP7g_klkBXk6ZxjXkGIhR1AO0mE2jg-WY2yToJWK525K2oV7sPJdvXysjsf1vSPhX3iFKffIkozxpFnSC-hktNuk7Q-t6xuM1j6T.Zk1bXg.Ni-o6gGiHFc5sgMjviXWVpIZXMA
+Cookie: session=.eJxNjjsOAjEMRO8ydYREmwoqDsABkLUxYMnJgvNpVnt3EmAF5Tw_27OgZjb4BYEfZCVyKhcJ8Kmqun-YKPKGOZIoPG5Ujdoh1Um55sLP3TRHOFzF8raB01vqdJzdOyj9Zue7SeuZGnXBZh3wGKKkHkezr_d5hHV9Aa7LPYE.Zk684Q.w7sizeAJ4BhIfo4DxN_Z1TyOsIU
 Sec-Fetch-Dest: empty
 Sec-Fetch-Mode: cors
 Sec-Fetch-Site: same-origin
-Priority: u=1
-Content-Length: 0
+Priority: u=4
 
 
-2024-05-22 08:24:03,173 - main - INFO - Request Body: b''
-2024-05-22 08:24:03,173 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:24:03] "POST /logout HTTP/1.1" 200 -
-2024-05-22 08:24:03,173 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:24:03] "POST /logout HTTP/1.1" 200 -
-2024-05-22 08:24:03,236 - main - INFO - Request Headers: Host: localhost:5000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate, br, zstd
-Connection: keep-alive
-Referer: http://localhost:5000/employee_dashboard
-Upgrade-Insecure-Requests: 1
-Sec-Fetch-Dest: document
-Sec-Fetch-Mode: navigate
-Sec-Fetch-Site: same-origin
-Sec-Fetch-User: ?1
-Priority: u=1
-
-
-2024-05-22 08:24:03,242 - main - INFO - Request Body: b''
-2024-05-22 08:24:03,273 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:24:03] "GET / HTTP/1.1" 200 -
-2024-05-22 08:24:03,273 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:24:03] "GET / HTTP/1.1" 200 -
-2024-05-22 08:24:03,458 - main - INFO - Request Headers: Host: localhost:5000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
-Accept: text/css,*/*;q=0.1
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate, br, zstd
-Connection: keep-alive
-Referer: http://localhost:5000/
-Sec-Fetch-Dest: style
-Sec-Fetch-Mode: no-cors
-Sec-Fetch-Site: same-origin
-If-Modified-Since: Sun, 19 May 2024 09:53:37 GMT
-If-None-Match: "1716112417.4902704-1707-1611339191"
-Priority: u=2
-
-
-2024-05-22 08:24:03,458 - main - INFO - Request Body: b''
-2024-05-22 08:24:03,458 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:24:03] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-2024-05-22 08:24:03,458 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:24:03] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-2024-05-22 08:24:08,792 - main - INFO - Request Headers: Host: localhost:5000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate, br, zstd
-Connection: keep-alive
-Referer: http://localhost:5000/
-Upgrade-Insecure-Requests: 1
-Sec-Fetch-Dest: document
-Sec-Fetch-Mode: navigate
-Sec-Fetch-Site: same-origin
-Sec-Fetch-User: ?1
-Priority: u=1
-
-
-2024-05-22 08:24:08,792 - main - INFO - Request Body: b''
-2024-05-22 08:24:08,890 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:24:08] "GET /login HTTP/1.1" 200 -
-2024-05-22 08:24:08,890 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:24:08] "GET /login HTTP/1.1" 200 -
-2024-05-22 08:24:09,024 - main - INFO - Request Headers: Host: localhost:5000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
-Accept: text/css,*/*;q=0.1
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate, br, zstd
-Connection: keep-alive
-Referer: http://localhost:5000/login
-Sec-Fetch-Dest: style
-Sec-Fetch-Mode: no-cors
-Sec-Fetch-Site: same-origin
-If-Modified-Since: Sun, 19 May 2024 09:53:37 GMT
-If-None-Match: "1716112417.4902704-1707-1611339191"
-Priority: u=2
-
-
-2024-05-22 08:24:09,039 - main - INFO - Request Body: b''
-2024-05-22 08:24:09,039 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:24:09] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-2024-05-22 08:24:09,039 - werkzeug - INFO - 127.0.0.1 - - [22/May/2024 08:24:09] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-2024-05-22 08:24:11,401 - main - INFO - Request Headers: Host: localhost:5000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
-Accept: */*
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate, br, zstd
-Referer: http://localhost:5000/login
-Content-Type: application/json
-Content-Length: 47
-Origin: http://localhost:5000
-Connection: keep-alive
-Sec-Fetch-Dest: empty
-Sec-Fetch-Mode: cors
-Sec-Fetch-Site: same-origin
-Priority: u=1
-
-
-2024-05-22 08:24:11,401 - main - INFO - Request Body: b'{"username":"pranjal","password":"Pranjal@123"}'
-2024-05-22 08:24:11,417 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-05-22 08:24:11,417 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.`role` AS users_role, users.password_hash AS users_password_hash, users.department_id AS users_department_id, users.manager_id AS users_manager_id, users.first_name AS users_first_name, users.last_name AS users_last_name 
+2024-05-23 14:41:45,028 - main - INFO - Request Body: b''
+2024-05-23 14:41:45,066 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-05-23 14:41:45,066 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.`role` AS users_role, users.password_hash AS users_password_hash, users.department_id AS users_department_id, users.manager_id AS users_manager_id, users.first_name AS users_first_name, users.last_name AS users_last_name 
 FROM users 
-WHERE users.username = %(username_1)s 
+WHERE users.`role` = %(role_1)s ORDER BY users.id 
  LIMIT %(param_1)s
-2024-05-22 08:24:11,417 - sqlalchemy.engine.Engine - INFO - [generated in 0.00053s] {'username_1': 'pranjal', 'param_1': 1}
-2024-05-22 08:24:11,548 - sqlalchemy.engine.Engine - INFO - SELECT departments.id AS departments_id, departments.name AS departments_name 
-FROM departments 
-WHERE departments.id = %(pk_1)s
-2024-05-22 08:24:11,548 - sqlalchemy.engine.Engine - INFO - [generated in 0.00063s] {'pk_1': 3}
-2024-05-22 08:24:11,564 - sqlalchemy.engine.Engine - INFO - ROLLBACK
-2024-05-22 08:24:11,834 - main - INFO - Request Body: b''
+2024-05-23 14:41:45,066 - sqlalchemy.engine.Engine - INFO - [generated in 0.00106s] {'role_1': 'Admin', 'param_1': 1}
+2024-05-23 14:41:45,082 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.`role` AS users_role, users.password_hash AS users_password_hash, users.department_id AS users_department_id, users.manager_id AS users_manager_id, users.first_name AS users_first_name, users.last_name AS users_last_name 
+FROM users 
+WHERE users.`role` = %(role_1)s AND users.manager_id = %(manager_id_1)s
+2024-05-23 14:41:45,082 - sqlalchemy.engine.Engine - INFO - [generated in 0.00134s] {'role_1': 'Employee', 'manager_id_1': 1}
+2024-05-23 14:41:45,082 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-05-23 14:41:45,082 - werkzeug - INFO - 127.0.0.1 - - [23/May/2024 14:41:45] "GET /user/unasigned_employees HTTP/1.1" 200 -
+2024-05-23 14:41:45,082 - werkzeug - INFO - 127.0.0.1 - - [23/May/2024 14:41:45] "GET /user/unasigned_employees HTTP/1.1" 200 -
+2024-05-23 14:41:45,345 - main - INFO - Request Headers: Host: localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Referer: http://localhost:5000/admin_dashboard
+Connection: keep-alive
+Cookie: session=.eJxNjjsOAjEMRO8ydYREmwoqDsABkLUxYMnJgvNpVnt3EmAF5Tw_27OgZjb4BYEfZCVyKhcJ8Kmqun-YKPKGOZIoPG5Ujdoh1Um55sLP3TRHOFzF8raB01vqdJzdOyj9Zue7SeuZGnXBZh3wGKKkHkezr_d5hHV9Aa7LPYE.Zk684Q.w7sizeAJ4BhIfo4DxN_Z1TyOsIU
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Priority: u=4
+
+
+2024-05-23 14:41:45,345 - main - INFO - Request Body: b''
+2024-05-23 14:41:45,345 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-05-23 14:41:45,345 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.`role` AS users_role, users.password_hash AS users_password_hash, users.department_id AS users_department_id, users.manager_id AS users_manager_id, users.first_name AS users_first_name, users.last_name AS users_last_name 
+FROM users 
+WHERE users.`role` = %(role_1)s
+2024-05-23 14:41:45,345 - sqlalchemy.engine.Engine - INFO - [generated in 0.00044s] {'role_1': 'Employee'}
+2024-05-23 14:41:45,345 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-05-23 14:41:45,345 - werkzeug - INFO - 127.0.0.1 - - [23/May/2024 14:41:45] "GET /user/employees HTTP/1.1" 200 -
+2024-05-23 14:41:45,345 - werkzeug - INFO - 127.0.0.1 - - [23/May/2024 14:41:45] "GET /user/employees HTTP/1.1" 200 -
+2024-05-23 14:41:48,353 - main - INFO - Request Body: b''
+2024-05-23 14:41:48,353 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-05-23 14:41:48,469 - sqlalchemy.engine.Engine - INFO - [generated in 0.10721s] {'role_1': 'Manager', 'department_id_1': '1'}
+2024-05-23 14:41:48,469 - sqlalchemy.engine.Engine - INFO - ROLLBACK
