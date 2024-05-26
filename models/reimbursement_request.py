@@ -24,6 +24,7 @@ class ReimbursementRequest(db.Model):
     manager_id = db.Column(db.Integer, nullable=False)  # Ensure 'users.id' is correct
     manager_comment = db.Column(db.String(255))  # Added for manager comments
     receipt_path = db.Column(db.String(255))  # Optional field for receipt storage path
+    is_active = db.Column(db.Boolean, default=True, nullable=False)  # Soft delete column
 
     # Define relationship with user (one-to-many)
     # requesting_user = db.relationship('User', backref='user_reimbursement_requests',lazy='True') 

@@ -20,7 +20,7 @@ class User(db.Model):
     manager_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
-
+    is_active = db.Column(db.Boolean, default=True, nullable=False)  # Soft delete column
     # Relationship
     department = db.relationship('Department', backref='users')
     manager = db.relationship('User', remote_side=[id], backref='employees')
@@ -36,6 +36,7 @@ class User(db.Model):
             'manager_id': self.manager_id,
             'first_name': self.first_name,
             'last_name': self.last_name,
+            'is_active': self.is_active
     }
 
     @property

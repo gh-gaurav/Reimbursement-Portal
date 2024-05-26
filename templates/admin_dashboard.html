@@ -17,12 +17,6 @@
             <button type="button" onclick="addDepartment()">Add Department</button>
         </form>
 
-        <!-- Form to Delete Department -->
-        <form id="deleteDepartmentForm">
-            <label for="departmentId">Department ID to Delete:</label><br>
-            <input type="number" id="departmentId" name="departmentId" required><br>
-            <button type="button" onclick="deleteDepartment()">Delete Department</button>
-        </form>
         <!-- Button to see all departments -->
         <button type="button" onclick="seeDepartments()">See Department list</button>
         <div id="departmentsTableContainer" style="display: none;">
@@ -57,7 +51,7 @@
                         <th>Role</th>
                         <th>Dept ID</th>
                         <th>Manager ID</th>
-                        
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="usersTableBody">
@@ -91,8 +85,7 @@
                 </tbody>
             </table>
         </div>
-
-
+        
 
 
         <!-- Logout Form -->
@@ -176,7 +169,7 @@
                 .then(data => {
                     if (data.message === 'Department created successfully') {
                         alert('Department added successfully!');
-                        listDepartments();
+                        seeDepartments()
                     } else {
                         alert('Error: ' + data.message);
                     }
@@ -188,33 +181,29 @@
             }
                     // Function to see all users
             function seeUsers() {
-                fetch('/user/all')
+                fetch('/user/all?is_active=true')
                     .then(response => response.json())
                     .then(data => {
                         const usersTableContainer = document.getElementById('usersTableContainer');
                         const usersTableBody = document.getElementById('usersTableBody');
-
-                        // Show the users table container
                         usersTableContainer.style.display = 'block';
-
-                        // Clear the existing rows
                         usersTableBody.innerHTML = '';
-
-                        // Populate the table with user data
-                        
                         data.managers.concat(data.employees).forEach(user => {
-                            const row = document.createElement("tr");
-                            row.innerHTML = `
-                                <td>${user.id}</td>
-                                <td>${user.first_name}</td>
-                                <td>${user.last_name}</td>
-                                <td>${user.username}</td>
-                                <td>${user.email}</td>
-                                <td>${user.role}</td>
-                                <td>${user.department_id}</td>
-                                <td>${user.manager_id}</td>
-                            `;
-                            usersTableBody.appendChild(row);
+                            if(user.is_active){
+                                const row = document.createElement("tr");
+                                row.innerHTML = `
+                                    <td>${user.id}</td>
+                                    <td>${user.first_name}</td>
+                                    <td>${user.last_name}</td>
+                                    <td>${user.username}</td>
+                                    <td>${user.email}</td>
+                                    <td>${user.role}</td>
+                                    <td>${user.department_id}</td>
+                                    <td>${user.manager_id}</td>
+                                    <td><button onclick="deleteUser(${user.id})">Delete</button></td>
+                                `;
+                                usersTableBody.appendChild(row);
+                            }
                         });
                     })
                     .catch(error => {
@@ -222,8 +211,8 @@
                     });
             }
             // Function to delete a department
-            function deleteDepartment() {
-                var departmentId = document.getElementById("departmentId").value;
+            function deleteDepartment(departmentId) {
+                // var departmentId = document.getElementById("departmentId").value;
 
                 fetch(`/department/${departmentId}`, {
                     method: 'DELETE',
@@ -235,7 +224,7 @@
                 .then(data => {
                     if (data.message === 'Department deleted successfully') {
                         alert('Department deleted successfully!');
-                        listDepartments();
+                        seeDepartments()
                     } else {
                         alert('Error: ' + data.message);
                     }
@@ -265,10 +254,18 @@
                         var row = document.createElement("tr");
                         var cellId = document.createElement("td");
                         var cellName = document.createElement("td");
+                        var cellDeleteButton = document.createElement("td"); // Create a cell for delete button
+                        var deleteButton = document.createElement("button"); // Create delete button
+                        deleteButton.textContent = "Delete"; // Set delete button text
+                        deleteButton.onclick = function() { // Add onclick function to delete button
+                            deleteDepartment(department.id); // Call deleteDepartment function with department id
+                        };
                         cellId.textContent = department.id;
                         cellName.textContent = department.name;
+                        cellDeleteButton.appendChild(deleteButton); // Append delete button to cell
                         row.appendChild(cellId);
                         row.appendChild(cellName);
+                        row.appendChild(cellDeleteButton); // Append delete button cell to row
                         departmentsTableBody.appendChild(row);
                     });
                 })
@@ -282,43 +279,73 @@
             
             // Function to fetch reimbursement requests
             function seeRequests() {
-                fetch('/rr/get_reimbursement_requests')
-                    .then(response => response.json())
-                    .then(data => {
-                        const requestsTableContainer = document.getElementById('requestsTableContainer');
-                        const requestsTableBody = document.getElementById('requestsTableBody');
+    fetch('/rr/get_reimbursement_requests')
+        .then(response => response.json())
+        .then(data => {
+            const requestsTableContainer = document.getElementById('requestsTableContainer');
+            const requestsTableBody = document.getElementById('requestsTableBody');
 
-                        // Show the requests table container
-                        requestsTableContainer.style.display = 'block';
+            // Show the requests table container
+            requestsTableContainer.style.display = 'block';
 
-                        // Clear the existing rows
-                        requestsTableBody.innerHTML = '';
+            // Clear the existing rows
+            requestsTableBody.innerHTML = '';
 
-                        // Populate the table with reimbursement requests data
-                        data.forEach(request => {
-                            const row = document.createElement("tr");
-                            row.innerHTML = `
-                                <td>${request.id}</td>
-                                <td>${request.amount}</td>
-                                <td>${request.date}</td>
-                                <td>${request.description}</td>
-                                <td>${request.category}</td>
-                                <td>${request.status}</td>
-                                <td>${request.employee_id}</td>
-                                <td>${request.manager_id}</td>
-                                <td>${request.manager_comment}</td>
-                                <td>${request.receipt_path}</td>
-                            `;
-                            requestsTableBody.appendChild(row);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred while fetching reimbursement requests.');
-                    });
-            }
+            // Populate the table with reimbursement requests data
+            data.forEach(request => {
+                const row = document.createElement("tr");
+                const receiptUrls = request.receipt_path.split(','); // Splitting receipt paths by comma
+                const receiptLinks = receiptUrls.map(url => `<a href="${url}" target="_blank">${url.substring(url.lastIndexOf('\\') + 1)}</a>`).join('<br>'); // Creating link tags for each URL
+
+                row.innerHTML = `
+                    <td>${request.id}</td>
+                    <td>${request.amount}</td>
+                    <td>${request.date}</td>
+                    <td>${request.description}</td>
+                    <td>${request.category}</td>
+                    <td>${request.status}</td>
+                    <td>${request.employee_id}</td>
+                    <td>${request.manager_id}</td>
+                    <td>${request.manager_comment}</td>
+                    <td>${receiptLinks}</td>
+                `;
+                requestsTableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while fetching reimbursement requests.');
+        });
+}
+
 
             
+            function deleteUser(userId) {
+                // const userId = document.getElementById('userId').value;
+                    // console.log
+                fetch(`/user/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('User deleted successfully!');
+                        seeUsers()
+                        // Optionally, you can refresh the user list or take any other action
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the user.');
+                });
+            }
+
+
             // Function to redirect to home page after logout
             function redirectToHome() {
                 window.location.href = "/";

@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template, session, url_for, redirect, request
 from db import db  # Import the SQLAlchemy object from db.py
+from flask_migrate import Migrate
 from models.user import User, Role
 from models.department import Department
 from models.reimbursement_request import ReimbursementRequest
@@ -16,12 +17,19 @@ app = Flask(__name__)
 
 app.secret_key = 'your_secret_key_here'
 
+UPLOAD_FOLDER = 'static/receipts'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 # Configure the database URI
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:admin@localhost/reimbursement_portal'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize SQLAlchemy with the app
 db.init_app(app)
+
+# Initialize Flask-Migrate with your app and db
+migrate = Migrate(app, db)  
 
 
 # Set up logging

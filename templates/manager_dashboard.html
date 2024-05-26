@@ -37,44 +37,82 @@
                         console.error("Error during logout:", error);
                     });
             });
+            function fetchReimbursementRequests(manager_id, status) {
+                let url = `/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`;
+                if (status) {
+                    url += `&status=${status}`;
+                }
 
-            function fetchReimbursementRequests(manager_id) {
-                fetch(`/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`)
+                fetch(url)
                     .then(response => response.json())
                     .then(data => {
                         const container = document.getElementById("requestsContainer");
                         container.innerHTML = "";
-                        data.forEach(req => {
-                            const reqDiv = document.createElement("div");
-                            reqDiv.className = "request";
-                            reqDiv.innerHTML = `
-                                <form class="requestForm" data-id="${req.id}">
-                                    <p>ID: ${req.id}</p>
-                                    <p>Amount: ${req.amount}</p>
-                                    <p>Date: ${req.date}</p>
-                                    <p>Description: ${req.description}</p>
-                                    <p>Category: ${req.category}</p>
-                                    <p>Status: 
-                                        <select class="statusSelect" name="status">
-                                            
-                                            <option value="Approved" ${req.status === 'Approved' ? 'selected' : ''}>Approved</option>
-                                            <option value="Rejected" ${req.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
-                                        </select>
-                                    </p>
-                                    <p>Manager Comment: 
-                                        <input type="text" class="managerComment" name="manager_comment" value="${req.manager_comment || ''}">
-                                    </p>
-                                    <button type="submit">Update</button>
-                                </form>
-                            `;
-                            container.appendChild(reqDiv);
+
+                        const table = document.createElement("table");
+                        table.setAttribute("border", "1");
+
+                        const thead = document.createElement("thead");
+                        const headerRow = document.createElement("tr");
+
+                        const headers = [
+                            "ID", "Amount", "Date", "Description", "Category",
+                            "Status", "Manager Comment", "Receipts", "Update"
+                        ];
+
+                        headers.forEach(headerText => {
+                            const th = document.createElement("th");
+                            th.innerText = headerText;
+                            headerRow.appendChild(th);
                         });
-                        document.querySelectorAll(".requestForm").forEach(form => {
-                            form.addEventListener("submit", function(event) {
-                                event.preventDefault();
+
+                        thead.appendChild(headerRow);
+                        table.appendChild(thead);
+
+                        const tbody = document.createElement("tbody");
+
+                        data.forEach(req => {
+                            const row = document.createElement("tr");
+
+                            const receiptLinks = req.receipt_path.split(',').map(path => {
+                                const fileName = path.split('/').pop();
+                                console.log(234, fileName)
+                                return `<a href="${path}" target="_blank">${fileName.substring(fileName.lastIndexOf('\\') + 1)}</a>`;
+                            }).join(', ');
+
+                            row.innerHTML = `
+                                <td>${req.id}</td>
+                                <td>${req.amount}</td>
+                                <td>${req.date}</td>
+                                <td>${req.description}</td>
+                                <td>${req.category}</td>
+                                <td>
+                                    <select class="statusSelect" name="status">
+                                        <option value="Approved" ${req.status === 'Approved' ? 'selected' : ''}>Approved</option>
+                                        <option value="Rejected" ${req.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" class="managerComment" name="manager_comment" value="${req.manager_comment || ''}">
+                                </td>
+                                <td>${receiptLinks}</td>
+                                <td>
+                                    <button type="button" class="updateButton" data-id="${req.id}">Update</button>
+                                </td>
+                            `;
+
+                            tbody.appendChild(row);
+                        });
+
+                        table.appendChild(tbody);
+                        container.appendChild(table);
+
+                        document.querySelectorAll(".updateButton").forEach(button => {
+                            button.addEventListener("click", function() {
                                 const id = this.getAttribute("data-id");
-                                const status = this.querySelector(".statusSelect").value;
-                                const manager_comment = this.querySelector(".managerComment").value;
+                                const row = this.closest("tr");
+                                const status = row.querySelector(".statusSelect").value;
+                                const manager_comment = row.querySelector(".managerComment").value;
                                 updateReimbursementRequest(id, status, manager_comment);
                             });
                         });
@@ -83,6 +121,27 @@
                         console.error("Error fetching requests:", error);
                     });
             }
+
+function updateReimbursementRequest(id, status, manager_comment) {
+    fetch(`/rr/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status, manager_comment })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Request updated successfully!");
+        } else {
+            alert("Failed to update request: " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error("Error updating request:", error);
+    });
+}
 
             function updateReimbursementRequest(id, status, manager_comment) {
                 fetch(`/rr/${id}`, {
@@ -95,7 +154,13 @@
                 .then(response => response.json())
                 .then(data => {
                     alert(data.message);
-                    fetchReimbursementRequests(user.id);  // Pass the manager_id again after update
+                    if (data.is_active === false) {
+                        const requestElement = document.querySelector(`.requestForm[data-id='${id}']`).parentElement;
+                        requestElement.remove();
+                    } else {
+                        fetchReimbursementRequests(user.id);  // Optionally, you can refetch the requests
+                    }
+                    // fetchReimbursementRequests(user.id);  // Pass the manager_id again after update
                 })
                 .catch(error => {
                     console.error("Error updating request:", error);

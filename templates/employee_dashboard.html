@@ -1,169 +1,196 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %} {% if user.role == 'Employee' %}
+<h1>Welcome to the Employee Dashboard, {{ user.username }}</h1>
+<p>Full Name: {{ user.first_name }} {{ user.last_name }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Role: {{ user.role }}</p>
+<p>Department id: {{ user.department_id}}</p>
+<p>Department Name: {{ user.department_name}}</p>
 
-{% block content %}
-    {% if user.role == 'Employee' %}
-        <h1>Welcome to the Employee Dashboard, {{ user.username }}</h1>
-        <p>Full Name: {{ user.first_name }} {{ user.last_name }}</p>
-        <p>Email: {{ user.email }}</p>
-        <p>Role: {{ user.role }}</p>
-        <p>Department id: {{ user.department_id}}</p>
-        <p>Department Name: {{ user.department_name}}</p>
-        
+<!-- Add your dashboard content here -->
+<form id="logoutForm" action="/logout" method="post">
+  <button type="submit">Logout</button>
+</form>
 
-        <!-- Add your dashboard content here -->
-        <form id="logoutForm" action="/logout" method="post">
-            <button type="submit">Logout</button>
-        </form>
+<h2>Submit Reimbursement Request</h2>
+<form id="reimbursementForm" enctype="multipart/form-data" method="post">
+  <label for="amount">Amount:</label>
+  <input type="number" id="amount" name="amount" required /><br />
 
-        <h2>Submit Reimbursement Request</h2>
-        <form id="reimbursementForm">
-            <label for="amount">Amount:</label>
-            <input type="number" id="amount" name="amount" required><br>
-            
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required><br>
-            
-            <label for="description">Description:</label>
-            <textarea id="description" name="description"></textarea><br>
-            
-            <label for="category">Category:</label>
-            <select id="category" name="category" required>
-                <option value="Travelling" data-max-amount="15000">Travelling</option>
-                <option value="Relocation" data-max-amount="20000">Relocation</option>
-                <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
-            </select><br>
-            
-            <label for="receipt">Receipt (optional):</label>
-            <input type="text" id="receipt" name="receipt"><br>
-            
-            <input type="hidden" id="employee_id" name="employee_id" value="{{ user.id }}">
-            
-            <button type="submit">Submit Request</button>
-        </form>
-          <!-- Button to fetch and display employee's requests -->
-        <button onclick="fetchEmployeeRequests('{{user.id}}')">Show my all requests</button>
-        <h2>My Reimbursement Requests</h2>
-        <div id="employeeRequestsContainer" style="display: none;">
-            <table id="requestsTable" border="1">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Manager Comment</th>
-                        <th>Receipt Path</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-        <!-- Redirect back to home page after logout -->
-        <script>
+  <label for="date">Date:</label>
+  <input type="date" id="date" name="date" required /><br />
 
-            // Function to redirect to home page after logout
-            function redirectToHome() {
-                window.location.href = "/";
-            }
+  <label for="description">Description:</label>
+  <textarea id="description" name="description"></textarea><br />
 
-            // Add event listener to form submission
-            document.getElementById("logoutForm").addEventListener("submit", function(event) {
-                event.preventDefault(); // Prevent default form submission
-                fetch("/logout", { method: "POST" })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // If logout successful, redirect to home page
-                            redirectToHome();
-                        } else {
-                            // If logout failed, log the error
-                            console.error("Logout failed:", data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error during logout:", error);
+  <label for="category">Category:</label>
+  <select id="category" name="category" required>
+    <option value="Travelling" data-max-amount="15000">Travelling</option>
+    <option value="Relocation" data-max-amount="20000">Relocation</option>
+    <option value="TechAssets" data-max-amount="5000">
+      Tech Asset
+    </option></select
+  ><br />
+
+  <label for="receipt">Receipt:</label>
+  <input type="file" id="receipt" name="receipt" multiple="multiple" /><br />
+
+  <input
+    type="hidden"
+    id="employee_id"
+    name="employee_id"
+    value="{{ user.id }}"
+  />
+
+  <button type="submit">Submit Request</button>
+</form>
+<!-- Button to fetch and display employee's requests -->
+<button onclick="fetchEmployeeRequests('{{user.id}}')">
+  Show my all requests
+</button>
+<h2>My Reimbursement Requests</h2>
+<div id="employeeRequestsContainer" style="display: none">
+  <table id="requestsTable" border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Manager Comment</th>
+        <th>Receipt Path</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+<!-- Redirect back to home page after logout -->
+<script>
+  // Function to redirect to home page after logout
+  function redirectToHome() {
+    window.location.href = "/";
+  }
+
+  // Add event listener to form submission
+  document
+    .getElementById("logoutForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission
+      fetch("/logout", { method: "POST" })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // If logout successful, redirect to home page
+            redirectToHome();
+          } else {
+            // If logout failed, log the error
+            console.error("Logout failed:", data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error during logout:", error);
+        });
+    });
+
+    function fetchEmployeeRequests(employee_id) {
+    fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const container = document.getElementById("employeeRequestsContainer");
+                const tbody = document.getElementById("requestsTable").getElementsByTagName("tbody")[0];
+                tbody.innerHTML = ""; // Clear existing rows
+                container.style.display = "block"; // Show the table
+                data.data.forEach(req => {
+                    const row = tbody.insertRow();
+                    row.insertCell(0).innerText = req.id;
+                    row.insertCell(1).innerText = req.amount;
+                    row.insertCell(2).innerText = req.date;
+                    row.insertCell(3).innerText = req.description;
+                    row.insertCell(4).innerText = req.category;
+                    row.insertCell(5).innerText = req.status;
+                    row.insertCell(6).innerText = req.manager_comment || '';
+
+                    const receiptCell = row.insertCell(7);
+                    const receiptPaths = req.receipt_path.split(',');
+                    receiptPaths.forEach(path => {
+                        const fileName = path.split('/').pop();
+                        const link = document.createElement('a');
+                        link.href = path;
+                        link.innerText = path.substring(path.lastIndexOf('\\') + 1);
+                        link.target = '_blank'; // Open in new tab
+                        receiptCell.appendChild(link);
+                        receiptCell.appendChild(document.createElement('br')); // New line for each link
                     });
-            });
-
-            function fetchEmployeeRequests(employee_id) {
-                fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const container = document.getElementById("employeeRequestsContainer");
-                            const tbody = document.getElementById("requestsTable").getElementsByTagName("tbody")[0];
-                            tbody.innerHTML = ""; // Clear existing rows
-                            container.style.display = "block"; // Show the table
-                            data.data.forEach(req => {
-                                const row = tbody.insertRow();
-                                row.insertCell(0).innerText = req.id;
-                                row.insertCell(1).innerText = req.amount;
-                                row.insertCell(2).innerText = req.date;
-                                row.insertCell(3).innerText = req.description;
-                                row.insertCell(4).innerText = req.category;
-                                row.insertCell(5).innerText = req.status;
-                                row.insertCell(6).innerText = req.manager_comment || '';
-                                row.insertCell(7).innerText = req.receipt_path || '';
-                            });
-                        } else {
-                            console.error("Error fetching requests:", data.error);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error fetching requests:", error);
-                    });
-                }
-
-        
-
-            document.getElementById("reimbursementForm").addEventListener("submit", function(event) {
-                event.preventDefault();
-
-                const amount = parseFloat(document.getElementById("amount").value);
-                const categoryElement = document.getElementById("category");
-                const selectedCategory = categoryElement.value;
-                const maxAmount = parseFloat(categoryElement.options[categoryElement.selectedIndex].getAttribute('data-max-amount'));
-
-                if (amount > maxAmount) {
-                    alert(`The maximum amount for ${selectedCategory} is ${maxAmount}.`);
-                    return;
-                }
-
-                const formData = {
-                    amount: amount,
-                    date: document.getElementById("date").value,
-                    description: document.getElementById("description").value,
-                    category: selectedCategory,
-                    employee_id: document.getElementById("employee_id").value,
-                    receipt_path: document.getElementById("receipt").value
-                };
-
-                fetch("/rr", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Reimbursement request submitted successfully!");
-                        document.getElementById("reimbursementForm").reset();
-                    } else {
-                        alert("Failed to submit request: " + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error during submission:", error);
                 });
-            });
-        </script>
-    {% else %}
-        <h1>Access Denied</h1>
-        <p>You do not have permission to access this page.</p>
-    {% endif %}
-{% endblock %}
+            } else {
+                console.error("Error fetching requests:", data.error);
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching requests:", error);
+        });
+}
+
+
+
+  document
+    .getElementById("reimbursementForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const amount = parseFloat(document.getElementById("amount").value);
+      const categoryElement = document.getElementById("category");
+      const selectedCategory = categoryElement.value;
+      const maxAmount = parseFloat(
+        categoryElement.options[categoryElement.selectedIndex].getAttribute(
+          "data-max-amount"
+        )
+      );
+
+      if (amount > maxAmount) {
+        alert(`The maximum amount for ${selectedCategory} is ${maxAmount}.`);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("amount", amount);
+      formData.append("date", document.getElementById("date").value);
+      formData.append(
+        "description",
+        document.getElementById("description").value
+      );
+      formData.append("category", selectedCategory);
+      formData.append(
+        "employee_id",
+        document.getElementById("employee_id").value
+      );
+
+      const receiptFiles = document.getElementById("receipt").files;
+      for (let i = 0; i < receiptFiles.length; i++) {
+        formData.append("receipt", receiptFiles[i]);
+      }
+
+      fetch("/rr", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Reimbursement request submitted successfully!");
+            document.getElementById("reimbursementForm").reset();
+          } else {
+            alert("Failed to submit request: " + data.error);
+          }
+        })
+        .catch((error) => {
+          console.error("Error during submission:", error);
+        });
+    });
+</script>
+{% else %}
+<h1>Access Denied</h1>
+<p>You do not have permission to access this page.</p>
+{% endif %} {% endblock %}

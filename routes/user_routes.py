@@ -83,6 +83,22 @@ def get_user(id):
         }), 400
 
 
+@user_blueprint.delete('/<int:id>')
+def delete_user(id):
+    try:
+        user = User.query.get(id)
+        if not user:
+            return jsonify({'success': False, 'error': 'User not found'}), 404
+
+        # Soft delete: set is_active to False
+        user.is_active = False
+
+        db.session.commit()
+        return jsonify({'success': True, 'message': 'User deleted successfully'}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 400
+
+
 @user_blueprint.put('/<int:id>')
 def update_user(id):
     try:
@@ -126,7 +142,7 @@ def get_managers():
     try:
         department_id = request.args.get('department_id')
         if department_id:
-            users = User.query.filter(User.role == Role.Manager, User.department_id == department_id).all()
+            users = User.query.filter(User.role == Role.Manager, User.department_id == department_id, User.is_active == True).all()
         else:
             users = User.query.filter(User.role == Role.Manager).all()
         return jsonify([{'id': user.id, 'username': user.username} for user in users]), 200
@@ -137,7 +153,7 @@ def get_managers():
 def get_employees():
     try:
         # users = User.query.filter(User.role.in_([Role.Employee]))
-        users = User.query.filter(User.role == Role.Employee).all()  # Added .all()
+        users = User.query.filter(User.role == Role.Employee, User.is_active == True).all()  # Added .all()
         return jsonify([{'id': user.id, 'username': user.username, 'department_id': user.department_id} for user in users]), 200  # Added department_id in response
         # return jsonify([{'id': user.id, 'username': user.username} for user in users]), 200
     except Exception as e:
@@ -181,7 +197,7 @@ def unasigned_employees():
             }), 500
         
         admin_id = admin_user.id
-        employees = User.query.filter(User.role == Role.Employee, User.manager_id == admin_id).all()
+        employees = User.query.filter(User.role == Role.Employee, User.manager_id == admin_id, User.is_active == True).all()
         # employees = User.query.filter(User.role == Role.Employee, User.manager_id.is_(None)).all()
         return jsonify({'success' : True, 
                         'message': 'Employee fetched successfully', 
@@ -200,7 +216,7 @@ def unasigned_employees():
 def get_users():
     try:
         # Assuming Role is an Enum and User model has a 'role' attribute
-        employees_and_managers = User.query.filter(User.role.in_([Role.Manager, Role.Employee])).all()
+        employees_and_managers = User.query.filter(User.role.in_([Role.Manager, Role.Employee]),User.is_active == True).all()
         
         # Initialize empty arrays for managers and employees
         managers = []
@@ -237,6 +253,8 @@ def login():
         user = User.query.filter_by(username=username_or_email).first()
 
     if user and user.verify_password(password):
+        if not user.is_active:
+            return jsonify({'success': False, 'error': 'This account is inactive. Please contact support.'}), 401
         # Fetch department details
         department = Department.query.get(user.department_id)
         department_name = department.name if department else None
@@ -263,3 +281,6 @@ def login():
     else:
         # Authentication failed
         return jsonify({'success': False, 'error': 'Login failed. Please check your credentials.'}), 401
+    
+    
+    
