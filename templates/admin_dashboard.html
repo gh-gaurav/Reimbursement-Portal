@@ -1,197 +1,194 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %} {% if user.role == 'Admin' %}
+<h1>Welcome to the Admin Dashboard, {{ user.username }}</h1>
+<p>Full Name: {{ user.first_name }} {{ user.last_name }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Role: {{ user.role }}</p>
 
-{% block content %}
-    {% if user.role == 'Admin' %}
-        <h1>Welcome to the Admin Dashboard, {{ user.username }}</h1>
-        <p>Full Name: {{ user.first_name }} {{ user.last_name }}</p>
-        <p>Email: {{ user.email }}</p>
-        <p>Role: {{ user.role }}</p>
+<!-- Department Management Section -->
+<h2>Manage Departments</h2>
 
-        <!-- Department Management Section -->
-        <h2>Manage Departments</h2>
-        
-        <!-- Form to Add Department -->
-        <form id="addDepartmentForm">
-            <label for="departmentName">Department Name:</label><br>
-            <input type="text" id="departmentName" name="departmentName" required><br>
-            <button type="button" onclick="addDepartment()">Add Department</button>
-        </form>
+<!-- Form to Add Department -->
+<form id="addDepartmentForm">
+  <label for="departmentName">Department Name:</label><br />
+  <input type="text" id="departmentName" name="departmentName" required /><br />
+  <button type="button" onclick="addDepartment()">Add Department</button>
+</form>
 
-        <!-- Button to see all departments -->
-        <button type="button" onclick="seeDepartments()">See Department list</button>
-        <div id="departmentsTableContainer" style="display: none;">
- 
-            <!-- Table of Departments -->
-            <h3>Departments List</h3>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Department ID</th>
-                        <th>Department Name</th>
-                    </tr>
-                </thead>
-                <tbody id="departmentsTableBody">
-                    <!-- Departments will be populated here -->
-                </tbody>
-            </table>
-        </div>
-                <!-- Button to see all users -->
-        <button type="button" onclick="seeUsers()">See User list</button>
-        <div id="usersTableContainer" style="display: none;">
-        <!-- Table to display users -->
-            <h3>Users list</h3>
-            <table border="1" id="usersTable">
-                <thead>
-                    <tr>
-                        <th>User ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Dept ID</th>
-                        <th>Manager ID</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="usersTableBody">
-                    <!-- Users will be populated here -->
-                </tbody>
-            </table>
-        </div>
+<!-- Button to see all departments -->
+<button type="button" onclick="seeDepartments()">See Department list</button>
+<div id="departmentsTableContainer" style="display: none">
+  <!-- Table of Departments -->
+  <h3>Departments List</h3>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Department ID</th>
+        <th>Department Name</th>
+      </tr>
+    </thead>
+    <tbody id="departmentsTableBody">
+      <!-- Departments will be populated here -->
+    </tbody>
+  </table>
+</div>
+<!-- Button to see all users -->
+<button type="button" onclick="seeUsers()">See User list</button>
+<div id="usersTableContainer" style="display: none">
+  <!-- Table to display users -->
+  <h3>Users list</h3>
+  <table border="1" id="usersTable">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Dept ID</th>
+        <th>Manager ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="usersTableBody">
+      <!-- Users will be populated here -->
+    </tbody>
+  </table>
+</div>
 
-        <!-- Button to see reimbursement requests list -->
-        <button type="button" onclick="seeRequests()">See Requests List</button>
-        <div id="requestsTableContainer" style="display: none;">
-            <!-- Table to display reimbursement requests -->
-            <h3>Reimbursement Requests List</h3>
-            <table border="1" id="requestsTable">
-                <thead>
-                    <tr>
-                        <th>Request ID</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Employee ID</th>
-                        <th>Manager ID</th>
-                        <th>Manager Comment</th>
-                        <th>Receipt Path</th>
-                    </tr>
-                </thead>
-                <tbody id="requestsTableBody">
-                    <!-- Reimbursement requests will be populated here -->
-                </tbody>
-            </table>
-        </div>
-        
+<!-- Button to see reimbursement requests list -->
+<button type="button" onclick="seeRequests()">See Requests List</button>
+<div id="requestsTableContainer" style="display: none">
+  <!-- Table to display reimbursement requests -->
+  <h3>Reimbursement Requests List</h3>
+  <table border="1" id="requestsTable">
+    <thead>
+      <tr>
+        <th>Request ID</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Employee ID</th>
+        <th>Manager ID</th>
+        <th>Manager Comment</th>
+        <th>Receipt Path</th>
+      </tr>
+    </thead>
+    <tbody id="requestsTableBody">
+      <!-- Reimbursement requests will be populated here -->
+    </tbody>
+  </table>
+</div>
 
+<!-- Logout Form -->
+<form id="logoutForm" action="/logout" method="post">
+  <button type="submit">Logout</button>
+</form>
 
-        <!-- Logout Form -->
-        <form id="logoutForm" action="/logout" method="post">
-            <button type="submit">Logout</button>
-        </form>
+<form id="assignForm">
+  <label for="employeeSelect">Select Employee:</label><br />
+  <select id="employeeSelect" name="employeeSelect" required>
+    <!-- Employees options will be populated dynamically --></select
+  ><br />
+  <label for="managerSelect">Select Manager:</label><br />
+  <select id="managerSelect" name="managerSelect" required>
+    <!-- Managers options will be populated dynamically --></select
+  ><br />
 
-        <form id="assignForm">    
-            <label for="employeeSelect">Select Employee:</label><br>
-            <select id="employeeSelect" name="employeeSelect" required>
-                <!-- Employees options will be populated dynamically -->
-            </select><br>
-            <label for="managerSelect">Select Manager:</label><br>
-            <select id="managerSelect" name="managerSelect" required>
-                <!-- Managers options will be populated dynamically -->
-            </select><br>
+  <button type="button" onclick="assignManager()">Assign Manager</button>
+</form>
+<h2>Unassigned Employees</h2>
+<table id="employeesTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody id="employeesBody">
+    <!-- Employee data will be dynamically inserted here -->
+  </tbody>
+</table>
 
-            <button type="button" onclick="assignManager()">Assign Manager</button>
-        </form>
-        <h2>Unassigned Employees</h2>
-        <table id="employeesTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                </tr>
-            </thead>
-            <tbody id="employeesBody">
-                <!-- Employee data will be dynamically inserted here -->
-            </tbody>
-        </table>
-
-        <!-- Scripts -->
-        <script>
-
-                // Function to fetch unassigned employees and populate the table
-        fetch('/user/unasigned_employees')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Get the table body element
-                        const tbody = document.getElementById('employeesBody');
-
-                        // Iterate over the employee data and generate table rows
-                        data.data.forEach(employee => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
+<!-- Scripts -->
+<script>
+  listUnassignedEmp();
+  // Function to fetch unassigned employees and populate the table
+  function listUnassignedEmp() {
+    fetch("/user/unasigned_employees")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // Get the table body element
+          const tbody = document.getElementById("employeesBody");
+          tbody.innerHTML = "";
+          // Iterate over the employee data and generate table rows
+          data.data.forEach((employee) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
                                 <td>${employee.id}</td>
                                 <td>${employee.username}</td>
                             `;
-                            tbody.appendChild(row);
-                        });
-                    } else {
-                        // Handle error if data retrieval fails
-                        console.error('Error:', data.error);
-                    }
-                })
-                .catch(error => {
-                    // Handle fetch error
-                    console.error('Fetch Error:', error);
-                });
+            tbody.appendChild(row);
+          });
+        } else {
+          // Handle error if data retrieval fails
+          console.error("Error:", data.error);
+        }
+      })
+      .catch((error) => {
+        // Handle fetch error
+        console.error("Fetch Error:", error);
+      });
+  }
+  // Function to add a department
+  function addDepartment() {
+    var form = document.getElementById("addDepartmentForm");
+    var formData = new FormData(form);
+    var json = {};
 
-            // Function to add a department
-            function addDepartment() {
-                var form = document.getElementById("addDepartmentForm");
-                var formData = new FormData(form);
-                var json = {};
+    formData.forEach(function (value, key) {
+      json[key] = value;
+    });
 
-                formData.forEach(function(value, key) {
-                    json[key] = value;
-                });
-
-                fetch('/department/create', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(json)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message === 'Department created successfully') {
-                        alert('Department added successfully!');
-                        seeDepartments()
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while adding the department.');
-                });
-            }
-                    // Function to see all users
-            function seeUsers() {
-                fetch('/user/all?is_active=true')
-                    .then(response => response.json())
-                    .then(data => {
-                        const usersTableContainer = document.getElementById('usersTableContainer');
-                        const usersTableBody = document.getElementById('usersTableBody');
-                        usersTableContainer.style.display = 'block';
-                        usersTableBody.innerHTML = '';
-                        data.managers.concat(data.employees).forEach(user => {
-                            if(user.is_active){
-                                const row = document.createElement("tr");
-                                row.innerHTML = `
+    fetch("/department/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(json),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "Department created successfully") {
+          alert("Department added successfully!");
+          seeDepartments();
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred while adding the department.");
+      });
+  }
+  // Function to see all users
+  function seeUsers() {
+    fetch("/user/all?is_active=true")
+      .then((response) => response.json())
+      .then((data) => {
+        const usersTableContainer = document.getElementById(
+          "usersTableContainer"
+        );
+        const usersTableBody = document.getElementById("usersTableBody");
+        usersTableContainer.style.display = "block";
+        usersTableBody.innerHTML = "";
+        data.managers.concat(data.employees).forEach((user) => {
+          if (user.is_active) {
+            const row = document.createElement("tr");
+            row.innerHTML = `
                                     <td>${user.id}</td>
                                     <td>${user.first_name}</td>
                                     <td>${user.last_name}</td>
@@ -202,102 +199,114 @@
                                     <td>${user.manager_id}</td>
                                     <td><button onclick="deleteUser(${user.id})">Delete</button></td>
                                 `;
-                                usersTableBody.appendChild(row);
-                            }
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            }
-            // Function to delete a department
-            function deleteDepartment(departmentId) {
-                // var departmentId = document.getElementById("departmentId").value;
+            usersTableBody.appendChild(row);
+          }
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+  // Function to delete a department
+  function deleteDepartment(departmentId) {
+    // var departmentId = document.getElementById("departmentId").value;
 
-                fetch(`/department/${departmentId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message === 'Department deleted successfully') {
-                        alert('Department deleted successfully!');
-                        seeDepartments()
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while deleting the department.');
-                });
-            }
+    fetch(`/department/${departmentId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "Department deleted successfully") {
+          alert("Department deleted successfully!");
+          seeDepartments();
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred while deleting the department.");
+      });
+  }
 
-            // Function to list departments
-            function seeDepartments() {
-                fetch('/department')
-                .then(response => response.json())
-                .then(data => {
-                    const departmentsTableContainer = document.getElementById('departmentsTableContainer');
-                    const departmentsTableBody = document.getElementById('departmentsTableBody');
+  // Function to list departments
+  function seeDepartments() {
+    fetch("/department")
+      .then((response) => response.json())
+      .then((data) => {
+        const departmentsTableContainer = document.getElementById(
+          "departmentsTableContainer"
+        );
+        const departmentsTableBody = document.getElementById(
+          "departmentsTableBody"
+        );
 
-                    // Show the departments table container
-                    departmentsTableContainer.style.display = 'block';
+        // Show the departments table container
+        departmentsTableContainer.style.display = "block";
 
-                    // Clear the existing rows
-                    departmentsTableBody.innerHTML = '';
+        // Clear the existing rows
+        departmentsTableBody.innerHTML = "";
 
-                    // Populate the table with department data
-                    data.forEach(department => {
-                        var row = document.createElement("tr");
-                        var cellId = document.createElement("td");
-                        var cellName = document.createElement("td");
-                        var cellDeleteButton = document.createElement("td"); // Create a cell for delete button
-                        var deleteButton = document.createElement("button"); // Create delete button
-                        deleteButton.textContent = "Delete"; // Set delete button text
-                        deleteButton.onclick = function() { // Add onclick function to delete button
-                            deleteDepartment(department.id); // Call deleteDepartment function with department id
-                        };
-                        cellId.textContent = department.id;
-                        cellName.textContent = department.name;
-                        cellDeleteButton.appendChild(deleteButton); // Append delete button to cell
-                        row.appendChild(cellId);
-                        row.appendChild(cellName);
-                        row.appendChild(cellDeleteButton); // Append delete button cell to row
-                        departmentsTableBody.appendChild(row);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while fetching the departments.');
-                });
-            }
+        // Populate the table with department data
+        data.forEach((department) => {
+          var row = document.createElement("tr");
+          var cellId = document.createElement("td");
+          var cellName = document.createElement("td");
+          var cellDeleteButton = document.createElement("td"); // Create a cell for delete button
+          var deleteButton = document.createElement("button"); // Create delete button
+          deleteButton.textContent = "Delete"; // Set delete button text
+          deleteButton.onclick = function () {
+            // Add onclick function to delete button
+            deleteDepartment(department.id); // Call deleteDepartment function with department id
+          };
+          cellId.textContent = department.id;
+          cellName.textContent = department.name;
+          cellDeleteButton.appendChild(deleteButton); // Append delete button to cell
+          row.appendChild(cellId);
+          row.appendChild(cellName);
+          row.appendChild(cellDeleteButton); // Append delete button cell to row
+          departmentsTableBody.appendChild(row);
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred while fetching the departments.");
+      });
+  }
 
+  // Function to fetch reimbursement requests
+  function seeRequests() {
+    fetch("/rr/get_reimbursement_requests")
+      .then((response) => response.json())
+      .then((data) => {
+        const requestsTableContainer = document.getElementById(
+          "requestsTableContainer"
+        );
+        const requestsTableBody = document.getElementById("requestsTableBody");
 
-            
-            // Function to fetch reimbursement requests
-            function seeRequests() {
-    fetch('/rr/get_reimbursement_requests')
-        .then(response => response.json())
-        .then(data => {
-            const requestsTableContainer = document.getElementById('requestsTableContainer');
-            const requestsTableBody = document.getElementById('requestsTableBody');
+        // Show the requests table container
+        requestsTableContainer.style.display = "block";
 
-            // Show the requests table container
-            requestsTableContainer.style.display = 'block';
+        // Clear the existing rows
+        requestsTableBody.innerHTML = "";
 
-            // Clear the existing rows
-            requestsTableBody.innerHTML = '';
+        // Populate the table with reimbursement requests data
+        data.forEach((request) => {
+          const row = document.createElement("tr");
+          const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
+          const receiptLinks = receiptUrls
+            .map(
+              (url) =>
+                `<a href="${url}" target="_blank">${url.substring(
+                  url.lastIndexOf("\\") + 1
+                )}</a>`
+            )
+            .join("<br>"); // Creating link tags for each URL
 
-            // Populate the table with reimbursement requests data
-            data.forEach(request => {
-                const row = document.createElement("tr");
-                const receiptUrls = request.receipt_path.split(','); // Splitting receipt paths by comma
-                const receiptLinks = receiptUrls.map(url => `<a href="${url}" target="_blank">${url.substring(url.lastIndexOf('\\') + 1)}</a>`).join('<br>'); // Creating link tags for each URL
-
-                row.innerHTML = `
+          row.innerHTML = `
                     <td>${request.id}</td>
                     <td>${request.amount}</td>
                     <td>${request.date}</td>
@@ -309,161 +318,152 @@
                     <td>${request.manager_comment}</td>
                     <td>${receiptLinks}</td>
                 `;
-                requestsTableBody.appendChild(row);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while fetching reimbursement requests.');
+          requestsTableBody.appendChild(row);
         });
-}
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred while fetching reimbursement requests.");
+      });
+  }
 
-
-            
-            function deleteUser(userId) {
-                // const userId = document.getElementById('userId').value;
-                    // console.log
-                fetch(`/user/${userId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('User deleted successfully!');
-                        seeUsers()
-                        // Optionally, you can refresh the user list or take any other action
-                    } else {
-                        alert('Error: ' + data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while deleting the user.');
-                });
-            }
-
-
-            // Function to redirect to home page after logout
-            function redirectToHome() {
-                window.location.href = "/";
-            }
-
-            // Add event listener to form submission
-            document.getElementById("logoutForm").addEventListener("submit", function(event) {
-                event.preventDefault(); // Prevent default form submission
-                fetch("/logout", { method: "POST" })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // If logout successful, redirect to home page
-                            redirectToHome();
-                        } else {
-                            // If logout failed, log the error
-                            console.error("Logout failed:", data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error during logout:", error);
-                    });
-            });
-
-            // List departments on page load
-            document.addEventListener("DOMContentLoaded", function() {
-                listDepartments();
-            });
-           
-            // Function to populate manager options based on department ID
-            function populateManagers(department_id) {
-                fetch(`/user/managers?department_id=${department_id}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const managerSelect = document.getElementById('managerSelect');
-                        managerSelect.innerHTML = '';
-                        data.forEach(manager => {
-                            const option = document.createElement('option');
-                            option.text = manager.username;
-                            option.value = manager.id;
-                            managerSelect.appendChild(option);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            }
-
-            // Function to populate employee options and update manager options dynamically
-            function populateEmployees() {
-                fetch('/user/employees')
-                    .then(response => response.json())
-                    .then(data => {
-                        const employeeSelect = document.getElementById('employeeSelect');
-                        employeeSelect.innerHTML = '';
-                        data.forEach(employee => {
-                            const option = document.createElement('option');
-                            option.text = employee.username;
-                            option.value = employee.id;
-                            option.setAttribute('data-department-id', employee.department_id);
-                            employeeSelect.appendChild(option);
-                        });
-                        // Add event listener to update manager options based on selected employee
-                        employeeSelect.addEventListener('change', function() {
-                            const selectedEmployee = employeeSelect.options[employeeSelect.selectedIndex];
-                            const department_id = selectedEmployee.getAttribute('data-department-id');
-                            populateManagers(department_id);
-                        });
-                    })  
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            }
-
-
-
-
-
-
-
-
-
-
-
-        // Function to assign manager to employee
-        function assignManager() {
-            const managerId = document.getElementById('managerSelect').value;
-            const employeeId = document.getElementById('employeeSelect').value;
-
-            fetch('/user/assign-manager', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ managerId, employeeId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Manager assigned successfully!');
-                } else {
-                    alert('Error assigning manager. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
+  function deleteUser(userId) {
+    // const userId = document.getElementById('userId').value;
+    // console.log
+    fetch(`/user/${userId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          alert("User deleted successfully!");
+          seeUsers();
+          // Optionally, you can refresh the user list or take any other action
+        } else {
+          alert("Error: " + data.error);
         }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred while deleting the user.");
+      });
+  }
 
-        // Populate manager and employee options when the page loads
-        window.onload = function() {
-            // populateManagers();
-            populateEmployees();
-        };
-        </script>
-    {% else %}
-        <h1>Access Denied</h1>
-        <p>You do not have permission to access this page.</p>
-    {% endif %}
-{% endblock %}
+  // Function to redirect to home page after logout
+  function redirectToHome() {
+    window.location.href = "/";
+  }
+
+  // Add event listener to form submission
+  document
+    .getElementById("logoutForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission
+      fetch("/logout", { method: "POST" })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // If logout successful, redirect to home page
+            redirectToHome();
+          } else {
+            // If logout failed, log the error
+            console.error("Logout failed:", data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error during logout:", error);
+        });
+    });
+
+  // List departments on page load
+  document.addEventListener("DOMContentLoaded", function () {
+    listDepartments();
+  });
+
+  // Function to populate manager options based on department ID
+  function populateManagers(department_id) {
+    fetch(`/user/managers?department_id=${department_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const managerSelect = document.getElementById("managerSelect");
+        managerSelect.innerHTML = "";
+        data.forEach((manager) => {
+          const option = document.createElement("option");
+          option.text = manager.username;
+          option.value = manager.id;
+          managerSelect.appendChild(option);
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
+  // Function to populate employee options and update manager options dynamically
+  function populateEmployees() {
+    fetch("/user/employees")
+      .then((response) => response.json())
+      .then((data) => {
+        const employeeSelect = document.getElementById("employeeSelect");
+        employeeSelect.innerHTML = "";
+        data.forEach((employee) => {
+          const option = document.createElement("option");
+          option.text = employee.username;
+          option.value = employee.id;
+          option.setAttribute("data-department-id", employee.department_id);
+          employeeSelect.appendChild(option);
+        });
+        // Add event listener to update manager options based on selected employee
+        employeeSelect.addEventListener("change", function () {
+          const selectedEmployee =
+            employeeSelect.options[employeeSelect.selectedIndex];
+          const department_id =
+            selectedEmployee.getAttribute("data-department-id");
+          populateManagers(department_id);
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
+  // Function to assign manager to employee
+  function assignManager() {
+    const managerId = document.getElementById("managerSelect").value;
+    const employeeId = document.getElementById("employeeSelect").value;
+
+    fetch("/user/assign-manager", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ managerId, employeeId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          alert("Manager assigned successfully!");
+          listUnassignedEmp();
+        } else {
+          alert("Error assigning manager. Please try again.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+      });
+  }
+
+  // Populate manager and employee options when the page loads
+  window.onload = function () {
+    // populateManagers();
+    populateEmployees();
+  };
+</script>
+{% else %}
+<h1>Access Denied</h1>
+<p>You do not have permission to access this page.</p>
+{% endif %} {% endblock %}
