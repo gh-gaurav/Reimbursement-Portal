@@ -1,102 +1,115 @@
-2024-05-26 21:02:33,695 - werkzeug - INFO -  * Restarting with stat
-2024-05-26 21:02:33,695 - werkzeug - INFO -  * Restarting with stat
-2024-05-26 21:02:35,769 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
-2024-05-26 21:02:35,769 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-26 21:02:35,769 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
-2024-05-26 21:02:35,769 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-26 21:02:35,769 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
-2024-05-26 21:02:35,769 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-26 21:02:35,785 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-05-26 21:02:35,785 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-05-26 21:02:35,785 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-26 21:02:35,817 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
-2024-05-26 21:02:35,817 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-26 21:02:35,817 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
-2024-05-26 21:02:35,817 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-05-26 21:02:35,833 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-05-26 21:02:35,833 - werkzeug - WARNING -  * Debugger is active!
-2024-05-26 21:02:35,833 - werkzeug - WARNING -  * Debugger is active!
-2024-05-26 21:02:35,849 - werkzeug - INFO -  * Debugger PIN: 141-995-502
-2024-05-26 21:02:35,849 - werkzeug - INFO -  * Debugger PIN: 141-995-502
-2024-05-26 21:02:43,298 - main - INFO - Request Headers: Host: localhost:5000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
-Accept: */*
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate, br, zstd
-Referer: http://localhost:5000/employee_dashboard?amount=852&date=2024-05-15&description=ADSA&category=Travelling&receipt=Screenshot+%28264%29.png&receipt=Screenshot+%28263%29%281%29%281%29.png&employee_id=2
-Content-Type: multipart/form-data; boundary=---------------------------699697044329311137494903465
-Content-Length: 892703
-Origin: http://localhost:5000
-Connection: keep-alive
-Cookie: session=.eJxNjrEOwjAMRP_Fc8QAWyYWZphYkdUeUpCdBCcZUNV_JxEVMPrds30LtQIjv9CMzFYVsd7CTP7g_klkBXk6ZxjXkGIhR1AO0mE2jg-WY2yToJWK525K2oV7sPJdvXysjsf1vSPhX3iFKffIkozxpFnSC-hktNuk7Q-t6xuM1j6T.ZlNFkg.rzdQztJERh-q_UXDgZvzlEHeCco
-Sec-Fetch-Dest: empty
-Sec-Fetch-Mode: cors
-Sec-Fetch-Site: same-origin
-Priority: u=1
-
-
-2024-05-26 21:02:44,362 - werkzeug - INFO - 127.0.0.1 - - [26/May/2024 21:02:44] "[32mPOST /rr HTTP/1.1[0m" 308 -
-2024-05-26 21:02:44,362 - werkzeug - INFO - 127.0.0.1 - - [26/May/2024 21:02:44] "[32mPOST /rr HTTP/1.1[0m" 308 -
-2024-05-26 21:02:44,377 - main - INFO - Request Headers: Host: localhost:5000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
-Accept: */*
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate, br, zstd
-Content-Type: multipart/form-data; boundary=---------------------------699697044329311137494903465
-Content-Length: 892703
-Referer: http://localhost:5000/employee_dashboard?amount=852&date=2024-05-15&description=ADSA&category=Travelling&receipt=Screenshot+%28264%29.png&receipt=Screenshot+%28263%29%281%29%281%29.png&employee_id=2
-Origin: http://localhost:5000
-Connection: keep-alive
-Cookie: session=.eJxNjrEOwjAMRP_Fc8QAWyYWZphYkdUeUpCdBCcZUNV_JxEVMPrds30LtQIjv9CMzFYVsd7CTP7g_klkBXk6ZxjXkGIhR1AO0mE2jg-WY2yToJWK525K2oV7sPJdvXysjsf1vSPhX3iFKffIkozxpFnSC-hktNuk7Q-t6xuM1j6T.ZlNFkg.rzdQztJERh-q_UXDgZvzlEHeCco
-Sec-Fetch-Dest: empty
-Sec-Fetch-Mode: cors
-Sec-Fetch-Site: same-origin
-Priority: u=1
-
-
-2024-05-26 21:02:45,226 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-05-26 21:02:45,233 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.`role` AS users_role, users.password_hash AS users_password_hash, users.department_id AS users_department_id, users.manager_id AS users_manager_id, users.first_name AS users_first_name, users.last_name AS users_last_name, users.is_active AS users_is_active 
-FROM users 
-WHERE users.id = %(pk_1)s
-2024-05-26 21:02:45,233 - sqlalchemy.engine.Engine - INFO - [generated in 0.00088s] {'pk_1': '2'}
-2024-05-26 21:02:45,233 - sqlalchemy.engine.Engine - INFO - INSERT INTO reimbursement_requests (amount, date, description, category, status, employee_id, manager_id, manager_comment, receipt_path, is_active) VALUES (%(amount)s, %(date)s, %(description)s, %(category)s, %(status)s, %(employee_id)s, %(manager_id)s, %(manager_comment)s, %(receipt_path)s, %(is_active)s)
-2024-05-26 21:02:45,233 - sqlalchemy.engine.Engine - INFO - [generated in 0.00072s] {'amount': '852', 'date': datetime.date(2024, 5, 21), 'description': 'qadw', 'category': 'Travelling', 'status': 'Pending', 'employee_id': '2', 'manager_id': 7, 'manager_comment': None, 'receipt_path': 'static/receipts\\ba57af5b-0dc4-48a4-8f5a-6652a813dde4\\Screenshot_26311.png', 'is_active': 1}
-2024-05-26 21:02:45,233 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-05-26 21:02:45,248 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-05-26 21:02:45,248 - sqlalchemy.engine.Engine - INFO - SELECT reimbursement_requests.id AS reimbursement_requests_id, reimbursement_requests.amount AS reimbursement_requests_amount, reimbursement_requests.date AS reimbursement_requests_date, reimbursement_requests.description AS reimbursement_requests_description, reimbursement_requests.category AS reimbursement_requests_category, reimbursement_requests.status AS reimbursement_requests_status, reimbursement_requests.employee_id AS reimbursement_requests_employee_id, reimbursement_requests.manager_id AS reimbursement_requests_manager_id, reimbursement_requests.manager_comment AS reimbursement_requests_manager_comment, reimbursement_requests.receipt_path AS reimbursement_requests_receipt_path, reimbursement_requests.is_active AS reimbursement_requests_is_active 
-FROM reimbursement_requests 
-WHERE reimbursement_requests.id = %(pk_1)s
-2024-05-26 21:02:45,248 - sqlalchemy.engine.Engine - INFO - [generated in 0.00049s] {'pk_1': 19}
-2024-05-26 21:02:45,248 - sqlalchemy.engine.Engine - INFO - ROLLBACK
-2024-05-26 21:02:45,248 - werkzeug - INFO - 127.0.0.1 - - [26/May/2024 21:02:45] "[35m[1mPOST /rr/ HTTP/1.1[0m" 201 -
-2024-05-26 21:02:45,248 - werkzeug - INFO - 127.0.0.1 - - [26/May/2024 21:02:45] "[35m[1mPOST /rr/ HTTP/1.1[0m" 201 -
-2024-05-26 21:07:52,690 - main - INFO - Request Headers: Host: localhost:5000
+2024-05-27 09:00:06,291 - werkzeug - INFO -  * Restarting with stat
+2024-05-27 09:00:06,291 - werkzeug - INFO -  * Restarting with stat
+2024-05-27 09:00:08,397 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-05-27 09:00:08,397 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:08,397 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-05-27 09:00:08,413 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:08,413 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-05-27 09:00:08,413 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:08,413 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-05-27 09:00:08,413 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-05-27 09:00:08,413 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:08,480 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-05-27 09:00:08,481 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:08,489 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-05-27 09:00:08,490 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:08,497 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-05-27 09:00:08,517 - werkzeug - WARNING -  * Debugger is active!
+2024-05-27 09:00:08,517 - werkzeug - WARNING -  * Debugger is active!
+2024-05-27 09:00:08,532 - werkzeug - INFO -  * Debugger PIN: 141-995-502
+2024-05-27 09:00:08,532 - werkzeug - INFO -  * Debugger PIN: 141-995-502
+2024-05-27 09:00:17,462 - werkzeug - INFO -  * Detected change in 'G:\\nucleusteq\\Reimbursement-Portal\\main.py', reloading
+2024-05-27 09:00:17,462 - werkzeug - INFO -  * Detected change in 'G:\\nucleusteq\\Reimbursement-Portal\\main.py', reloading
+2024-05-27 09:00:17,674 - werkzeug - INFO -  * Restarting with stat
+2024-05-27 09:00:17,674 - werkzeug - INFO -  * Restarting with stat
+2024-05-27 09:00:20,177 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-05-27 09:00:20,178 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:20,181 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-05-27 09:00:20,181 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:20,182 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-05-27 09:00:20,183 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:20,184 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-05-27 09:00:20,185 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-05-27 09:00:20,185 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:20,210 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-05-27 09:00:20,210 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:20,210 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-05-27 09:00:20,210 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:00:20,210 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-05-27 09:00:20,226 - werkzeug - WARNING -  * Debugger is active!
+2024-05-27 09:00:20,226 - werkzeug - WARNING -  * Debugger is active!
+2024-05-27 09:00:20,239 - werkzeug - INFO -  * Debugger PIN: 141-995-502
+2024-05-27 09:00:20,239 - werkzeug - INFO -  * Debugger PIN: 141-995-502
+2024-05-27 09:00:22,471 - werkzeug - INFO -  * Detected change in 'G:\\nucleusteq\\Reimbursement-Portal\\main.py', reloading
+2024-05-27 09:00:22,471 - werkzeug - INFO -  * Detected change in 'G:\\nucleusteq\\Reimbursement-Portal\\main.py', reloading
+2024-05-27 09:00:22,698 - werkzeug - INFO -  * Restarting with stat
+2024-05-27 09:00:22,698 - werkzeug - INFO -  * Restarting with stat
+2024-05-27 09:02:28,422 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-05-27 09:02:28,422 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:28,422 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-05-27 09:02:28,422 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:28,422 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-05-27 09:02:28,422 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:28,422 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-05-27 09:02:28,422 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-05-27 09:02:28,422 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:28,437 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-05-27 09:02:28,437 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:28,437 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-05-27 09:02:28,437 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:28,437 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-05-27 09:02:28,475 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-27 09:02:28,475 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-27 09:02:28,475 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-05-27 09:02:28,475 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-05-27 09:02:28,475 - werkzeug - INFO -  * Restarting with stat
+2024-05-27 09:02:28,475 - werkzeug - INFO -  * Restarting with stat
+2024-05-27 09:02:29,841 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-05-27 09:02:29,841 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:29,841 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-05-27 09:02:29,841 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:29,841 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-05-27 09:02:29,841 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:29,841 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-05-27 09:02:29,841 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-05-27 09:02:29,841 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:29,864 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-05-27 09:02:29,864 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:29,864 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-05-27 09:02:29,864 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-05-27 09:02:29,864 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-05-27 09:02:29,879 - werkzeug - WARNING -  * Debugger is active!
+2024-05-27 09:02:29,879 - werkzeug - WARNING -  * Debugger is active!
+2024-05-27 09:02:29,879 - werkzeug - INFO -  * Debugger PIN: 141-995-502
+2024-05-27 09:02:29,879 - werkzeug - INFO -  * Debugger PIN: 141-995-502
+2024-05-27 09:02:29,957 - main - INFO - Request Headers: Host: localhost:5000
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br, zstd
-Referer: http://localhost:5000/employee_dashboard?amount=852&date=2024-05-30&description=wdsda&category=Travelling&receipt=Screenshot+%28264%29.png&receipt=Screenshot+%28263%29%281%29%281%29.png&employee_id=2
+Referer: http://localhost:5000/login?username=pranjal&password=Pranjal%40123
 Connection: keep-alive
-Cookie: session=.eJxNjrEOwjAMRP_Fc8QAWyYWZphYkdUeUpCdBCcZUNV_JxEVMPrds30LtQIjv9CMzFYVsd7CTP7g_klkBXk6ZxjXkGIhR1AO0mE2jg-WY2yToJWK525K2oV7sPJdvXysjsf1vSPhX3iFKffIkozxpFnSC-hktNuk7Q-t6xuM1j6T.ZlNFkg.rzdQztJERh-q_UXDgZvzlEHeCco
+Cookie: session=.eJxNjjsOAjEMRO8ydYREmwoqDsABkLUxYMnJgvNpVnt3EmAF5Tw_27OgZjb4BYEfZCVyKhcJ8Kmqun-YKPKGOZIoPG5Ujdoh1Um55sLP3TRHOFzF8raB01vqdJzdOyj9Zue7SeuZGnXBZh3wGKKkHkezr_d5hHV9Aa7LPYE.ZlP3eA.HrCBpM24VrqcWKMHOc7v6WbBMCo
 Upgrade-Insecure-Requests: 1
 Sec-Fetch-Dest: document
 Sec-Fetch-Mode: navigate
 Sec-Fetch-Site: same-origin
-Sec-Fetch-User: ?1
 Priority: u=1
 
 
-2024-05-26 21:07:52,696 - main - INFO - Request Body: b''
-2024-05-26 21:07:53,147 - werkzeug - INFO - 127.0.0.1 - - [26/May/2024 21:07:53] "GET /employee_dashboard?amount=852&date=2024-05-15&description=ADSA&category=Travelling&receipt=Screenshot+(264).png&receipt=Screenshot+(263)(1)(1).png&employee_id=2 HTTP/1.1" 200 -
-2024-05-26 21:07:53,147 - werkzeug - INFO - 127.0.0.1 - - [26/May/2024 21:07:53] "GET /employee_dashboard?amount=852&date=2024-05-15&description=ADSA&category=Travelling&receipt=Screenshot+(264).png&receipt=Screenshot+(263)(1)(1).png&employee_id=2 HTTP/1.1" 200 -
-2024-05-26 21:07:53,445 - main - INFO - Request Headers: Host: localhost:5000
+2024-05-27 09:02:29,957 - main - INFO - Request Body: b''
+2024-05-27 09:02:29,980 - werkzeug - INFO - 127.0.0.1 - - [27/May/2024 09:02:29] "GET /login?username=pranjal&password=Pranjal@123 HTTP/1.1" 200 -
+2024-05-27 09:02:29,980 - werkzeug - INFO - 127.0.0.1 - - [27/May/2024 09:02:29] "GET /login?username=pranjal&password=Pranjal@123 HTTP/1.1" 200 -
+2024-05-27 09:02:30,095 - main - INFO - Request Headers: Host: localhost:5000
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
 Accept: text/css,*/*;q=0.1
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br, zstd
 Connection: keep-alive
-Referer: http://localhost:5000/employee_dashboard?amount=852&date=2024-05-15&description=ADSA&category=Travelling&receipt=Screenshot+%28264%29.png&receipt=Screenshot+%28263%29%281%29%281%29.png&employee_id=2
-Cookie: session=.eJxNjrEOwjAMRP_Fc8QAWyYWZphYkdUeUpCdBCcZUNV_JxEVMPrds30LtQIjv9CMzFYVsd7CTP7g_klkBXk6ZxjXkGIhR1AO0mE2jg-WY2yToJWK525K2oV7sPJdvXysjsf1vSPhX3iFKffIkozxpFnSC-hktNuk7Q-t6xuM1j6T.ZlNFkg.rzdQztJERh-q_UXDgZvzlEHeCco
+Referer: http://localhost:5000/login?username=pranjal&password=Pranjal%40123
+Cookie: session=.eJxNjjsOAjEMRO8ydYREmwoqDsABkLUxYMnJgvNpVnt3EmAF5Tw_27OgZjb4BYEfZCVyKhcJ8Kmqun-YKPKGOZIoPG5Ujdoh1Um55sLP3TRHOFzF8raB01vqdJzdOyj9Zue7SeuZGnXBZh3wGKKkHkezr_d5hHV9Aa7LPYE.ZlP3eA.HrCBpM24VrqcWKMHOc7v6WbBMCo
 Sec-Fetch-Dest: style
 Sec-Fetch-Mode: no-cors
 Sec-Fetch-Site: same-origin
@@ -105,11 +118,11 @@ If-None-Match: "1716112417.4902704-1707-1611339191"
 Priority: u=2
 
 
-2024-05-26 21:07:53,445 - main - INFO - Request Body: b''
-2024-05-26 21:07:53,546 - werkzeug - INFO - 127.0.0.1 - - [26/May/2024 21:07:53] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-2024-05-26 21:07:53,546 - werkzeug - INFO - 127.0.0.1 - - [26/May/2024 21:07:53] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-2024-05-26 21:07:55,983 - main - INFO - Request Body: b''
-2024-05-26 21:07:56,030 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-05-26 21:07:56,061 - sqlalchemy.engine.Engine - INFO - [generated in 0.02284s] {'employee_id_1': '2'}
-2024-05-26 21:07:56,099 - sqlalchemy.engine.Engine - INFO - ROLLBACK
-2024-05-26 21:07:56,099 - werkzeug - INFO - 127.0.0.1 - - [26/May/2024 21:07:56] "GET /rr/get_reimbursement_requests_employee?employee_id=2 HTTP/1.1" 200 -
+2024-05-27 09:02:30,095 - main - INFO - Request Body: b''
+2024-05-27 09:02:30,196 - werkzeug - INFO - 127.0.0.1 - - [27/May/2024 09:02:30] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2024-05-27 09:02:30,196 - werkzeug - INFO - 127.0.0.1 - - [27/May/2024 09:02:30] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2024-05-27 09:02:32,755 - main - INFO - Request Body: b''
+2024-05-27 09:02:32,770 - werkzeug - INFO - 127.0.0.1 - - [27/May/2024 09:02:32] "GET /login?username=pranjal&password=Pranjal@123 HTTP/1.1" 200 -
+2024-05-27 09:02:32,770 - werkzeug - INFO - 127.0.0.1 - - [27/May/2024 09:02:32] "GET /login?username=pranjal&password=Pranjal@123 HTTP/1.1" 200 -
+2024-05-27 09:02:32,855 - main - INFO - Request Body: b''
+2024-05-27 09:03:08,773 - main - INFO - Request Body: b''
