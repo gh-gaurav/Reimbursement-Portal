@@ -93,47 +93,49 @@
         });
     });
 
-    function fetchEmployeeRequests(employee_id) {
+  function fetchEmployeeRequests(employee_id) {
     fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const container = document.getElementById("employeeRequestsContainer");
-                const tbody = document.getElementById("requestsTable").getElementsByTagName("tbody")[0];
-                tbody.innerHTML = ""; // Clear existing rows
-                container.style.display = "block"; // Show the table
-                data.data.forEach(req => {
-                    const row = tbody.insertRow();
-                    row.insertCell(0).innerText = req.id;
-                    row.insertCell(1).innerText = req.amount;
-                    row.insertCell(2).innerText = req.date;
-                    row.insertCell(3).innerText = req.description;
-                    row.insertCell(4).innerText = req.category;
-                    row.insertCell(5).innerText = req.status;
-                    row.insertCell(6).innerText = req.manager_comment || '';
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          const container = document.getElementById(
+            "employeeRequestsContainer"
+          );
+          const tbody = document
+            .getElementById("requestsTable")
+            .getElementsByTagName("tbody")[0];
+          tbody.innerHTML = ""; // Clear existing rows
+          container.style.display = "block"; // Show the table
+          data.data.forEach((req) => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerText = req.id;
+            row.insertCell(1).innerText = req.amount;
+            row.insertCell(2).innerText = req.date;
+            row.insertCell(3).innerText = req.description;
+            row.insertCell(4).innerText = req.category;
+            row.insertCell(5).innerText = req.status;
+            row.insertCell(6).innerText = req.manager_comment || "";
 
-                    const receiptCell = row.insertCell(7);
-                    const receiptPaths = req.receipt_path.split(',');
-                    receiptPaths.forEach(path => {
-                        const fileName = path.split('/').pop();
-                        const link = document.createElement('a');
-                        link.href = path;
-                        link.innerText = path.substring(path.lastIndexOf('\\') + 1);
-                        link.target = '_blank'; // Open in new tab
-                        receiptCell.appendChild(link);
-                        receiptCell.appendChild(document.createElement('br')); // New line for each link
-                    });
-                });
-            } else {
-                console.error("Error fetching requests:", data.error);
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching requests:", error);
-        });
-}
-
-
+            const receiptCell = row.insertCell(7);
+            const receiptPaths = req.receipt_path.split(",");
+            receiptPaths.forEach((path) => {
+              const fileName = path.split("/").pop();
+              const link = document.createElement("a");
+              link.href = path;
+              link.innerText = path.substring(path.lastIndexOf("\\") + 1);
+              link.target = "_blank"; // Open in new tab
+              receiptCell.appendChild(link);
+              receiptCell.appendChild(document.createElement("br")); // New line for each link
+            });
+          });
+        } else {
+          console.error("Error fetching requests:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching requests:", error);
+      });
+  }
 
   document
     .getElementById("reimbursementForm")
