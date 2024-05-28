@@ -82,6 +82,32 @@
   </table>
 </div>
 
+<!-- Button to fetch reimbursement requests list for admin -->
+<button type="button" onclick="seeRequestsAdmin()">show Requests for updation</button>
+<div id="requestsTableContainer" style="display: none">
+  <!-- Table to display reimbursement requests -->
+  <h3>Reimbursement Requests List</h3>
+  <table border="1" id="requestsTable">
+    <thead>
+      <tr>
+        <th>Request ID</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Employee ID</th>
+        <th>Manager ID</th>
+        <th>Manager Comment</th>
+        <th>Receipt Path</th>
+      </tr>
+    </thead>
+    <tbody id="requestsTableBody">
+      <!-- Reimbursement requests will be populated here -->
+    </tbody>
+  </table>
+</div>
+
 <!-- Logout Form -->
 <form id="logoutForm" action="/logout" method="post">
   <button type="submit">Logout</button>
@@ -277,7 +303,6 @@
       });
   }
 
-  // Function to fetch reimbursement requests
   function seeRequests() {
     fetch("/rr/get_reimbursement_requests")
       .then((response) => response.json())
@@ -326,6 +351,83 @@
         alert("An error occurred while fetching reimbursement requests.");
       });
   }
+
+
+
+
+
+
+  // Function to fetch reimbursement requests for admin
+  function seeRequestsAdmin() {
+    fetch("/rr/get_reimbursement_requests_admin")
+        .then((response) => response.json())
+        .then((data) => {
+            const requestsTableContainer = document.getElementById(
+                "requestsTableContainer"
+            );
+            const requestsTableBody = document.getElementById("requestsTableBody");
+
+            // Show the requests table container
+            requestsTableContainer.style.display = "block";
+
+            // Clear the existing rows
+            requestsTableBody.innerHTML = "";
+
+            // Populate the table with reimbursement requests data
+            data.forEach((request) => {
+                const row = document.createElement("tr");
+                const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
+                const receiptLinks = receiptUrls
+                    .map(
+                        (url) =>
+                            `<a href="${url}" target="_blank">${url.substring(
+                                url.lastIndexOf("\\") + 1
+                            )}</a>`
+                    )
+                    .join("<br>"); // Creating link tags for each URL
+
+                row.innerHTML = `
+                    <td>${request.id}</td>
+                    <td>${request.amount}</td>
+                    <td>${request.date}</td>
+                    <td>${request.description}</td>
+                    <td>${request.category}</td>
+                    <td>
+                        <select class="statusSelect" name="status">
+                            <option value="Approved" ${request.status === 'Approved' ? 'selected' : ''}>Approved</option>
+                            <option value="Rejected" ${request.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
+                        </select>
+                    </td>
+                    <td>${request.employee_id}</td>
+                    <td>${request.manager_id}</td>
+                    <td>
+                        <input type="text" class="managerComment" name="manager_comment" value="${request.manager_comment || ''}">
+                    </td>
+                    <td>${receiptLinks}</td>
+                    <td>
+                        <button type="button" class="updateButton" data-id="${request.id}">Update</button>
+                    </td>
+                `;
+                requestsTableBody.appendChild(row);
+            });
+
+            // Add event listeners to update buttons
+            document.querySelectorAll(".updateButton").forEach(button => {
+                button.addEventListener("click", function () {
+                    const id = this.getAttribute("data-id");
+                    const row = this.closest("tr");
+                    const status = row.querySelector(".statusSelect").value;
+                    const manager_comment = row.querySelector(".managerComment").value;
+                    updateReimbursementRequest(id, status, manager_comment);
+                });
+            });
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("An error occurred while fetching reimbursement requests.");
+        });
+}
+
 
   function deleteUser(userId) {
     // const userId = document.getElementById('userId').value;
@@ -462,6 +564,30 @@
     // populateManagers();
     populateEmployees();
   };
+  function updateReimbursementRequest(id, status, manager_comment) {
+    fetch(`/rr/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status, manager_comment })
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            const row = document.querySelector(`tr[data-id='${id}']`);
+            if (data.is_active === false) {
+                row.remove();
+            } else {
+                row.querySelector(".statusSelect").value = status;
+                row.querySelector(".managerComment").value = manager_comment;
+            }
+        })
+        .catch(error => {
+            console.error("Error updating request:", error);
+        });
+}
+
 </script>
 {% else %}
 <h1>Access Denied</h1>

@@ -10,15 +10,16 @@
   <input type="email" id="email" name="email" required /><br />
 
   <label for="password">Password:</label><br />
-  <input type="password" id="password" name="password" required /><br />
+  <div class="password-container">
+    <input type="password" id="password" name="password" required />
+    <span class="toggle-password" onclick="togglePasswordVisibility('password')">&#x1F441;</span>
+  </div><br />
 
   <label for="confirm_password">Confirm Password:</label><br />
-  <input
-    type="password"
-    id="confirm_password"
-    name="confirm_password"
-    required
-  /><br />
+  <div class="password-container">
+    <input type="password" id="confirm_password" name="confirm_password" required />
+    <span class="toggle-password" onclick="togglePasswordVisibility('confirm_password')">&#x1F441;</span>
+  </div><br />
 
   <label for="role">Role:</label><br />
   <select id="role" name="role" required>
@@ -44,6 +45,21 @@
 </form>
 
 <script>
+    function togglePasswordVisibility(inputId) {
+    var input = document.getElementById(inputId);
+    var icon = document.querySelector("#" + inputId).nextElementSibling;
+
+    if (input.type === "password") {
+      input.type = "text";
+      icon.innerHTML = "&#x1F440;"; // Show open eye
+    } else {
+      input.type = "password";
+      icon.innerHTML = "&#x1F441;"; // Show closed eye
+    }
+  }
+
+
+
   function registerUser(event) {
     event.preventDefault(); // Prevent the default form submission
 

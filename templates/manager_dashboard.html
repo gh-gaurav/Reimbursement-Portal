@@ -14,8 +14,66 @@
         <form id="logoutForm" action="/logout" method="post">
             <button type="submit">Logout</button>
         </form>
-        <button onclick="fetchReimbursementRequests('{{user.id}}')">Get All Reimbursement</button>
-        <h2>Pending Reimbursement Requests</h2>
+        <h2>Submit Reimbursement Request</h2>
+<form id="reimbursementForm" enctype="multipart/form-data" method="post">
+  <label for="amount">Amount:</label>
+  <input type="number" id="amount" name="amount" required /><br />
+
+  <label for="date">Date:</label>
+  <input type="date" id="date" name="date" required /><br />
+
+  <label for="description">Description:</label>
+  <textarea id="description" name="description"></textarea><br />
+
+  <label for="category">Category:</label>
+  <select id="category" name="category" required>
+    <option value="Travelling" data-max-amount="15000">Travelling</option>
+    <option value="Relocation" data-max-amount="20000">Relocation</option>
+    <option value="TechAssets" data-max-amount="5000">
+      Tech Asset
+    </option></select
+  ><br />
+
+  <label for="receipt">Receipt:</label>
+  <input type="file" id="receipt" name="receipt" multiple="multiple" /><br />
+
+  <input
+    type="hidden"
+    id="employee_id"
+    name="employee_id"
+    value="{{ user.id }}"
+  />
+
+  <button type="submit">Submit Request</button>
+</form>
+<button onclick="fetchEmployeeRequests('{{user.id}}')">
+    Show my all requests
+  </button>
+  <!-- <h2>My Reimbursement Requests</h2> -->
+  <div id="employeeRequestsContainer" style="display: none">
+    <table id="requestsTable" border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Manager Comment</th>
+          <th>Receipt Path</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+
+
+
+
+        <button onclick="fetchReimbursementRequests('{{user.id}}')">show Requests for updation</button>
+        <!-- <h2>Pending Reimbursement Requests</h2> -->
         <div id="requestsContainer"></div>
         <script>
             function redirectToHome() {
@@ -122,26 +180,6 @@
                     });
             }
 
-function updateReimbursementRequest(id, status, manager_comment) {
-    fetch(`/rr/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ status, manager_comment })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("Request updated successfully!");
-        } else {
-            alert("Failed to update request: " + data.message);
-        }
-    })
-    .catch(error => {
-        console.error("Error updating request:", error);
-    });
-}
 
             function updateReimbursementRequest(id, status, manager_comment) {
                 fetch(`/rr/${id}`, {
@@ -154,13 +192,17 @@ function updateReimbursementRequest(id, status, manager_comment) {
                 .then(response => response.json())
                 .then(data => {
                     alert(data.message);
+                    // fetchReimbursementRequests(user.id)
+                    const row = document.querySelector(`tr[data-id='${id}']`);
                     if (data.is_active === false) {
-                        const requestElement = document.querySelector(`.requestForm[data-id='${id}']`).parentElement;
-                        requestElement.remove();
+                        row.remove();
+                        // const requestElement = document.querySelector(`.requestForm[data-id='${id}']`).parentElement;
+                        // requestElement.remove();
                     } else {
-                        fetchReimbursementRequests(user.id);  // Optionally, you can refetch the requests
+                        row.querySelector(".statusSelect").value = status;
+                        row.querySelector(".managerComment").value = manager_comment;
+                        // fetchReimbursementRequests(user.id);  // Optionally, you can refetch the requests
                     }
-                    // fetchReimbursementRequests(user.id);  // Pass the manager_id again after update
                 })
                 .catch(error => {
                     console.error("Error updating request:", error);
@@ -170,6 +212,105 @@ function updateReimbursementRequest(id, status, manager_comment) {
             document.addEventListener("DOMContentLoaded", function() {
                 fetchReimbursementRequests(user.id);  // Pass the manager_id when the page loads
             });
+
+            document
+                .getElementById("reimbursementForm")
+                .addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const amount = parseFloat(document.getElementById("amount").value);
+                const categoryElement = document.getElementById("category");
+                const selectedCategory = categoryElement.value;
+                const maxAmount = parseFloat(
+                    categoryElement.options[categoryElement.selectedIndex].getAttribute(
+                    "data-max-amount"
+                    )
+                );
+
+                if (amount > maxAmount) {
+                    alert(`The maximum amount for ${selectedCategory} is ${maxAmount}.`);
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append("amount", amount);
+                formData.append("date", document.getElementById("date").value);
+                formData.append(
+                    "description",
+                    document.getElementById("description").value
+                );
+                formData.append("category", selectedCategory);
+                formData.append(
+                    "employee_id",
+                    document.getElementById("employee_id").value
+                );
+
+                const receiptFiles = document.getElementById("receipt").files;
+                for (let i = 0; i < receiptFiles.length; i++) {
+                    formData.append("receipt", receiptFiles[i]);
+                }
+
+                fetch("/rr", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                    if (data.success) {
+                        alert("Reimbursement request submitted successfully!");
+                        document.getElementById("reimbursementForm").reset();
+                    } else {
+                        alert("Failed to submit request: " + data.error);
+                    }
+                    })
+                    .catch((error) => {
+                    console.error("Error during submission:", error);
+                    });
+                });
+
+                function fetchEmployeeRequests(employee_id) {
+    fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          const container = document.getElementById(
+            "employeeRequestsContainer"
+          );
+          const tbody = document
+            .getElementById("requestsTable")
+            .getElementsByTagName("tbody")[0];
+          tbody.innerHTML = ""; // Clear existing rows
+          container.style.display = "block"; // Show the table
+          data.data.forEach((req) => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerText = req.id;
+            row.insertCell(1).innerText = req.amount;
+            row.insertCell(2).innerText = req.date;
+            row.insertCell(3).innerText = req.description;
+            row.insertCell(4).innerText = req.category;
+            row.insertCell(5).innerText = req.status;
+            row.insertCell(6).innerText = req.manager_comment || "";
+
+            const receiptCell = row.insertCell(7);
+            const receiptPaths = req.receipt_path.split(",");
+            receiptPaths.forEach((path) => {
+              const fileName = path.split("/").pop();
+              const link = document.createElement("a");
+              link.href = path;
+              link.innerText = path.substring(path.lastIndexOf("\\") + 1);
+              link.target = "_blank"; // Open in new tab
+              receiptCell.appendChild(link);
+              receiptCell.appendChild(document.createElement("br")); // New line for each link
+            });
+          });
+        } else {
+          console.error("Error fetching requests:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching requests:", error);
+      });
+  }
         </script>
     {% else %}
         <h1>Access Denied</h1>

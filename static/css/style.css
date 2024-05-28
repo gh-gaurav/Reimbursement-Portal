@@ -79,3 +79,20 @@ nav ul li a {
     text-decoration: none;
     color: #333; /* Link color */
 }
+.password-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .password-container input {
+    padding-right: 30px; /* Adjust this value as needed */
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
