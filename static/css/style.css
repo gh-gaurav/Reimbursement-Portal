@@ -1,98 +1,81 @@
-/* styles.css */
+/* Enhance the styling further for better aesthetics */
 
+/* General Styles */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 0;
-    background-color: #f2f2f2; /* Background color */
-    font-family: Arial, sans-serif; /* Font family */
-}
-
-form {
-    width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #fff; /* Form background color */
+    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {
     text-align: center;
-    color: #333; /* Heading color */
+    color: #333;
 }
 
-label {
-    margin-bottom: 5px;
-    display: block;
-    color: #666; /* Label color */
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
+form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific Styles for Dashboard */
+.card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff; /* Button background color */
-    color: #fff; /* Button text color */
+    margin-top: 20px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3; /* Button hover background color */
-}
-/* styles.css */
-
-nav {
-    display: flex;
-    justify-content: flex-start;
-    border-bottom: 2px solid #007bff; /* Add a 2px solid border with blue color */
-    padding-bottom: 10px; /* Add some padding to the bottom of the navigation bar */
+    background-color: #0056b3;
 }
 
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 10px; /* Adjust spacing between navigation items */
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333; /* Link color */
-}
 .password-container {
     position: relative;
-    display: inline-block;
-  }
-  
-  .password-container input {
-    padding-right: 30px; /* Adjust this value as needed */
-  }
-  
-  .toggle-password {
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    padding-right: 40px;
+}
+
+.toggle-password {
     position: absolute;
     right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
     cursor: pointer;
-  }
-  
+}
+
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.table th,
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+/* Custom CSS for Navigation Links */
+.nav-link {
+    font-weight: bold;
+}
+

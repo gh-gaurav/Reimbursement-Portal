@@ -1,143 +1,157 @@
 {% extends 'base.html' %} {% block content %} {% if user.role == 'Admin' %}
-<h1>Welcome to the Admin Dashboard, {{ user.username }}</h1>
-<p>Full Name: {{ user.first_name }} {{ user.last_name }}</p>
-<p>Email: {{ user.email }}</p>
-<p>Role: {{ user.role }}</p>
-
+    
 <!-- Department Management Section -->
-<h2>Manage Departments</h2>
+<div class="container mt-4">
+    <h1 class="text-center">Welcome to the Admin Dashboard, {{ user.username }}</h1>
+    <div class="card mt-3 mb-4">
+        <div class="card-body">
+            <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Role:</strong> {{ user.role }}</p>
+        </div>
+    </div>
 
-<!-- Form to Add Department -->
-<form id="addDepartmentForm">
-  <label for="departmentName">Department Name:</label><br />
-  <input type="text" id="departmentName" name="departmentName" required /><br />
-  <button type="button" onclick="addDepartment()">Add Department</button>
-</form>
+    <!-- Department Management Section -->
+    <h2 class="mt-4">Manage Departments</h2>
 
-<!-- Button to see all departments -->
-<button type="button" onclick="seeDepartments()">See Department list</button>
-<div id="departmentsTableContainer" style="display: none">
-  <!-- Table of Departments -->
-  <h3>Departments List</h3>
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Department ID</th>
-        <th>Department Name</th>
-      </tr>
-    </thead>
-    <tbody id="departmentsTableBody">
-      <!-- Departments will be populated here -->
-    </tbody>
-  </table>
+    <!-- Form to Add Department -->
+    <form id="addDepartmentForm" class="mb-4">
+        <div class="mb-3">
+            <label for="departmentName" class="form-label">Department Name:</label><br />
+            <input type="text" id="departmentName" name="departmentName" class="form-control" required />
+        </div>
+        <button type="button" onclick="addDepartment()" class="btn btn-primary">Add Department</button>
+    </form>
+
+    <!-- Button to see all departments -->
+    <button type="button" onclick="seeDepartments()" class="btn btn-secondary mb-4">See Department list</button>
+    <div id="departmentsTableContainer" style="display: none">
+        <!-- Table of Departments -->
+        <h3>Departments List</h3>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Department ID</th>
+                    <th>Department Name</th>
+                </tr>
+            </thead>
+            <tbody id="departmentsTableBody">
+                <!-- Departments will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button to see all users -->
+    <button type="button" onclick="seeUsers()" class="btn btn-secondary mb-4">See User list</button>
+    <div id="usersTableContainer" style="display: none">
+        <!-- Table to display users -->
+        <h3>Users list</h3>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>User ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Dept ID</th>
+                    <th>Manager ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="usersTableBody">
+                <!-- Users will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button to see reimbursement requests list -->
+    <button type="button" onclick="seeRequests()" class="btn btn-secondary mb-4">See Requests List</button>
+    <div id="requestsTableContainer" style="display: none">
+        <!-- Table to display reimbursement requests -->
+        <h3>Reimbursement Requests List</h3>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Request ID</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Employee ID</th>
+                    <th>Manager ID</th>
+                    <th>Manager Comment</th>
+                    <th>Receipt Path</th>
+                </tr>
+            </thead>
+            <tbody id="requestsTableBody">
+                <!-- Reimbursement requests will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button to fetch reimbursement requests list for admin -->
+    <button type="button" onclick="seeRequestsAdmin()" class="btn btn-secondary mb-4">Show Requests for Updation</button>
+    <div id="requestsAdminTableContainer" style="display: none">
+        <!-- Table to display reimbursement requests -->
+        <h3>Reimbursement Requests List</h3>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Request ID</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Employee ID</th>
+                    <th>Manager ID</th>
+                    <th>Manager Comment</th>
+                    <th>Receipt Path</th>
+                </tr>
+            </thead>
+            <tbody id="requestsAdminTableBody">
+                <!-- Reimbursement requests will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Logout Form -->
+    <form id="logoutForm" action="/logout" method="post">
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+
+    <form id="assignForm" class="mt-4">
+        <div class="mb-3">
+            <label for="employeeSelect" class="form-label">Select Employee:</label><br />
+            <select id="employeeSelect" name="employeeSelect" class="form-select" required>
+                <!-- Employees options will be populated dynamically -->
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="managerSelect" class="form-label">Select Manager:</label><br />
+            <select id="managerSelect" name="managerSelect" class="form-select" required>
+                <!-- Managers options will be populated dynamically -->
+            </select>
+        </div>
+        <button type="button" onclick="assignManager()" class="btn btn-primary">Assign Manager</button>
+    </form>
+
+    <h2 class="mt-4">Unassigned Employees</h2>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+            </tr>
+        </thead>
+        <tbody id="employeesBody">
+            <!-- Employee data will be dynamically inserted here -->
+        </tbody>
+    </table>
 </div>
-<!-- Button to see all users -->
-<button type="button" onclick="seeUsers()">See User list</button>
-<div id="usersTableContainer" style="display: none">
-  <!-- Table to display users -->
-  <h3>Users list</h3>
-  <table border="1" id="usersTable">
-    <thead>
-      <tr>
-        <th>User ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Dept ID</th>
-        <th>Manager ID</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody id="usersTableBody">
-      <!-- Users will be populated here -->
-    </tbody>
-  </table>
-</div>
-
-<!-- Button to see reimbursement requests list -->
-<button type="button" onclick="seeRequests()">See Requests List</button>
-<div id="requestsTableContainer" style="display: none">
-  <!-- Table to display reimbursement requests -->
-  <h3>Reimbursement Requests List</h3>
-  <table border="1" id="requestsTable">
-    <thead>
-      <tr>
-        <th>Request ID</th>
-        <th>Amount</th>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Status</th>
-        <th>Employee ID</th>
-        <th>Manager ID</th>
-        <th>Manager Comment</th>
-        <th>Receipt Path</th>
-      </tr>
-    </thead>
-    <tbody id="requestsTableBody">
-      <!-- Reimbursement requests will be populated here -->
-    </tbody>
-  </table>
-</div>
-
-<!-- Button to fetch reimbursement requests list for admin -->
-<button type="button" onclick="seeRequestsAdmin()">show Requests for updation</button>
-<div id="requestsTableContainer" style="display: none">
-  <!-- Table to display reimbursement requests -->
-  <h3>Reimbursement Requests List</h3>
-  <table border="1" id="requestsTable">
-    <thead>
-      <tr>
-        <th>Request ID</th>
-        <th>Amount</th>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Status</th>
-        <th>Employee ID</th>
-        <th>Manager ID</th>
-        <th>Manager Comment</th>
-        <th>Receipt Path</th>
-      </tr>
-    </thead>
-    <tbody id="requestsTableBody">
-      <!-- Reimbursement requests will be populated here -->
-    </tbody>
-  </table>
-</div>
-
-<!-- Logout Form -->
-<form id="logoutForm" action="/logout" method="post">
-  <button type="submit">Logout</button>
-</form>
-
-<form id="assignForm">
-  <label for="employeeSelect">Select Employee:</label><br />
-  <select id="employeeSelect" name="employeeSelect" required>
-    <!-- Employees options will be populated dynamically --></select
-  ><br />
-  <label for="managerSelect">Select Manager:</label><br />
-  <select id="managerSelect" name="managerSelect" required>
-    <!-- Managers options will be populated dynamically --></select
-  ><br />
-
-  <button type="button" onclick="assignManager()">Assign Manager</button>
-</form>
-<h2>Unassigned Employees</h2>
-<table id="employeesTable">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody id="employeesBody">
-    <!-- Employee data will be dynamically inserted here -->
-  </tbody>
-</table>
-
 <!-- Scripts -->
 <script>
   listUnassignedEmp();
