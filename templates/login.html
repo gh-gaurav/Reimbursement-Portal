@@ -1,24 +1,43 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <h1>Login</h1>
-<form id="loginForm" onsubmit="login(event)" class="needs-validation" novalidate>
-    <div class="mb-3">
-        <label for="username" class="form-label">Username or Email:</label>
-        <input type="text" id="username" name="username" class="form-control" placeholder="Enter username or email" required>
-    </div>
-    <div class="mb-3 password-container">
-        <label for="password" class="form-label">Password:</label>
-        <input type="password" id="password" name="password" class="form-control" required>
-        <span class="toggle-password" onclick="togglePasswordVisibility('password')">&#x1F441;</span>
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+<form
+  id="loginForm"
+  onsubmit="login(event)"
+  class="needs-validation"
+  novalidate
+>
+  <div class="mb-3">
+    <label for="username" class="form-label">Username or Email:</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      class="form-control"
+      placeholder="Enter username or email"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password:</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      class="form-control"
+      required
+    />
+    <span class="toggle-password" onclick="togglePasswordVisibility('password')"
+      >&#x1F441;</span
+    >
+  </div>
+  <button type="submit" class="btn btn-primary">Login</button>
+  <p class="mt-3">
+    Don't have an account? <a href="/register">Register Here</a>
+  </p>
 </form>
-<p class="mt-3">Don't have an account? <a href="/register">Register Here</a></p>
-    <script>
 
-
-function togglePasswordVisibility(inputId) {
+<script>
+  function togglePasswordVisibility(inputId) {
     var input = document.getElementById(inputId);
     var icon = document.querySelector("#" + inputId).nextElementSibling;
 
@@ -31,38 +50,36 @@ function togglePasswordVisibility(inputId) {
     }
   }
 
+  function login(event) {
+    event.preventDefault(); // Prevent the default form submission
+    var form = document.getElementById("loginForm");
+    var formData = new FormData(form);
+    var json = {};
 
+    formData.forEach(function (value, key) {
+      json[key] = value;
+    });
 
-        function login(event) {
-            event.preventDefault(); // Prevent the default form submission
-            var form = document.getElementById("loginForm");
-            var formData = new FormData(form);
-            var json = {};
-
-            formData.forEach(function(value, key) {
-                json[key] = value;
-            });
-
-            fetch('/user/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(json)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Redirect to the appropriate dashboard based on the received redirect URL
-                    window.location.href = data.redirect;
-                } else {
-                    alert(data.error); // Show error message
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.'); // Show generic error message
-            });
+    fetch("/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(json),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // Redirect to the appropriate dashboard based on the received redirect URL
+          window.location.href = data.redirect;
+        } else {
+          alert(data.error); // Show error message
         }
-    </script>
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again."); // Show generic error message
+      });
+  }
+</script>
 {% endblock %}

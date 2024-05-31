@@ -1,144 +1,199 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %} {% if user.role == 'Manager' %}
 
-{% block content %}
-    {% if user.role == 'Manager' %}
-        
 <div class="container mt-4">
-    <h1 class="text-center">Welcome to the Manager Dashboard, {{ user.username }}</h1>
-    <div class="card mt-3 mb-4">
-        <div class="card-body">
-            <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Role:</strong> {{ user.role }}</p>
-            <p><strong>Department ID:</strong> {{ user.department_id }}</p>
-            <p><strong>Department Name:</strong> {{ user.department_name }}</p>
-        </div>
+  <h1 class="text-center">
+    Welcome to the Manager Dashboard, {{ user.username }}
+  </h1>
+  <div class="card mt-3 mb-4">
+    <div class="card-body">
+      <p>
+        <strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}
+      </p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Role:</strong> {{ user.role }}</p>
+      <p><strong>Department ID:</strong> {{ user.department_id }}</p>
+      <p><strong>Department Name:</strong> {{ user.department_name }}</p>
+      <button type="submit" form="logoutForm" class="btn-logout">Logout</button>
     </div>
+  </div>
 
-    <form id="logoutForm" action="/logout" method="post" class="text-center mb-4">
-        <button type="submit" class="btn btn-danger">Logout</button>
-    </form>
+  <form
+    id="logoutForm"
+    action="/logout"
+    method="post"
+    style="display: none"
+  ></form>
 
-    <h2>Submit Reimbursement Request</h2>
-    <form id="reimbursementForm" enctype="multipart/form-data" method="post" class="needs-validation" novalidate>
-        <div class="mb-3">
-            <label for="amount" class="form-label">Amount:</label>
-            <input type="number" id="amount" name="amount" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label for="date" class="form-label">Date:</label>
-            <input type="date" id="date" name="date" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Description:</label>
-            <textarea id="description" name="description" class="form-control"></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="category" class="form-label">Category:</label>
-            <select id="category" name="category" class="form-select" required>
-                <option value="">Select</option>
-                <option value="Travelling" data-max-amount="15000">Travelling</option>
-                <option value="Relocation" data-max-amount="20000">Relocation</option>
-                <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="receipt" class="form-label">Receipt:</label>
-            <input type="file" id="receipt" name="receipt" multiple="multiple" class="form-control" />
-        </div>
-        <input type="hidden" id="employee_id" name="employee_id" value="{{ user.id }}" />
-        <button type="submit" class="btn btn-primary">Submit Request</button>
-    </form>
-
-    <button onclick="fetchEmployeeRequests('{{user.id}}')" class="btn btn-secondary mt-4">Show my all requests</button>
-
-    <div id="employeeRequestsContainer" style="display: none" class="mt-4">
-        <h2>My Reimbursement Requests</h2>
-        <table id="requestsTable" class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Status</th>
-                    <th>Manager Comment</th>
-                    <th>Receipt Path</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+  <form
+    id="reimbursementForm"
+    enctype="multipart/form-data"
+    method="post"
+    class="needs-validation"
+    novalidate
+  >
+    <div class="mb-3">
+      <label for="amount" class="form-label">Amount:</label>
+      <input
+        type="number"
+        id="amount"
+        name="amount"
+        class="form-control"
+        required
+      />
     </div>
+    <div class="mb-3">
+      <label for="date" class="form-label">Date:</label>
+      <input type="date" id="date" name="date" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description:</label>
+      <textarea
+        id="description"
+        name="description"
+        class="form-control"
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Category:</label>
+      <select id="category" name="category" class="form-select" required>
+        <option value="">Select</option>
+        <option value="Travelling" data-max-amount="15000">Travelling</option>
+        <option value="Relocation" data-max-amount="20000">Relocation</option>
+        <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="receipt" class="form-label">Receipt:</label>
+      <input
+        type="file"
+        id="receipt"
+        name="receipt"
+        multiple="multiple"
+        class="form-control"
+      />
+    </div>
+    <input
+      type="hidden"
+      id="employee_id"
+      name="employee_id"
+      value="{{ user.id }}"
+    />
+    <button type="submit" class="btn btn-primary">Submit Request</button>
+  </form>
 
-    <button onclick="fetchReimbursementRequests('{{user.id}}')" class="btn btn-info mt-4">Show Requests for Updation</button>
+  <button
+    onclick="fetchEmployeeRequests('{{user.id}}')"
+    class="btn btn-secondary mt-4"
+  >
+    Show my all requests
+  </button>
 
-    <div id="requestsContainer" class="mt-4"></div>
+  <div id="employeeRequestsContainer" style="display: none" class="mt-4">
+    <h2>My Reimbursement Requests</h2>
+    <table id="requestsTable" class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Manager Comment</th>
+          <th>Receipt Path</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <button
+    onclick="fetchReimbursementRequests('{{user.id}}')"
+    class="btn btn-info mt-4"
+  >
+    Show Requests for Updation
+  </button>
+
+  <div id="requestsContainer" class="mt-4"></div>
 </div>
-        <script>
-            function redirectToHome() {
-                window.location.href = "/";
-            }
+<script>
+  function redirectToHome() {
+    window.location.href = "/";
+  }
 
-            document.getElementById("logoutForm").addEventListener("submit", function(event) {
-                event.preventDefault();
-                fetch("/logout", { method: "POST" })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            redirectToHome();
-                        } else {
-                            console.error("Logout failed:", data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error during logout:", error);
-                    });
-            });
-            function fetchReimbursementRequests(manager_id, status) {
-                let url = `/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`;
-                if (status) {
-                    url += `&status=${status}`;
-                }
+  document
+    .getElementById("logoutForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      fetch("/logout", { method: "POST" })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            redirectToHome();
+          } else {
+            console.error("Logout failed:", data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error during logout:", error);
+        });
+    });
+  function fetchReimbursementRequests(manager_id, status) {
+    let url = `/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`;
+    if (status) {
+      url += `&status=${status}`;
+    }
 
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        const container = document.getElementById("requestsContainer");
-                        container.innerHTML = "";
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        const container = document.getElementById("requestsContainer");
+        container.innerHTML = "";
 
-                        const table = document.createElement("table");
-                        table.setAttribute("border", "1");
+        const table = document.createElement("table");
+        table.setAttribute("border", "1");
 
-                        const thead = document.createElement("thead");
-                        const headerRow = document.createElement("tr");
+        const thead = document.createElement("thead");
+        const headerRow = document.createElement("tr");
 
-                        const headers = [
-                            "ID", "Amount", "Date", "Description", "Category",
-                            "Status", "Manager Comment", "Receipts", "Update"
-                        ];
+        const headers = [
+          "ID",
+          "Amount",
+          "Date",
+          "Description",
+          "Category",
+          "Status",
+          "Manager Comment",
+          "Receipts",
+          "Update",
+        ];
 
-                        headers.forEach(headerText => {
-                            const th = document.createElement("th");
-                            th.innerText = headerText;
-                            headerRow.appendChild(th);
-                        });
+        headers.forEach((headerText) => {
+          const th = document.createElement("th");
+          th.innerText = headerText;
+          headerRow.appendChild(th);
+        });
 
-                        thead.appendChild(headerRow);
-                        table.appendChild(thead);
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
 
-                        const tbody = document.createElement("tbody");
+        const tbody = document.createElement("tbody");
 
-                        data.forEach(req => {
-                            const row = document.createElement("tr");
+        data.forEach((req) => {
+          const row = document.createElement("tr");
 
-                            const receiptLinks = req.receipt_path.split(',').map(path => {
-                                const fileName = path.split('/').pop();
-                                console.log(234, fileName)
-                                return `<a href="${path}" target="_blank">${fileName.substring(fileName.lastIndexOf('\\') + 1)}</a>`;
-                            }).join(', ');
+          const receiptLinks = req.receipt_path
+            .split(",")
+            .map((path) => {
+              const fileName = path.split("/").pop();
+              console.log(234, fileName);
+              return `<a href="${path}" target="_blank">${fileName.substring(
+                fileName.lastIndexOf("\\") + 1
+              )}</a>`;
+            })
+            .join(", ");
 
-                            row.innerHTML = `
+          row.innerHTML = `
                                 <td>${req.id}</td>
                                 <td>${req.amount}</td>
                                 <td>${req.date}</td>
@@ -146,129 +201,140 @@
                                 <td>${req.category}</td>
                                 <td>
                                     <select class="statusSelect" name="status">
-                                        <option value="Approved" ${req.status === 'Approved' ? 'selected' : ''}>Approved</option>
-                                        <option value="Rejected" ${req.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
+                                        <option value="Approved" ${
+                                          req.status === "Approved"
+                                            ? "selected"
+                                            : ""
+                                        }>Approved</option>
+                                        <option value="Rejected" ${
+                                          req.status === "Rejected"
+                                            ? "selected"
+                                            : ""
+                                        }>Rejected</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" class="managerComment" name="manager_comment" value="${req.manager_comment || ''}">
+                                    <input type="text" class="managerComment" name="manager_comment" value="${
+                                      req.manager_comment || ""
+                                    }">
                                 </td>
                                 <td>${receiptLinks}</td>
                                 <td>
-                                    <button type="button" class="updateButton" data-id="${req.id}">Update</button>
+                                    <button type="button" class="updateButton" data-id="${
+                                      req.id
+                                    }">Update</button>
                                 </td>
                             `;
 
-                            tbody.appendChild(row);
-                        });
+          tbody.appendChild(row);
+        });
 
-                        table.appendChild(tbody);
-                        container.appendChild(table);
+        table.appendChild(tbody);
+        container.appendChild(table);
 
-                        document.querySelectorAll(".updateButton").forEach(button => {
-                            button.addEventListener("click", function() {
-                                const id = this.getAttribute("data-id");
-                                const row = this.closest("tr");
-                                const status = row.querySelector(".statusSelect").value;
-                                const manager_comment = row.querySelector(".managerComment").value;
-                                updateReimbursementRequest(id, status, manager_comment);
-                            });
-                        });
-                    })
-                    .catch(error => {
-                        console.error("Error fetching requests:", error);
-                    });
-            }
+        document.querySelectorAll(".updateButton").forEach((button) => {
+          button.addEventListener("click", function () {
+            const id = this.getAttribute("data-id");
+            const row = this.closest("tr");
+            const status = row.querySelector(".statusSelect").value;
+            const manager_comment = row.querySelector(".managerComment").value;
+            updateReimbursementRequest(id, status, manager_comment);
+          });
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching requests:", error);
+      });
+  }
 
+  function updateReimbursementRequest(id, status, manager_comment) {
+    fetch(`/rr/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status, manager_comment }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert(data.message);
+        // fetchReimbursementRequests(user.id)
+        const row = document.querySelector(`tr[data-id='${id}']`);
+        if (data.is_active === false) {
+          row.remove();
+          // const requestElement = document.querySelector(`.requestForm[data-id='${id}']`).parentElement;
+          // requestElement.remove();
+        } else {
+          row.querySelector(".statusSelect").value = status;
+          row.querySelector(".managerComment").value = manager_comment;
+          // fetchReimbursementRequests(user.id);  // Optionally, you can refetch the requests
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating request:", error);
+      });
+  }
 
-            function updateReimbursementRequest(id, status, manager_comment) {
-                fetch(`/rr/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ status, manager_comment })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-                    // fetchReimbursementRequests(user.id)
-                    const row = document.querySelector(`tr[data-id='${id}']`);
-                    if (data.is_active === false) {
-                        row.remove();
-                        // const requestElement = document.querySelector(`.requestForm[data-id='${id}']`).parentElement;
-                        // requestElement.remove();
-                    } else {
-                        row.querySelector(".statusSelect").value = status;
-                        row.querySelector(".managerComment").value = manager_comment;
-                        // fetchReimbursementRequests(user.id);  // Optionally, you can refetch the requests
-                    }
-                })
-                .catch(error => {
-                    console.error("Error updating request:", error);
-                });
-            }
+  document.addEventListener("DOMContentLoaded", function () {
+    fetchReimbursementRequests(user.id); // Pass the manager_id when the page loads
+  });
 
-            document.addEventListener("DOMContentLoaded", function() {
-                fetchReimbursementRequests(user.id);  // Pass the manager_id when the page loads
-            });
+  document
+    .getElementById("reimbursementForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
 
-            document
-                .getElementById("reimbursementForm")
-                .addEventListener("submit", function (event) {
-                event.preventDefault();
+      const amount = parseFloat(document.getElementById("amount").value);
+      const categoryElement = document.getElementById("category");
+      const selectedCategory = categoryElement.value;
+      const maxAmount = parseFloat(
+        categoryElement.options[categoryElement.selectedIndex].getAttribute(
+          "data-max-amount"
+        )
+      );
 
-                const amount = parseFloat(document.getElementById("amount").value);
-                const categoryElement = document.getElementById("category");
-                const selectedCategory = categoryElement.value;
-                const maxAmount = parseFloat(
-                    categoryElement.options[categoryElement.selectedIndex].getAttribute(
-                    "data-max-amount"
-                    )
-                );
+      if (amount > maxAmount) {
+        alert(`The maximum amount for ${selectedCategory} is ${maxAmount}.`);
+        return;
+      }
 
-                if (amount > maxAmount) {
-                    alert(`The maximum amount for ${selectedCategory} is ${maxAmount}.`);
-                    return;
-                }
+      const formData = new FormData();
+      formData.append("amount", amount);
+      formData.append("date", document.getElementById("date").value);
+      formData.append(
+        "description",
+        document.getElementById("description").value
+      );
+      formData.append("category", selectedCategory);
+      formData.append(
+        "employee_id",
+        document.getElementById("employee_id").value
+      );
 
-                const formData = new FormData();
-                formData.append("amount", amount);
-                formData.append("date", document.getElementById("date").value);
-                formData.append(
-                    "description",
-                    document.getElementById("description").value
-                );
-                formData.append("category", selectedCategory);
-                formData.append(
-                    "employee_id",
-                    document.getElementById("employee_id").value
-                );
+      const receiptFiles = document.getElementById("receipt").files;
+      for (let i = 0; i < receiptFiles.length; i++) {
+        formData.append("receipt", receiptFiles[i]);
+      }
 
-                const receiptFiles = document.getElementById("receipt").files;
-                for (let i = 0; i < receiptFiles.length; i++) {
-                    formData.append("receipt", receiptFiles[i]);
-                }
+      fetch("/rr", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Reimbursement request submitted successfully!");
+            document.getElementById("reimbursementForm").reset();
+          } else {
+            alert("Failed to submit request: " + data.error);
+          }
+        })
+        .catch((error) => {
+          console.error("Error during submission:", error);
+        });
+    });
 
-                fetch("/rr", {
-                    method: "POST",
-                    body: formData,
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                    if (data.success) {
-                        alert("Reimbursement request submitted successfully!");
-                        document.getElementById("reimbursementForm").reset();
-                    } else {
-                        alert("Failed to submit request: " + data.error);
-                    }
-                    })
-                    .catch((error) => {
-                    console.error("Error during submission:", error);
-                    });
-                });
-
-                function fetchEmployeeRequests(employee_id) {
+  function fetchEmployeeRequests(employee_id) {
     fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
       .then((response) => response.json())
       .then((data) => {
@@ -311,9 +377,8 @@
         console.error("Error fetching requests:", error);
       });
   }
-        </script>
-    {% else %}
-        <h1>Access Denied</h1>
-        <p>You do not have permission to access this page.</p>
-    {% endif %}
-{% endblock %}
+</script>
+{% else %}
+<h1>Access Denied</h1>
+<p>You do not have permission to access this page.</p>
+{% endif %} {% endblock %}

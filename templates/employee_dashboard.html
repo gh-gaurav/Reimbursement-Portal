@@ -1,70 +1,109 @@
 {% extends 'base.html' %} {% block content %} {% if user.role == 'Employee' %}
 <div class="container mt-4">
-  <h1 class="text-center">Welcome to the Employee Dashboard, {{ user.username }}</h1>
+  <h1 class="text-center">
+    Welcome to the Employee Dashboard, {{ user.username }}
+  </h1>
   <div class="card mt-3 mb-4">
-      <div class="card-body">
-          <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-          <p><strong>Email:</strong> {{ user.email }}</p>
-          <p><strong>Role:</strong> {{ user.role }}</p>
-          <p><strong>Department ID:</strong> {{ user.department_id }}</p>
-          <p><strong>Department Name:</strong> {{ user.department_name }}</p>
-      </div>
+    <div class="card-body">
+      <p>
+        <strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}
+      </p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Role:</strong> {{ user.role }}</p>
+      <p><strong>Department ID:</strong> {{ user.department_id }}</p>
+      <p><strong>Department Name:</strong> {{ user.department_name }}</p>
+      <button type="submit" form="logoutForm" class="btn-logout">Logout</button>
+    </div>
   </div>
-
-  <form id="logoutForm" action="/logout" method="post" class="text-center mb-4">
-      <button type="submit" class="btn btn-danger">Logout</button>
-  </form>
+  <form
+    id="logoutForm"
+    action="/logout"
+    method="post"
+    style="display: none"
+  ></form>
 
   <!-- <h2>Submit Reimbursement Request</h2> -->
-  <form id="reimbursementForm" enctype="multipart/form-data" method="post" class="needs-validation" novalidate>
-      <div class="mb-3">
-          <label for="amount" class="form-label">Amount:</label>
-          <input type="number" id="amount" name="amount" class="form-control" required />
-      </div>
-      <div class="mb-3">
-          <label for="date" class="form-label">Date:</label>
-          <input type="date" id="date" name="date" class="form-control" required />
-      </div>
-      <div class="mb-3">
-          <label for="description" class="form-label">Description:</label>
-          <textarea id="description" name="description" class="form-control"></textarea>
-      </div>
-      <div class="mb-3">
-          <label for="category" class="form-label">Category:</label>
-          <select id="category" name="category" class="form-select" required>
-              <option value="">Select</option>
-              <option value="Travelling" data-max-amount="15000">Travelling</option>
-              <option value="Relocation" data-max-amount="20000">Relocation</option>
-              <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
-          </select>
-      </div>
-      <div class="mb-3">
-          <label for="receipt" class="form-label">Receipt:</label>
-          <input type="file" id="receipt" name="receipt" multiple="multiple" class="form-control" />
-      </div>
-      <input type="hidden" id="employee_id" name="employee_id" value="{{ user.id }}" />
-      <button type="submit" class="btn btn-primary">Submit Request</button>
+  <form
+    id="reimbursementForm"
+    enctype="multipart/form-data"
+    method="post"
+    class="needs-validation"
+    novalidate
+  >
+    <div class="mb-3">
+      <label for="amount" class="form-label">Amount:</label>
+      <input
+        type="number"
+        id="amount"
+        name="amount"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="date" class="form-label">Date:</label>
+      <input type="date" id="date" name="date" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description:</label>
+      <textarea
+        id="description"
+        name="description"
+        class="form-control"
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Category:</label>
+      <select id="category" name="category" class="form-select" required>
+        <option value="">Select</option>
+        <option value="Travelling" data-max-amount="15000">Travelling</option>
+        <option value="Relocation" data-max-amount="20000">Relocation</option>
+        <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="receipt" class="form-label">Receipt:</label>
+      <input
+        type="file"
+        id="receipt"
+        name="receipt"
+        multiple="multiple"
+        class="form-control"
+      />
+    </div>
+    <input
+      type="hidden"
+      id="employee_id"
+      name="employee_id"
+      value="{{ user.id }}"
+    />
+    <button type="submit" class="btn btn-primary">Submit Request</button>
   </form>
 
-  <button onclick="fetchEmployeeRequests('{{user.id}}')" class="btn btn-secondary mt-4">Show my all requests</button>
+  <button
+    onclick="fetchEmployeeRequests('{{user.id}}')"
+    class="btn btn-secondary mt-4"
+  >
+    Show my all requests
+  </button>
 
   <div id="employeeRequestsContainer" style="display: none" class="mt-4">
-      <h2>My Reimbursement Requests</h2>
-      <table id="requestsTable" class="table table-bordered">
-          <thead class="table-dark">
-              <tr>
-                  <th>ID</th>
-                  <th>Amount</th>
-                  <th>Date</th>
-                  <th>Description</th>
-                  <th>Category</th>
-                  <th>Status</th>
-                  <th>Manager Comment</th>
-                  <th>Receipt Path</th>
-              </tr>
-          </thead>
-          <tbody></tbody>
-      </table>
+    <h2>My Reimbursement Requests</h2>
+    <table id="requestsTable" class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Manager Comment</th>
+          <th>Receipt Path</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 </div>
 <!-- Redirect back to home page after logout -->

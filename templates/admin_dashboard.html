@@ -1,157 +1,202 @@
 {% extends 'base.html' %} {% block content %} {% if user.role == 'Admin' %}
-    
-<!-- Department Management Section -->
+
 <div class="container mt-4">
-    <h1 class="text-center">Welcome to the Admin Dashboard, {{ user.username }}</h1>
-    <div class="card mt-3 mb-4">
-        <div class="card-body">
-            <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Role:</strong> {{ user.role }}</p>
-        </div>
+  <h1 class="text-center">
+    Welcome to the Admin Dashboard, {{ user.username }}
+  </h1>
+  <div class="card mt-3 mb-4">
+    <div class="card-body">
+      <p>
+        <strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}
+      </p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Role:</strong> {{ user.role }}</p>
+      <!-- Logout Button -->
+      <button type="submit" form="logoutForm" class="btn-logout">Logout</button>
+      <!-- Delete Button -->
     </div>
+  </div>
+  <form
+    id="logoutForm"
+    action="/logout"
+    method="post"
+    style="display: none"
+  ></form>
+  <!-- Department Management Section -->
+  <h2 class="mt-4">Manage Departments</h2>
 
-    <!-- Department Management Section -->
-    <h2 class="mt-4">Manage Departments</h2>
-
-    <!-- Form to Add Department -->
-    <form id="addDepartmentForm" class="mb-4">
-        <div class="mb-3">
-            <label for="departmentName" class="form-label">Department Name:</label><br />
-            <input type="text" id="departmentName" name="departmentName" class="form-control" required />
-        </div>
-        <button type="button" onclick="addDepartment()" class="btn btn-primary">Add Department</button>
-    </form>
-
-    <!-- Button to see all departments -->
-    <button type="button" onclick="seeDepartments()" class="btn btn-secondary mb-4">See Department list</button>
-    <div id="departmentsTableContainer" style="display: none">
-        <!-- Table of Departments -->
-        <h3>Departments List</h3>
-        <table class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>Department ID</th>
-                    <th>Department Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="departmentsTableBody">
-                <!-- Departments will be populated here -->
-            </tbody>
-        </table>
+  <!-- Form to Add Department -->
+  <form id="addDepartmentForm" class="mb-4">
+    <div class="mb-3">
+      <label for="departmentName" class="form-label">Department Name:</label
+      ><br />
+      <input
+        type="text"
+        id="departmentName"
+        name="departmentName"
+        class="form-control"
+        required
+      />
     </div>
+    <button type="button" onclick="addDepartment()" class="btn btn-primary">
+      Add Department
+    </button>
+  </form>
 
-    <!-- Button to see all users -->
-    <button type="button" onclick="seeUsers()" class="btn btn-secondary mb-4">See User list</button>
-    <div id="usersTableContainer" style="display: none">
-        <!-- Table to display users -->
-        <h3>Users list</h3>
-        <table class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>User ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Dept ID</th>
-                    <th>Manager ID</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="usersTableBody">
-                <!-- Users will be populated here -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Button to see reimbursement requests list -->
-    <button type="button" onclick="seeRequests()" class="btn btn-secondary mb-4">See Requests List</button>
-    <div id="requestsTableContainer" style="display: none">
-        <!-- Table to display reimbursement requests -->
-        <h3>Reimbursement Requests List</h3>
-        <table class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>Request ID</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Status</th>
-                    <th>Employee ID</th>
-                    <th>Manager ID</th>
-                    <th>Manager Comment</th>
-                    <th>Receipt Path</th>
-                </tr>
-            </thead>
-            <tbody id="requestsTableBody">
-                <!-- Reimbursement requests will be populated here -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Button to fetch reimbursement requests list for admin -->
-    <button type="button" onclick="seeRequestsAdmin()" class="btn btn-secondary mb-4">Show Requests for Updation</button>
-    <div id="requestsAdminTableContainer" style="display: none">
-        <!-- Table to display reimbursement requests -->
-        <h3>Reimbursement Requests List</h3>
-        <table class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>Request ID</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Status</th>
-                    <th>Employee ID</th>
-                    <th>Manager ID</th>
-                    <th>Manager Comment</th>
-                    <th>Receipt Path</th>
-                </tr>
-            </thead>
-            <tbody id="requestsAdminTableBody">
-                <!-- Reimbursement requests will be populated here -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Logout Form -->
-    <form id="logoutForm" action="/logout" method="post">
-        <button type="submit" class="btn btn-danger">Logout</button>
-    </form>
-
-    <form id="assignForm" class="mt-4">
-        <div class="mb-3">
-            <label for="employeeSelect" class="form-label">Select Employee:</label><br />
-            <select id="employeeSelect" name="employeeSelect" class="form-select" required>
-                <!-- Employees options will be populated dynamically -->
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="managerSelect" class="form-label">Select Manager:</label><br />
-            <select id="managerSelect" name="managerSelect" class="form-select" required>
-                <!-- Managers options will be populated dynamically -->
-            </select>
-        </div>
-        <button type="button" onclick="assignManager()" class="btn btn-primary">Assign Manager</button>
-    </form>
-
-    <h2 class="mt-4">Unassigned Employees</h2>
+  <!-- Button to see all departments -->
+  <button
+    type="button"
+    onclick="seeDepartments()"
+    class="btn btn-secondary mb-4"
+  >
+    See Department list
+  </button>
+  <div id="departmentsTableContainer" style="display: none">
+    <!-- Table of Departments -->
+    <h3>Departments List</h3>
     <table class="table table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-            </tr>
-        </thead>
-        <tbody id="employeesBody">
-            <!-- Employee data will be dynamically inserted here -->
-        </tbody>
+      <thead class="table-dark">
+        <tr>
+          <th>Department ID</th>
+          <th>Department Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="departmentsTableBody">
+        <!-- Departments will be populated here -->
+      </tbody>
     </table>
+  </div>
+
+  <!-- Button to see all users -->
+  <button type="button" onclick="seeUsers()" class="btn btn-secondary mb-4">
+    See User list
+  </button>
+  <div id="usersTableContainer" style="display: none">
+    <!-- Table to display users -->
+    <h3>Users list</h3>
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>User ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Dept ID</th>
+          <th>Manager ID</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="usersTableBody">
+        <!-- Users will be populated here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Button to see reimbursement requests list -->
+  <button type="button" onclick="seeRequests()" class="btn btn-secondary mb-4">
+    See Requests List
+  </button>
+  <div id="requestsTableContainer" style="display: none">
+    <!-- Table to display reimbursement requests -->
+    <h3>Reimbursement Requests List</h3>
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Request ID</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Employee ID</th>
+          <th>Manager ID</th>
+          <th>Manager Comment</th>
+          <th>Receipt Path</th>
+        </tr>
+      </thead>
+      <tbody id="requestsTableBody">
+        <!-- Reimbursement requests will be populated here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Button to fetch reimbursement requests list for admin -->
+  <button
+    type="button"
+    onclick="seeRequestsAdmin()"
+    class="btn btn-secondary mb-4"
+  >
+    Show Requests for Updation
+  </button>
+  <div id="requestsAdminTableContainer" style="display: none">
+    <!-- Table to display reimbursement requests -->
+    <h3>Reimbursement Requests List</h3>
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Request ID</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Employee ID</th>
+          <th>Manager ID</th>
+          <th>Manager Comment</th>
+          <th>Receipt Path</th>
+        </tr>
+      </thead>
+      <tbody id="requestsAdminTableBody">
+        <!-- Reimbursement requests will be populated here -->
+      </tbody>
+    </table>
+  </div>
+
+  <form id="assignForm" class="mt-4">
+    <div class="mb-3">
+      <label for="employeeSelect" class="form-label">Select Employee:</label
+      ><br />
+      <select
+        id="employeeSelect"
+        name="employeeSelect"
+        class="form-select"
+        required
+      >
+        <!-- Employees options will be populated dynamically -->
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="managerSelect" class="form-label">Select Manager:</label
+      ><br />
+      <select
+        id="managerSelect"
+        name="managerSelect"
+        class="form-select"
+        required
+      >
+        <!-- Managers options will be populated dynamically -->
+      </select>
+    </div>
+    <button type="button" onclick="assignManager()" class="btn btn-primary">
+      Assign Manager
+    </button>
+  </form>
+
+  <h2 class="mt-4">Unassigned Employees</h2>
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+      </tr>
+    </thead>
+    <tbody id="employeesBody">
+      <!-- Employee data will be dynamically inserted here -->
+    </tbody>
+  </table>
 </div>
 <!-- Scripts -->
 <script>
@@ -238,7 +283,7 @@
                                     <td>${user.role}</td>
                                     <td>${user.department_id}</td>
                                     <td>${user.manager_id}</td>
-                                    <td><button onclick="deleteUser(${user.id})">Delete</button></td>
+                                    <td><button class="btn-delete" onclick="deleteUser(${user.id})">Delete</button></td>
                                 `;
             usersTableBody.appendChild(row);
           }
@@ -299,6 +344,7 @@
           var cellDeleteButton = document.createElement("td"); // Create a cell for delete button
           var deleteButton = document.createElement("button"); // Create delete button
           deleteButton.textContent = "Delete"; // Set delete button text
+          deleteButton.classList.add("btn-delete");
           deleteButton.onclick = function () {
             // Add onclick function to delete button
             deleteDepartment(department.id); // Call deleteDepartment function with department id
@@ -367,41 +413,36 @@
       });
   }
 
-
-
-
-
-
   // Function to fetch reimbursement requests for admin
   function seeRequestsAdmin() {
     fetch("/rr/get_reimbursement_requests_admin")
-        .then((response) => response.json())
-        .then((data) => {
-            const requestsTableContainer = document.getElementById(
-                "requestsTableContainer"
-            );
-            const requestsTableBody = document.getElementById("requestsTableBody");
+      .then((response) => response.json())
+      .then((data) => {
+        const requestsTableContainer = document.getElementById(
+          "requestsTableContainer"
+        );
+        const requestsTableBody = document.getElementById("requestsTableBody");
 
-            // Show the requests table container
-            requestsTableContainer.style.display = "block";
+        // Show the requests table container
+        requestsTableContainer.style.display = "block";
 
-            // Clear the existing rows
-            requestsTableBody.innerHTML = "";
+        // Clear the existing rows
+        requestsTableBody.innerHTML = "";
 
-            // Populate the table with reimbursement requests data
-            data.forEach((request) => {
-                const row = document.createElement("tr");
-                const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
-                const receiptLinks = receiptUrls
-                    .map(
-                        (url) =>
-                            `<a href="${url}" target="_blank">${url.substring(
-                                url.lastIndexOf("\\") + 1
-                            )}</a>`
-                    )
-                    .join("<br>"); // Creating link tags for each URL
+        // Populate the table with reimbursement requests data
+        data.forEach((request) => {
+          const row = document.createElement("tr");
+          const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
+          const receiptLinks = receiptUrls
+            .map(
+              (url) =>
+                `<a href="${url}" target="_blank">${url.substring(
+                  url.lastIndexOf("\\") + 1
+                )}</a>`
+            )
+            .join("<br>"); // Creating link tags for each URL
 
-                row.innerHTML = `
+          row.innerHTML = `
                     <td>${request.id}</td>
                     <td>${request.amount}</td>
                     <td>${request.date}</td>
@@ -409,40 +450,47 @@
                     <td>${request.category}</td>
                     <td>
                         <select class="statusSelect" name="status">
-                            <option value="Approved" ${request.status === 'Approved' ? 'selected' : ''}>Approved</option>
-                            <option value="Rejected" ${request.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
+                            <option value="Approved" ${
+                              request.status === "Approved" ? "selected" : ""
+                            }>Approved</option>
+                            <option value="Rejected" ${
+                              request.status === "Rejected" ? "selected" : ""
+                            }>Rejected</option>
                         </select>
                     </td>
                     <td>${request.employee_id}</td>
                     <td>${request.manager_id}</td>
                     <td>
-                        <input type="text" class="managerComment" name="manager_comment" value="${request.manager_comment || ''}">
+                        <input type="text" class="managerComment" name="manager_comment" value="${
+                          request.manager_comment || ""
+                        }">
                     </td>
                     <td>${receiptLinks}</td>
                     <td>
-                        <button type="button" class="updateButton" data-id="${request.id}">Update</button>
+                        <button type="button" class="updateButton" data-id="${
+                          request.id
+                        }">Update</button>
                     </td>
                 `;
-                requestsTableBody.appendChild(row);
-            });
-
-            // Add event listeners to update buttons
-            document.querySelectorAll(".updateButton").forEach(button => {
-                button.addEventListener("click", function () {
-                    const id = this.getAttribute("data-id");
-                    const row = this.closest("tr");
-                    const status = row.querySelector(".statusSelect").value;
-                    const manager_comment = row.querySelector(".managerComment").value;
-                    updateReimbursementRequest(id, status, manager_comment);
-                });
-            });
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-            alert("An error occurred while fetching reimbursement requests.");
+          requestsTableBody.appendChild(row);
         });
-}
 
+        // Add event listeners to update buttons
+        document.querySelectorAll(".updateButton").forEach((button) => {
+          button.addEventListener("click", function () {
+            const id = this.getAttribute("data-id");
+            const row = this.closest("tr");
+            const status = row.querySelector(".statusSelect").value;
+            const manager_comment = row.querySelector(".managerComment").value;
+            updateReimbursementRequest(id, status, manager_comment);
+          });
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred while fetching reimbursement requests.");
+      });
+  }
 
   function deleteUser(userId) {
     // const userId = document.getElementById('userId').value;
@@ -581,28 +629,27 @@
   };
   function updateReimbursementRequest(id, status, manager_comment) {
     fetch(`/rr/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ status, manager_comment })
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status, manager_comment }),
     })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            const row = document.querySelector(`tr[data-id='${id}']`);
-            if (data.is_active === false) {
-                row.remove();
-            } else {
-                row.querySelector(".statusSelect").value = status;
-                row.querySelector(".managerComment").value = manager_comment;
-            }
-        })
-        .catch(error => {
-            console.error("Error updating request:", error);
-        });
-}
-
+      .then((response) => response.json())
+      .then((data) => {
+        alert(data.message);
+        const row = document.querySelector(`tr[data-id='${id}']`);
+        if (data.is_active === false) {
+          row.remove();
+        } else {
+          row.querySelector(".statusSelect").value = status;
+          row.querySelector(".managerComment").value = manager_comment;
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating request:", error);
+      });
+  }
 </script>
 {% else %}
 <h1>Access Denied</h1>

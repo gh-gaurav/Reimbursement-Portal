@@ -16,7 +16,7 @@ class ReimbursementRequest(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     amount = db.Column(db.Float, nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    date = db.Column(db.Date, nullable=False)   
     description = db.Column(db.String(255), nullable=True)
     category = db.Column(db.Enum(Category), nullable=False)
     status = db.Column(db.Enum(Status), default=Status.Pending)
