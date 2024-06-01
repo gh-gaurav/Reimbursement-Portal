@@ -1,11 +1,8 @@
 import unittest
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text  # Importing text function
-from flask_testing import TestCase
+from flask_testing import TestCase # type: ignore
 from main import create_app, db
 from models import User, Role  # Assuming Role is defined in models.py
-from config import TestConfig
 
 class TestUserCreation(TestCase):
 

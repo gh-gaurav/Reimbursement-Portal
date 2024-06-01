@@ -1,6 +1,5 @@
-# tests/test_department_routes.py
 import unittest
-from flask_testing import TestCase
+from flask_testing import TestCase # type: ignore
 from main import create_app, db
 from config import TestConfig
 from models.department import Department

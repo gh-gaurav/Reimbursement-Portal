@@ -1,118 +1,120 @@
-2024-06-01 23:52:12,232 - sqlalchemy.engine.Engine - INFO - 
+2024-06-02 00:02:09,794 - sqlalchemy.engine.Engine - INFO - SELECT reimbursement_requests.id AS reimbursement_requests_id, reimbursement_requests.amount AS reimbursement_requests_amount, reimbursement_requests.date AS reimbursement_requests_date, reimbursement_requests.description AS reimbursement_requests_description, reimbursement_requests.category AS reimbursement_requests_category, reimbursement_requests.status AS reimbursement_requests_status, reimbursement_requests.employee_id AS reimbursement_requests_employee_id, reimbursement_requests.manager_id AS reimbursement_requests_manager_id, reimbursement_requests.manager_comment AS reimbursement_requests_manager_comment, reimbursement_requests.receipt_path AS reimbursement_requests_receipt_path, reimbursement_requests.is_active AS reimbursement_requests_is_active 
+FROM reimbursement_requests 
+WHERE reimbursement_requests.id = ?
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - [generated in 0.03870s] (1,)
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - [generated in 0.03870s] (1,)
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - [generated in 0.03870s] (1,)
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2024-06-02 00:02:09,841 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("departments")
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("departments")
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("departments")
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reimbursement_requests")
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reimbursement_requests")
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reimbursement_requests")
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - 
 DROP TABLE reimbursement_requests
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - [no key 0.02318s] ()
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - [no key 0.02318s] ()
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - [no key 0.02318s] ()
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - 
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - 
+DROP TABLE reimbursement_requests
+2024-06-02 00:02:09,857 - sqlalchemy.engine.Engine - INFO - 
+DROP TABLE reimbursement_requests
+2024-06-02 00:02:09,872 - sqlalchemy.engine.Engine - INFO - [no key 0.00203s] ()
+2024-06-02 00:02:09,872 - sqlalchemy.engine.Engine - INFO - [no key 0.00203s] ()
+2024-06-02 00:02:09,872 - sqlalchemy.engine.Engine - INFO - [no key 0.00203s] ()
+2024-06-02 00:02:09,872 - sqlalchemy.engine.Engine - INFO - 
 DROP TABLE users
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - 
+2024-06-02 00:02:09,872 - sqlalchemy.engine.Engine - INFO - 
 DROP TABLE users
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - 
+2024-06-02 00:02:09,872 - sqlalchemy.engine.Engine - INFO - 
 DROP TABLE users
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - [no key 0.00162s] ()
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - [no key 0.00162s] ()
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - [no key 0.00162s] ()
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - 
+2024-06-02 00:02:09,872 - sqlalchemy.engine.Engine - INFO - [no key 0.00141s] ()
+2024-06-02 00:02:09,872 - sqlalchemy.engine.Engine - INFO - [no key 0.00141s] ()
+2024-06-02 00:02:09,872 - sqlalchemy.engine.Engine - INFO - [no key 0.00141s] ()
+2024-06-02 00:02:09,879 - sqlalchemy.engine.Engine - INFO - 
 DROP TABLE departments
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - 
+2024-06-02 00:02:09,879 - sqlalchemy.engine.Engine - INFO - 
 DROP TABLE departments
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - 
+2024-06-02 00:02:09,879 - sqlalchemy.engine.Engine - INFO - 
 DROP TABLE departments
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - [no key 0.00136s] ()
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - [no key 0.00136s] ()
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - [no key 0.00136s] ()
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-01 23:52:12,262 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-01 23:52:13,354 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
-2024-06-01 23:52:13,354 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
-2024-06-01 23:52:13,354 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
-2024-06-01 23:52:13,354 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
-2024-06-01 23:52:13,354 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,354 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,354 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,354 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,363 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
-2024-06-01 23:52:13,363 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
-2024-06-01 23:52:13,363 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
-2024-06-01 23:52:13,363 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
-2024-06-01 23:52:13,363 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,363 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,363 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,363 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,372 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,381 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-01 23:52:13,381 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-01 23:52:13,381 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-01 23:52:13,381 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-01 23:52:13,381 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,381 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,381 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,381 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,454 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
-2024-06-01 23:52:13,454 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
-2024-06-01 23:52:13,454 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
-2024-06-01 23:52:13,454 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
-2024-06-01 23:52:13,454 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,454 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,454 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,454 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,463 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
-2024-06-01 23:52:13,463 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
-2024-06-01 23:52:13,463 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
-2024-06-01 23:52:13,463 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
-2024-06-01 23:52:13,463 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,463 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,463 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,463 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-01 23:52:13,472 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-01 23:52:13,472 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-01 23:52:13,472 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-01 23:52:13,472 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-01 23:52:13,481 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,481 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,481 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,481 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,481 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.`role` AS users_role, users.password_hash AS users_password_hash, users.department_id AS users_department_id, users.manager_id AS users_manager_id, users.first_name AS users_first_name, users.last_name AS users_last_name, users.is_active AS users_is_active 
-FROM users 
-WHERE users.username = %(username_1)s 
- LIMIT %(param_1)s
-2024-06-01 23:52:13,481 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.`role` AS users_role, users.password_hash AS users_password_hash, users.department_id AS users_department_id, users.manager_id AS users_manager_id, users.first_name AS users_first_name, users.last_name AS users_last_name, users.is_active AS users_is_active 
-FROM users 
-WHERE users.username = %(username_1)s 
- LIMIT %(param_1)s
-2024-06-01 23:52:13,481 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.`role` AS users_role, users.password_hash AS users_password_hash, users.department_id AS users_department_id, users.manager_id AS users_manager_id, users.first_name AS users_first_name, users.last_name AS users_last_name, users.is_active AS users_is_active 
-FROM users 
-WHERE users.username = %(username_1)s 
- LIMIT %(param_1)s
-2024-06-01 23:52:13,481 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.`role` AS users_role, users.password_hash AS users_password_hash, users.department_id AS users_department_id, users.manager_id AS users_manager_id, users.first_name AS users_first_name, users.last_name AS users_last_name, users.is_active AS users_is_active 
-FROM users 
-WHERE users.username = %(username_1)s 
- LIMIT %(param_1)s
-2024-06-01 23:52:13,490 - sqlalchemy.engine.Engine - INFO - [generated in 0.00225s] {'username_1': 'ravi', 'param_1': 1}
-2024-06-01 23:52:13,490 - sqlalchemy.engine.Engine - INFO - [generated in 0.00225s] {'username_1': 'ravi', 'param_1': 1}
-2024-06-01 23:52:13,490 - sqlalchemy.engine.Engine - INFO - [generated in 0.00225s] {'username_1': 'ravi', 'param_1': 1}
-2024-06-01 23:52:13,490 - sqlalchemy.engine.Engine - INFO - [generated in 0.00225s] {'username_1': 'ravi', 'param_1': 1}
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - ROLLBACK
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - ROLLBACK
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - ROLLBACK
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - ROLLBACK
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-01 23:52:13,499 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-06-02 00:02:09,881 - sqlalchemy.engine.Engine - INFO - [no key 0.00150s] ()
+2024-06-02 00:02:09,881 - sqlalchemy.engine.Engine - INFO - [no key 0.00150s] ()
+2024-06-02 00:02:09,881 - sqlalchemy.engine.Engine - INFO - [no key 0.00150s] ()
+2024-06-02 00:02:09,881 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-06-02 00:02:09,881 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-06-02 00:02:09,881 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-06-02 00:02:09,999 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-06-02 00:02:09,999 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-06-02 00:02:09,999 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-06-02 00:02:09,999 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-06-02 00:02:09,999 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:09,999 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:09,999 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:09,999 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-02 00:02:10,015 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-02 00:02:10,030 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-06-02 00:02:10,030 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-06-02 00:02:10,030 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-06-02 00:02:10,030 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-06-02 00:02:10,030 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,030 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,030 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,030 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-06-02 00:02:10,046 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-06-02 00:02:10,062 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-02 00:02:10,062 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-02 00:02:10,062 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-02 00:02:10,062 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)

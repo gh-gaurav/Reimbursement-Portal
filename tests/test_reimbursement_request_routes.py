@@ -1,11 +1,9 @@
 import os
 import unittest
 import tempfile
-from datetime import datetime
 from main import create_app, db
-from models import ReimbursementRequest, User, Role, Category
+from models import User, Role
 from config import TestConfig
-from flask import Flask
 
 class TestReimbursementRequestRoutes(unittest.TestCase):
     def setUp(self):
