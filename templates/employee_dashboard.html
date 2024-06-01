@@ -81,8 +81,8 @@
   </form>
 
   <button
-    onclick="fetchEmployeeRequests('{{user.id}}')"
-    class="btn btn-secondary mt-4"
+  onclick="handleEmployeeButtonClick('{{user.id}}')"
+  class="btn btn-secondary mt-4"
   >
     Show my all requests
   </button>
@@ -133,8 +133,35 @@
           console.error("Error during logout:", error);
         });
     });
+  
 
-  function fetchEmployeeRequests(employee_id) {
+    function toggleContainerVisibility(containerId) {
+    const container = document.getElementById(containerId);
+    if (container.style.display === "none") {
+      container.style.display = "block";
+    } else {
+      container.style.display = "none";
+    }
+  }
+
+//   hide and sshow the table
+  function handleEmployeeButtonClick(employee_id) {
+    const event = window.event || arguments.callee.caller.arguments[0];
+    event.preventDefault(); // Prevent default action
+    const container = document.getElementById("employeeRequestsContainer");
+    if (container.style.display === "none") {
+      container.style.display = "block";
+      fetchEmployeeRequests(employee_id);
+    } else {
+      container.style.display = "none";
+    }
+  }
+
+
+
+
+  function fetchEmployeeRequests(employee_id, event) {
+    toggleContainerVisibility("employeeRequestsContainer");
     fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
       .then((response) => response.json())
       .then((data) => {

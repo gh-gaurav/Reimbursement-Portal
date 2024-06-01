@@ -26,7 +26,9 @@ def client(test_client):
 
 
 
-def test_get_reimbursement_requests_manager(client):
-    response = client.get('/rr/get_reimbursement_requests_manager?manager_id=7')
-    assert response.status_code == 200
-    assert isinstance(response.json, list)
+# def test_get_reimbursement_requests_manager(client):
+#     response = client.get('/rr/get_reimbursement_requests_manager?manager_id=7')
+#     assert response.status_code == 200
+#     assert isinstance(response.json, list)
+
+

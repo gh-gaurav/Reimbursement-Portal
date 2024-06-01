@@ -137,6 +137,27 @@ def update_user(id):
 
 
 
+@user_blueprint.get('/get_employees_for_manager')
+def get_employees_for_manager():
+    try:
+        manager_id = request.args.get('manager_id')
+        if not manager_id:
+            return jsonify({'success': False, 'error': 'Manager ID not provided'}), 400
+        
+        employees = User.query.filter_by(manager_id=manager_id,is_active=True).all()
+        employees_list = [employee.to_dict() for employee in employees]
+        
+        return jsonify({'success': True, 'data': employees_list}), 200
+    except Exception as e:
+        print(e, 123)
+        return jsonify({'success': False, 'error': str(e)}), 400
+
+
+
+
+
+
+
 @user_blueprint.get('/managers')
 def get_managers():
     try:

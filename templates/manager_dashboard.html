@@ -82,7 +82,32 @@
   </form>
 
   <button
-    onclick="fetchEmployeeRequests('{{user.id}}')"
+    onclick="handleEmployeeButtonClick('{{user.id}}')"
+    class="btn btn-secondary mt-4"
+  >
+    See My Employees
+  </button>
+
+  <div id="employeesContainer" style="display: none" class="mt-4">
+    <h2>My Employees</h2>
+    <table id="employeesTable" class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Department ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <button
+    onclick="handleEmployeeButtonClick1('{{user.id}}')"
     class="btn btn-secondary mt-4"
   >
     Show my all requests
@@ -109,7 +134,7 @@
 
   <button
     onclick="fetchReimbursementRequests('{{user.id}}')"
-    class="btn btn-info mt-4"
+    class="btn btn-secondary mt-4"
   >
     Show Requests for Updation
   </button>
@@ -138,6 +163,74 @@
           console.error("Error during logout:", error);
         });
     });
+
+  function toggleContainerVisibility(containerId) {
+    const container = document.getElementById(containerId);
+    if (container.style.display === "none") {
+      container.style.display = "block";
+    } else {
+      container.style.display = "none";
+    }
+  }
+
+//   hide and sshow the table
+  function handleEmployeeButtonClick(manager_id) {
+    const event = window.event || arguments.callee.caller.arguments[0];
+    event.preventDefault(); // Prevent default action
+    const container = document.getElementById("employeesContainer");
+    if (container.style.display === "none") {
+      container.style.display = "block";
+      fetchEmployeesForManager(manager_id);
+    } else {
+      container.style.display = "none";
+    }
+  }
+
+  function handleEmployeeButtonClick1(employee_id) {
+    const event = window.event || arguments.callee.caller.arguments[0];
+    event.preventDefault(); // Prevent default action
+    const container = document.getElementById("employeeRequestsContainer");
+    if (container.style.display === "none") {
+      container.style.display = "block";
+      fetchEmployeeRequests(employee_id);
+    } else {
+      container.style.display = "none";
+    }
+  }
+
+
+
+  function fetchEmployeesForManager(manager_id, event) {
+    toggleContainerVisibility("employeesContainer");
+    fetch(`/user/get_employees_for_manager?manager_id=${manager_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          const container = document.getElementById("employeesContainer");
+          const tbody = document
+            .getElementById("employeesTable")
+            .getElementsByTagName("tbody")[0];
+          tbody.innerHTML = ""; // Clear existing rows
+          container.style.display = "block"; // Show the table
+          data.data.forEach((employee) => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerText = employee.id;
+            row.insertCell(1).innerText = employee.username;
+            row.insertCell(2).innerText = employee.email;
+            row.insertCell(3).innerText = employee.role;
+            row.insertCell(4).innerText = employee.department_id;
+            row.insertCell(5).innerText = employee.first_name;
+            row.insertCell(6).innerText = employee.last_name;
+          });
+        } else {
+          console.error("Error fetching employees:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching employees:", error);
+      });
+  }
+
   function fetchReimbursementRequests(manager_id, status) {
     let url = `/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`;
     if (status) {
@@ -334,7 +427,8 @@
         });
     });
 
-  function fetchEmployeeRequests(employee_id) {
+  function fetchEmployeeRequests(employee_id, event) {
+    toggleContainerVisibility("employeeRequestsContainer");
     fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
       .then((response) => response.json())
       .then((data) => {

@@ -1,10 +1,6 @@
-
 from flask import Flask, jsonify, render_template, session, request
 from db import db  # Import the SQLAlchemy object from db.py
 from flask_migrate import Migrate
-from models.user import User, Role
-from models.department import Department
-from models.reimbursement_request import ReimbursementRequest
 from routes.user_routes import user_blueprint
 from routes.department_routes import department_blueprint
 from routes.reimbursement_request_routes import rr_blueprint
