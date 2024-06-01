@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, session, url_for, redirect
 from db import db
-from models import User, Role, Department, ReimbursementRequest, Category, Status
-import json
+from models import User, Role, Department
+import logging
 
 user_blueprint = Blueprint('user', __name__)
 
@@ -50,7 +50,7 @@ def create_user():
             'data' : user.to_dict() 
         }), 201
     except Exception as e:
-        print(e, 123)
+        logging.error(f"Error creating user: {e}")
         return jsonify({
             'success': False,
             'error': e
