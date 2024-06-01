@@ -49,7 +49,7 @@
     onclick="seeDepartments()"
     class="btn btn-secondary mb-4"
   >
-    See Department list
+    See Department List
   </button>
   <div id="departmentsTableContainer" style="display: none">
     <!-- Table of Departments -->
@@ -70,7 +70,7 @@
 
   <!-- Button to see all users -->
   <button type="button" onclick="seeUsers()" class="btn btn-secondary mb-4">
-    See User list
+    See User List
   </button>
   <div id="usersTableContainer" style="display: none">
     <!-- Table to display users -->
@@ -156,6 +156,7 @@
   </div>
 
   <form id="assignForm" class="mt-4">
+    <h3>Assign Manager</h3>
     <div class="mb-3">
       <label for="employeeSelect" class="form-label">Select Employee:</label
       ><br />
@@ -200,6 +201,11 @@
 </div>
 <!-- Scripts -->
 <script>
+  function toggleVisibility(elementId) {
+    var element = document.getElementById(elementId);
+    element.style.display = element.style.display === "none" ? "block" : "none";
+  }
+
   listUnassignedEmp();
   // Function to fetch unassigned employees and populate the table
   function listUnassignedEmp() {
@@ -260,38 +266,44 @@
         alert("An error occurred while adding the department.");
       });
   }
-  // Function to see all users
   function seeUsers() {
-    fetch("/user/all?is_active=true")
-      .then((response) => response.json())
-      .then((data) => {
-        const usersTableContainer = document.getElementById(
-          "usersTableContainer"
-        );
-        const usersTableBody = document.getElementById("usersTableBody");
-        usersTableContainer.style.display = "block";
-        usersTableBody.innerHTML = "";
-        data.managers.concat(data.employees).forEach((user) => {
-          if (user.is_active) {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                                    <td>${user.id}</td>
-                                    <td>${user.first_name}</td>
-                                    <td>${user.last_name}</td>
-                                    <td>${user.username}</td>
-                                    <td>${user.email}</td>
-                                    <td>${user.role}</td>
-                                    <td>${user.department_id}</td>
-                                    <td>${user.manager_id}</td>
-                                    <td><button class="btn-delete" onclick="deleteUser(${user.id})">Delete</button></td>
-                                `;
-            usersTableBody.appendChild(row);
-          }
+    const usersTableContainer = document.getElementById("usersTableContainer");
+    const usersTableBody = document.getElementById("usersTableBody");
+
+    // Toggle the visibility of the users table container
+    toggleVisibility("usersTableContainer");
+
+    // Fetch and display the user data only if the container is visible
+    if (usersTableContainer.style.display === "block") {
+      fetch("/user/all?is_active=true")
+        .then((response) => response.json())
+        .then((data) => {
+          // Clear the existing rows
+          usersTableBody.innerHTML = "";
+
+          // Populate the table with user data
+          data.managers.concat(data.employees).forEach((user) => {
+            if (user.is_active) {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+              <td>${user.id}</td>
+              <td>${user.first_name}</td>
+              <td>${user.last_name}</td>
+              <td>${user.username}</td>
+              <td>${user.email}</td>
+              <td>${user.role}</td>
+              <td>${user.department_id}</td>
+              <td>${user.manager_id}</td>
+              <td><button class="btn-delete" onclick="deleteUser(${user.id})">Delete</button></td>
+            `;
+              usersTableBody.appendChild(row);
+            }
+          });
+        })
+        .catch((error) => {
+          console.error("Error:", error);
         });
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }
   }
   // Function to delete a department
   function deleteDepartment(departmentId) {
@@ -330,33 +342,34 @@
           "departmentsTableBody"
         );
 
-        // Show the departments table container
-        departmentsTableContainer.style.display = "block";
+        // Toggle visibility of the container
+        toggleVisibility("departmentsTableContainer");
 
-        // Clear the existing rows
-        departmentsTableBody.innerHTML = "";
+        // Clear the existing rows if the container is visible
+        if (departmentsTableContainer.style.display === "block") {
+          departmentsTableBody.innerHTML = "";
 
-        // Populate the table with department data
-        data.forEach((department) => {
-          var row = document.createElement("tr");
-          var cellId = document.createElement("td");
-          var cellName = document.createElement("td");
-          var cellDeleteButton = document.createElement("td"); // Create a cell for delete button
-          var deleteButton = document.createElement("button"); // Create delete button
-          deleteButton.textContent = "Delete"; // Set delete button text
-          deleteButton.classList.add("btn-delete");
-          deleteButton.onclick = function () {
-            // Add onclick function to delete button
-            deleteDepartment(department.id); // Call deleteDepartment function with department id
-          };
-          cellId.textContent = department.id;
-          cellName.textContent = department.name;
-          cellDeleteButton.appendChild(deleteButton); // Append delete button to cell
-          row.appendChild(cellId);
-          row.appendChild(cellName);
-          row.appendChild(cellDeleteButton); // Append delete button cell to row
-          departmentsTableBody.appendChild(row);
-        });
+          // Populate the table with department data
+          data.forEach((department) => {
+            var row = document.createElement("tr");
+            var cellId = document.createElement("td");
+            var cellName = document.createElement("td");
+            var cellDeleteButton = document.createElement("td");
+            var deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.classList.add("btn-delete");
+            deleteButton.onclick = function () {
+              deleteDepartment(department.id);
+            };
+            cellId.textContent = department.id;
+            cellName.textContent = department.name;
+            cellDeleteButton.appendChild(deleteButton);
+            row.appendChild(cellId);
+            row.appendChild(cellName);
+            row.appendChild(cellDeleteButton);
+            departmentsTableBody.appendChild(row);
+          });
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -364,70 +377,75 @@
       });
   }
 
+
+
   function seeRequests() {
-    fetch("/rr/get_reimbursement_requests")
-      .then((response) => response.json())
-      .then((data) => {
-        const requestsTableContainer = document.getElementById(
-          "requestsTableContainer"
-        );
-        const requestsTableBody = document.getElementById("requestsTableBody");
+    const requestsTableContainer = document.getElementById(
+      "requestsTableContainer"
+    );
+    const requestsTableBody = document.getElementById("requestsTableBody");
 
-        // Show the requests table container
-        requestsTableContainer.style.display = "block";
+    // Toggle the visibility of the requests table container
+    toggleVisibility("requestsTableContainer");
 
-        // Clear the existing rows
-        requestsTableBody.innerHTML = "";
+    // Fetch and display the requests data only if the container is visible
+    if (requestsTableContainer.style.display === "block") {
+      fetch("/rr/get_reimbursement_requests")
+        .then((response) => response.json())
+        .then((data) => {
+          // Clear the existing rows
+          requestsTableBody.innerHTML = "";
 
-        // Populate the table with reimbursement requests data
-        data.forEach((request) => {
-          const row = document.createElement("tr");
-          const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
-          const receiptLinks = receiptUrls
-            .map(
-              (url) =>
-                `<a href="${url}" target="_blank">${url.substring(
-                  url.lastIndexOf("\\") + 1
-                )}</a>`
-            )
-            .join("<br>"); // Creating link tags for each URL
+          // Populate the table with reimbursement requests data
+          data.forEach((request) => {
+            const row = document.createElement("tr");
+            const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
+            const receiptLinks = receiptUrls
+              .map(
+                (url) =>
+                  `<a href="${url}" target="_blank">${url.substring(
+                    url.lastIndexOf("\\") + 1
+                  )}</a>`
+              )
+              .join("<br>"); // Creating link tags for each URL
 
-          row.innerHTML = `
-                    <td>${request.id}</td>
-                    <td>${request.amount}</td>
-                    <td>${request.date}</td>
-                    <td>${request.description}</td>
-                    <td>${request.category}</td>
-                    <td>${request.status}</td>
-                    <td>${request.employee_id}</td>
-                    <td>${request.manager_id}</td>
-                    <td>${request.manager_comment}</td>
-                    <td>${receiptLinks}</td>
-                `;
-          requestsTableBody.appendChild(row);
+            row.innerHTML = `
+            <td>${request.id}</td>
+            <td>${request.amount}</td>
+            <td>${request.date}</td>
+            <td>${request.description}</td>
+            <td>${request.category}</td>
+            <td>${request.status}</td>
+            <td>${request.employee_id}</td>
+            <td>${request.manager_id}</td>
+            <td>${request.manager_comment}</td>
+            <td>${receiptLinks}</td>
+          `;
+            requestsTableBody.appendChild(row);
+          });
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("An error occurred while fetching reimbursement requests.");
         });
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("An error occurred while fetching reimbursement requests.");
-      });
+    }
   }
 
   // Function to fetch reimbursement requests for admin
   function seeRequestsAdmin() {
+  const requestsTableContainer = document.getElementById("requestsAdminTableContainer");
+  const requestsTableBody = document.getElementById("requestsAdminTableContainer");
+
+  // Toggle the visibility of the requests table container
+  toggleVisibility("requestsAdminTableContainer");
+
+  // Fetch and display the requests data only if the container is visible
+  if (requestsAdminTableContainer.style.display === 'block') {
     fetch("/rr/get_reimbursement_requests_admin")
       .then((response) => response.json())
       .then((data) => {
-        const requestsTableContainer = document.getElementById(
-          "requestsTableContainer"
-        );
-        const requestsTableBody = document.getElementById("requestsTableBody");
-
-        // Show the requests table container
-        requestsTableContainer.style.display = "block";
-
         // Clear the existing rows
-        requestsTableBody.innerHTML = "";
+        requestsAdminTableBody.innerHTML = "";
 
         // Populate the table with reimbursement requests data
         data.forEach((request) => {
@@ -443,36 +461,28 @@
             .join("<br>"); // Creating link tags for each URL
 
           row.innerHTML = `
-                    <td>${request.id}</td>
-                    <td>${request.amount}</td>
-                    <td>${request.date}</td>
-                    <td>${request.description}</td>
-                    <td>${request.category}</td>
-                    <td>
-                        <select class="statusSelect" name="status">
-                            <option value="Approved" ${
-                              request.status === "Approved" ? "selected" : ""
-                            }>Approved</option>
-                            <option value="Rejected" ${
-                              request.status === "Rejected" ? "selected" : ""
-                            }>Rejected</option>
-                        </select>
-                    </td>
-                    <td>${request.employee_id}</td>
-                    <td>${request.manager_id}</td>
-                    <td>
-                        <input type="text" class="managerComment" name="manager_comment" value="${
-                          request.manager_comment || ""
-                        }">
-                    </td>
-                    <td>${receiptLinks}</td>
-                    <td>
-                        <button type="button" class="updateButton" data-id="${
-                          request.id
-                        }">Update</button>
-                    </td>
-                `;
-          requestsTableBody.appendChild(row);
+            <td>${request.id}</td>
+            <td>${request.amount}</td>
+            <td>${request.date}</td>
+            <td>${request.description}</td>
+            <td>${request.category}</td>
+            <td>
+              <select class="statusSelect" name="status">
+                <option value="Approved" ${request.status === "Approved" ? "selected" : ""}>Approved</option>
+                <option value="Rejected" ${request.status === "Rejected" ? "selected" : ""}>Rejected</option>
+              </select>
+            </td>
+            <td>${request.employee_id}</td>
+            <td>${request.manager_id}</td>
+            <td>
+              <input type="text" class="managerComment" name="manager_comment" value="${request.manager_comment || ""}">
+            </td>
+            <td>${receiptLinks}</td>
+            <td>
+              <button type="button" class="updateButton" data-id="${request.id}">Update</button>
+            </td>
+          `;
+          requestsAdminTableBody.appendChild(row);
         });
 
         // Add event listeners to update buttons
@@ -491,6 +501,7 @@
         alert("An error occurred while fetching reimbursement requests.");
       });
   }
+}
 
   function deleteUser(userId) {
     // const userId = document.getElementById('userId').value;
