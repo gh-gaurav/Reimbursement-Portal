@@ -83,7 +83,6 @@ def create_reimbursement_request():
 def get_reimbursement_requests_manager():
     manager_id = request.args['manager_id']
     # print(224, manager_id)
-    # requests = ReimbursementRequest.query.all()
     requests = ReimbursementRequest.query.filter_by(manager_id=manager_id,is_active=True).all()
     # manager_id = manager_id,
     result = []
@@ -96,6 +95,7 @@ def get_reimbursement_requests_manager():
             'category': req.category.value,
             'status': req.status.value,
             'employee_id': req.employee_id,
+            'manager_id': req.manager_id,
             'manager_comment': req.manager_comment,
             'receipt_path': req.receipt_path
         })
