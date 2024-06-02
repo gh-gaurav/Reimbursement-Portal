@@ -1,7 +1,9 @@
-{% extends 'base.html' %} {% block content %} {% if user.role == 'Admin' %}
+{% extends 'base.html' %}
+{% block content %}
+{% if user.role == 'Admin' %}
 
 <div class="container mt-4">
-  <h1 class="text-center">
+  <h1 class="text-center" style="font-family: 'Times New Roman', Times, serif;">
     Welcome to the Admin Dashboard, {{ user.username }}
   </h1>
   <div class="card mt-3 mb-4">
@@ -22,32 +24,27 @@
     method="post"
     style="display: none"
   ></form>
-  <!-- Department Management Section -->
-  <h2 class="mt-4">Manage Departments</h2>
 
   <!-- Form to Add Department -->
-  <form id="addDepartmentForm" class="mb-4">
-    <div class="mb-3">
-      <label for="departmentName" class="form-label">Department Name:</label
-      ><br />
-      <input
-        type="text"
-        id="departmentName"
-        name="departmentName"
-        class="form-control"
-        required
-      />
-    </div>
-    <button type="button" onclick="addDepartment()" class="btn btn-primary">
-      Add Department
-    </button>
-  </form>
+  <button id="toggleDepartmentFormBtn" class="btn btn-primary" style="margin-bottom: 20px; background-color: #010b14; font-family: 'Times New Roman', Times, serif;">Add a New Department</button>
+<form id="addDepartmentForm" class="mb-4" style="display: none;">
+  <h2>Add a Department</h2><br>
+  <div class="mb-3">
+    <label for="departmentName" class="form-label">Department Name:</label><br />
+    <input type="text" id="departmentName" name="departmentName" class="form-control" required />
+  </div>
+  <button type="button" onclick="addDepartment()" class="btn btn-primary" style="background-color: #010b14;">
+    Add Department
+  </button>
+</form>
+
 
   <!-- Button to see all departments -->
   <button
     type="button"
     onclick="seeDepartments()"
     class="btn btn-secondary mb-4"
+    style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;"
   >
     See Department List
   </button>
@@ -69,7 +66,7 @@
   </div>
 
   <!-- Button to see all users -->
-  <button type="button" onclick="seeUsers()" class="btn btn-secondary mb-4">
+  <button type="button" onclick="seeUsers()" class="btn btn-secondary mb-4"style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;">
     See User List
   </button>
   <div id="usersTableContainer" style="display: none">
@@ -96,7 +93,7 @@
   </div>
 
   <!-- Button to see reimbursement requests list -->
-  <button type="button" onclick="seeRequests()" class="btn btn-secondary mb-4">
+  <button type="button" onclick="seeRequests()" class="btn btn-secondary mb-4" style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;">
     See Requests List
   </button>
   <div id="requestsTableContainer" style="display: none">
@@ -128,6 +125,7 @@
     type="button"
     onclick="seeRequestsAdmin()"
     class="btn btn-secondary mb-4"
+    style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;"
   >
     Show Requests for Updation
   </button>
@@ -155,36 +153,27 @@
     </table>
   </div>
 
-  <form id="assignForm" class="mt-4">
-    <h3>Assign Manager</h3>
-    <div class="mb-3">
-      <label for="employeeSelect" class="form-label">Select Employee:</label
-      ><br />
-      <select
-        id="employeeSelect"
-        name="employeeSelect"
-        class="form-select"
-        required
-      >
-        <!-- Employees options will be populated dynamically -->
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="managerSelect" class="form-label">Select Manager:</label
-      ><br />
-      <select
-        id="managerSelect"
-        name="managerSelect"
-        class="form-select"
-        required
-      >
-        <!-- Managers options will be populated dynamically -->
-      </select>
-    </div>
-    <button type="button" onclick="assignManager()" class="btn btn-primary">
-      Assign Manager
-    </button>
-  </form>
+  <button id="toggleFormBtn" class="btn btn-primary"style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;">Assign Manager</button>
+
+<form id="assignForm" class="mt-4" style="display: none;">
+  <h3>Assign Manager</h3><br>
+  <div class="mb-3">
+    <label for="employeeSelect" class="form-label">Select Employee:</label><br />
+    <select id="employeeSelect" name="employeeSelect" class="form-select" required>
+      <!-- Employees options will be populated dynamically -->
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="managerSelect" class="form-label">Select Manager:</label><br />
+    <select id="managerSelect" name="managerSelect" class="form-select" required>
+      <!-- Managers options will be populated dynamically -->
+    </select>
+  </div>
+  <button type="button" onclick="assignManager()" class="btn btn-primary" style="background-color: #010b14;">
+    Assign Manager
+  </button>
+</form>
+
 
   <h2 class="mt-4">Unassigned Employees</h2>
   <table class="table table-bordered">
@@ -199,12 +188,26 @@
     </tbody>
   </table>
 </div>
+
+
 <!-- Scripts -->
 <script>
   function toggleVisibility(elementId) {
     var element = document.getElementById(elementId);
     element.style.display = element.style.display === "none" ? "block" : "none";
   }
+
+  function toggleForm() {
+  const form = document.getElementById("assignForm");
+  if (form.style.display === "none") {
+    form.style.display = "block";
+  } else {
+    form.style.display = "none";
+  }
+}
+
+
+
 
   listUnassignedEmp();
   // Function to fetch unassigned employees and populate the table
@@ -235,38 +238,66 @@
         console.error("Fetch Error:", error);
       });
   }
+
+
+  function toggleDepartmentForm() {
+  const form = document.getElementById("addDepartmentForm");
+  if (form.style.display === "none") {
+    form.style.display = "block";
+  } else {
+    form.style.display = "none";
+  }
+}
+
+
+
+
+
   // Function to add a department
   function addDepartment() {
-    var form = document.getElementById("addDepartmentForm");
-    var formData = new FormData(form);
-    var json = {};
+      var form = document.getElementById("addDepartmentForm");
+      var formData = new FormData(form);
+      var json = {};
 
-    formData.forEach(function (value, key) {
-      json[key] = value;
+      formData.forEach(function (value, key) {
+        json[key] = value;
+      });
+
+      fetch("/department/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.message === "Department created successfully") {
+            alert("Department added successfully!");
+            seeDepartments();
+            // Hide the form after successful addition
+            form.style.display = "none";
+          } else {
+            alert("Error: " + data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("An error occurred while adding the department.");
+        });
+    }
+
+    // Event listener for the button click to toggle the department form visibility
+    document.getElementById("toggleDepartmentFormBtn").addEventListener("click", function () {
+      toggleDepartmentForm();
     });
 
-    fetch("/department/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(json),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.message === "Department created successfully") {
-          alert("Department added successfully!");
-          seeDepartments();
-        } else {
-          alert("Error: " + data.message);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("An error occurred while adding the department.");
-      });
-  }
-  function seeUsers() {
+
+
+
+
+
+    function seeUsers() {
     const usersTableContainer = document.getElementById("usersTableContainer");
     const usersTableBody = document.getElementById("usersTableBody");
 
@@ -275,36 +306,39 @@
 
     // Fetch and display the user data only if the container is visible
     if (usersTableContainer.style.display === "block") {
-      fetch("/user/all?is_active=true")
-        .then((response) => response.json())
-        .then((data) => {
-          // Clear the existing rows
-          usersTableBody.innerHTML = "";
+        fetch("/user/all?is_active=true")
+            .then((response) => response.json())
+            .then((data) => {
+                // Clear the existing rows
+                usersTableBody.innerHTML = "";
 
-          // Populate the table with user data
-          data.managers.concat(data.employees).forEach((user) => {
-            if (user.is_active) {
-              const row = document.createElement("tr");
-              row.innerHTML = `
-              <td>${user.id}</td>
-              <td>${user.first_name}</td>
-              <td>${user.last_name}</td>
-              <td>${user.username}</td>
-              <td>${user.email}</td>
-              <td>${user.role}</td>
-              <td>${user.department_id}</td>
-              <td>${user.manager_id}</td>
-              <td><button class="btn-delete" onclick="deleteUser(${user.id})">Delete</button></td>
-            `;
-              usersTableBody.appendChild(row);
-            }
-          });
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+                // Populate the table with user data
+                data.managers.concat(data.employees).forEach((user) => {
+                    if (user.is_active) {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${user.id}</td>
+                            <td>${user.first_name}</td>
+                            <td>${user.last_name}</td>
+                            <td>${user.username}</td>
+                            <td>${user.email}</td>
+                            <td>${user.role}</td>
+                            <td>${user.department_id}</td>
+                            <td>${user.manager_id}</td>
+                            <td>
+                                <button class="btn-delete" style="background-color: #dc3545; color: white;" onclick="deleteUser(${user.id})">Delete</button>
+                            </td>
+                        `;
+                        usersTableBody.appendChild(row);
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     }
-  }
+}
+
   // Function to delete a department
   function deleteDepartment(departmentId) {
     // var departmentId = document.getElementById("departmentId").value;
@@ -331,58 +365,55 @@
   }
 
   // Function to list departments
-  function seeDepartments() {
+function seeDepartments() {
     fetch("/department")
-      .then((response) => response.json())
-      .then((data) => {
-        const departmentsTableContainer = document.getElementById(
-          "departmentsTableContainer"
-        );
-        const departmentsTableBody = document.getElementById(
-          "departmentsTableBody"
-        );
+        .then((response) => response.json())
+        .then((data) => {
+            const departmentsTableContainer = document.getElementById("departmentsTableContainer");
+            const departmentsTableBody = document.getElementById("departmentsTableBody");
 
-        // Toggle visibility of the container
-        toggleVisibility("departmentsTableContainer");
+            // Toggle visibility of the container
+            toggleVisibility("departmentsTableContainer");
 
-        // Clear the existing rows if the container is visible
-        if (departmentsTableContainer.style.display === "block") {
-          departmentsTableBody.innerHTML = "";
+            // Clear the existing rows if the container is visible
+            if (departmentsTableContainer.style.display === "block") {
+                departmentsTableBody.innerHTML = "";
 
-          // Populate the table with department data
-          data.forEach((department) => {
-            var row = document.createElement("tr");
-            var cellId = document.createElement("td");
-            var cellName = document.createElement("td");
-            var cellDeleteButton = document.createElement("td");
-            var deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.classList.add("btn-delete");
-            deleteButton.onclick = function () {
-              deleteDepartment(department.id);
-            };
-            cellId.textContent = department.id;
-            cellName.textContent = department.name;
-            cellDeleteButton.appendChild(deleteButton);
-            row.appendChild(cellId);
-            row.appendChild(cellName);
-            row.appendChild(cellDeleteButton);
-            departmentsTableBody.appendChild(row);
-          });
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("An error occurred while fetching the departments.");
-      });
-  }
+                // Populate the table with department data
+                data.forEach((department) => {
+                    var row = document.createElement("tr");
+                    var cellId = document.createElement("td");
+                    var cellName = document.createElement("td");
+                    var cellDeleteButton = document.createElement("td");
+                    var deleteButton = document.createElement("button");
+                    deleteButton.textContent = "Delete";
+                    deleteButton.classList.add("btn-delete");
+                    deleteButton.style.backgroundColor = "#dc3545"; // Inline CSS for background color
+                    deleteButton.style.color = "white"; // Make text color white for better contrast
+                    deleteButton.onclick = function () {
+                        deleteDepartment(department.id);
+                    };
+                    cellId.textContent = department.id;
+                    cellName.textContent = department.name;
+                    cellDeleteButton.appendChild(deleteButton);
+                    row.appendChild(cellId);
+                    row.appendChild(cellName);
+                    row.appendChild(cellDeleteButton);
+                    departmentsTableBody.appendChild(row);
+                });
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("An error occurred while fetching the departments.");
+        });
+}
+
 
 
 
   function seeRequests() {
-    const requestsTableContainer = document.getElementById(
-      "requestsTableContainer"
-    );
+    const requestsTableContainer = document.getElementById("requestsTableContainer");
     const requestsTableBody = document.getElementById("requestsTableBody");
 
     // Toggle the visibility of the requests table container
@@ -390,46 +421,57 @@
 
     // Fetch and display the requests data only if the container is visible
     if (requestsTableContainer.style.display === "block") {
-      fetch("/rr/get_reimbursement_requests")
-        .then((response) => response.json())
-        .then((data) => {
-          // Clear the existing rows
-          requestsTableBody.innerHTML = "";
+        fetch("/rr/get_reimbursement_requests")
+            .then((response) => response.json())
+            .then((data) => {
+                // Clear the existing rows
+                requestsTableBody.innerHTML = "";
 
-          // Populate the table with reimbursement requests data
-          data.forEach((request) => {
-            const row = document.createElement("tr");
-            const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
-            const receiptLinks = receiptUrls
-              .map(
-                (url) =>
-                  `<a href="${url}" target="_blank">${url.substring(
-                    url.lastIndexOf("\\") + 1
-                  )}</a>`
-              )
-              .join("<br>"); // Creating link tags for each URL
+                // Populate the table with reimbursement requests data
+                data.forEach((request) => {
+                    const row = document.createElement("tr");
+                    const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
+                    const receiptLinks = receiptUrls
+                        .map(
+                            (url) =>
+                                `<a href="${url}" target="_blank">${url.substring(
+                                    url.lastIndexOf("\\") + 1
+                                )}</a>`
+                        )
+                        .join("<br>"); // Creating link tags for each URL
 
-            row.innerHTML = `
-            <td>${request.id}</td>
-            <td>${request.amount}</td>
-            <td>${request.date}</td>
-            <td>${request.description}</td>
-            <td>${request.category}</td>
-            <td>${request.status}</td>
-            <td>${request.employee_id}</td>
-            <td>${request.manager_id}</td>
-            <td>${request.manager_comment}</td>
-            <td>${receiptLinks}</td>
-          `;
-            requestsTableBody.appendChild(row);
-          });
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("An error occurred while fetching reimbursement requests.");
-        });
+                    row.innerHTML = `
+                        <td>${request.id}</td>
+                        <td>${request.amount}</td>
+                        <td>${request.date}</td>
+                        <td>${request.description}</td>
+                        <td>${request.category}</td>
+                        <td class="status">${request.status}</td>
+                        <td>${request.employee_id}</td>
+                        <td>${request.manager_id}</td>
+                        <td>${request.manager_comment}</td>
+                        <td>${receiptLinks}</td>
+                    `;
+
+                    // Append the row to the table body
+                    requestsTableBody.appendChild(row);
+                });
+
+                // Apply color styling to status cells
+                document.querySelectorAll("#requestsTableBody .status").forEach((statusCell) => {
+                    if (statusCell.innerText === "Approved") {
+                        statusCell.style.color = "green";
+                    } else if (statusCell.innerText === "Rejected") {
+                        statusCell.style.color = "red";
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("An error occurred while fetching reimbursement requests.");
+            });
     }
-  }
+}
 
   // Function to fetch reimbursement requests for admin
   function seeRequestsAdmin() {
@@ -623,6 +665,8 @@
         if (data.success) {
           alert("Manager assigned successfully!");
           listUnassignedEmp();
+          const form = document.getElementById("assignForm");
+          form.style.display = "none";
         } else {
           alert("Error assigning manager. Please try again.");
         }
@@ -632,10 +676,14 @@
         alert("An error occurred. Please try again.");
       });
   }
+  // Event listener for the button click to toggle the form visibility
+document.getElementById("toggleFormBtn").addEventListener("click", function () {
+  toggleForm();
+});
 
   // Populate manager and employee options when the page loads
   window.onload = function () {
-    // populateManagers();
+    populateManagers();
     populateEmployees();
   };
   function updateReimbursementRequest(id, status, manager_comment) {

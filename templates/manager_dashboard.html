@@ -1,19 +1,21 @@
-{% extends 'base.html' %} {% block content %} {% if user.role == 'Manager' %}
+{% extends 'base.html' %} 
+{% block content %} 
+{% if user.role == 'Manager' %}
 
 <div class="container mt-4">
-  <h1 class="text-center">
+  <h1 class="text-center" style="font-family: 'Times New Roman', Times, serif;">
     Welcome to the Manager Dashboard, {{ user.username }}
   </h1>
   <div class="card mt-3 mb-4">
     <div class="card-body">
-      <p>
+      <p style="font-family: 'Times New Roman', Times, serif;">
         <strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}
       </p>
-      <p><strong>Email:</strong> {{ user.email }}</p>
-      <p><strong>Role:</strong> {{ user.role }}</p>
-      <p><strong>Department ID:</strong> {{ user.department_id }}</p>
-      <p><strong>Department Name:</strong> {{ user.department_name }}</p>
-      <button type="submit" form="logoutForm" class="btn-logout">Logout</button>
+      <p style="font-family: 'Times New Roman', Times, serif;"><strong>Email:</strong> {{ user.email }}</p>
+      <p style="font-family: 'Times New Roman', Times, serif;"><strong>Role:</strong> {{ user.role }}</p>
+      <p style="font-family: 'Times New Roman', Times, serif;"><strong>Department ID:</strong> {{ user.department_id }}</p>
+      <p style="font-family: 'Times New Roman', Times, serif;"><strong>Department Name:</strong> {{ user.department_name }}</p>
+      <button type="submit" form="logoutForm" class="btn-logout" style="font-family: 'Times New Roman', Times, serif;">Logout</button>
     </div>
   </div>
 
@@ -24,72 +26,51 @@
     style="display: none"
   ></form>
 
-  <form
-    id="reimbursementForm"
-    enctype="multipart/form-data"
-    method="post"
-    class="needs-validation"
-    novalidate
-  >
-    <div class="mb-3">
-      <label for="amount" class="form-label">Amount:</label>
-      <input
-        type="number"
-        id="amount"
-        name="amount"
-        class="form-control"
-        required
-      />
-    </div>
-    <div class="mb-3">
-      <label for="date" class="form-label">Date:</label>
-      <input type="date" id="date" name="date" class="form-control" required />
-    </div>
-    <div class="mb-3">
-      <label for="description" class="form-label">Description:</label>
-      <textarea
-        id="description"
-        name="description"
-        class="form-control"
-      ></textarea>
-    </div>
-    <div class="mb-3">
-      <label for="category" class="form-label">Category:</label>
-      <select id="category" name="category" class="form-select" required>
-        <option value="">Select</option>
-        <option value="Travelling" data-max-amount="15000">Travelling</option>
-        <option value="Relocation" data-max-amount="20000">Relocation</option>
-        <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="receipt" class="form-label">Receipt:</label>
-      <input
-        type="file"
-        id="receipt"
-        name="receipt"
-        multiple="multiple"
-        class="form-control"
-      />
-    </div>
-    <input
-      type="hidden"
-      id="employee_id"
-      name="employee_id"
-      value="{{ user.id }}"
-    />
-    <button type="submit" class="btn btn-primary">Submit Request</button>
-  </form>
+  <button id="toggleReimbursementFormBtn" class="btn btn-primary" style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;">Submit Reimbursement Request</button>
+
+<form id="reimbursementForm" enctype="multipart/form-data" method="post" class="needs-validation" style="display: none;" novalidate>
+  <h2 style="font-family: 'Times New Roman', Times, serif;">Reimbursement Form</h2>
+  <br>
+  <div class="mb-3">
+    <label for="amount" class="form-label" style="font-family: 'Times New Roman', Times, serif;">Amount:</label>
+    <input type="number" id="amount" name="amount" class="form-control" required />
+  </div>
+  <div class="mb-3">
+    <label for="date" class="form-label" style="font-family: 'Times New Roman', Times, serif;">Date:</label>
+    <input type="date" id="date" name="date" class="form-control" required />
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label" style="font-family: 'Times New Roman', Times, serif;">Description:</label>
+    <textarea id="description" name="description" class="form-control"></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="category" class="form-label" style="font-family: 'Times New Roman', Times, serif;">Category:</label>
+    <select id="category" name="category" class="form-select" required>
+      <option value="">Select</option>
+      <option value="Travelling" data-max-amount="15000">Travelling</option>
+      <option value="Relocation" data-max-amount="20000">Relocation</option>
+      <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="receipt" class="form-label" style="font-family: 'Times New Roman', Times, serif;">Receipt:</label>
+    <input type="file" id="receipt" name="receipt" multiple="multiple" class="form-control" />
+  </div>
+  <input type="hidden" id="employee_id" name="employee_id" value="{{ user.id }}" />
+  <button type="submit" class="btn btn-primary" style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;">Submit Request</button>
+</form>
+
 
   <button
     onclick="handleEmployeeButtonClick('{{user.id}}')"
     class="btn btn-secondary mt-4"
+    style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;"
   >
     See My Employees
   </button>
 
   <div id="employeesContainer" style="display: none" class="mt-4">
-    <h2>My Employees</h2>
+    <h2 style="font-family: 'Times New Roman', Times, serif;">My Employees</h2>
     <table id="employeesTable" class="table table-bordered">
       <thead class="table-dark">
         <tr>
@@ -109,12 +90,13 @@
   <button
     onclick="handleEmployeeButtonClick1('{{user.id}}')"
     class="btn btn-secondary mt-4"
+    style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;"
   >
     Show my all requests
   </button>
 
   <div id="employeeRequestsContainer" style="display: none" class="mt-4">
-    <h2>My Reimbursement Requests</h2>
+    <h2 style="font-family: 'Times New Roman', Times, serif;">My Reimbursement Requests</h2>
     <table id="requestsTable" class="table table-bordered">
       <thead class="table-dark">
         <tr>
@@ -135,12 +117,14 @@
   <button
     onclick="fetchReimbursementRequests('{{user.id}}')"
     class="btn btn-secondary mt-4"
+    style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;"
   >
     Show Requests for Updation
   </button>
 
   <div id="requestsContainer" class="mt-4"></div>
 </div>
+
 <script>
   function redirectToHome() {
     window.location.href = "/";
@@ -173,7 +157,7 @@
     }
   }
 
-//   hide and sshow the table
+  //   hide and sshow the table
   function handleEmployeeButtonClick(manager_id) {
     const event = window.event || arguments.callee.caller.arguments[0];
     event.preventDefault(); // Prevent default action
@@ -231,76 +215,75 @@
       });
   }
 
-
   //requests for updation
 
   let isTableVisible = false;
 
   function fetchReimbursementRequests(manager_id, status) {
-      const container = document.getElementById("requestsContainer");
+    const container = document.getElementById("requestsContainer");
 
-      // Toggle visibility
-      if (isTableVisible) {
-          container.innerHTML = "";
-          isTableVisible = false;
-          return;
-      } 
+    // Toggle visibility
+    if (isTableVisible) {
+      container.innerHTML = "";
+      isTableVisible = false;
+      return;
+    }
 
-      let url = `/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`;
-      if (status) {
-          url += `&status=${status}`;
-      }
+    let url = `/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`;
+    if (status) {
+      url += `&status=${status}`;
+    }
 
-      fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-              container.innerHTML = "";
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        container.innerHTML = "";
 
-              const table = document.createElement("table");
-              table.setAttribute("id", "requestsTable"); // Added to match the initial table's ID
-              table.classList.add("table", "table-bordered");
+        const table = document.createElement("table");
+        table.setAttribute("id", "requestsTable"); // Added to match the initial table's ID
+        table.classList.add("table", "table-bordered");
 
-              const thead = document.createElement("thead");
-              thead.classList.add("table-dark");
-              const headerRow = document.createElement("tr");
+        const thead = document.createElement("thead");
+        thead.classList.add("table-dark");
+        const headerRow = document.createElement("tr");
 
-              const headers = [
-                  "ID",
-                  "Amount",
-                  "Date",
-                  "Description",
-                  "Category",
-                  "Status",
-                  "Manager Comment",
-                  "Receipts",
-                  "Action"
-              ];
+        const headers = [
+          "ID",
+          "Amount",
+          "Date",
+          "Description",
+          "Category",
+          "Status",
+          "Manager Comment",
+          "Receipts",
+          "Action",
+        ];
 
-              headers.forEach((headerText) => {
-                  const th = document.createElement("th");
-                  th.innerText = headerText;
-                  headerRow.appendChild(th);
-              });
+        headers.forEach((headerText) => {
+          const th = document.createElement("th");
+          th.innerText = headerText;
+          headerRow.appendChild(th);
+        });
 
-              thead.appendChild(headerRow);
-              table.appendChild(thead);
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
 
-              const tbody = document.createElement("tbody");
+        const tbody = document.createElement("tbody");
 
-              data.forEach((req) => {
-                  const row = document.createElement("tr");
+        data.forEach((req) => {
+          const row = document.createElement("tr");
 
-                  const receiptLinks = req.receipt_path
-                      .split(",")
-                      .map((path) => {
-                          const fileName = path.split("/").pop();
-                          return `<div><a href="${path}" target="_blank">${fileName.substring(
-                              fileName.lastIndexOf("\\") + 1
-                          )}</a></div>`;
-                      })
-                      .join("");
+          const receiptLinks = req.receipt_path
+            .split(",")
+            .map((path) => {
+              const fileName = path.split("/").pop();
+              return `<div><a href="${path}" target="_blank">${fileName.substring(
+                fileName.lastIndexOf("\\") + 1
+              )}</a></div>`;
+            })
+            .join("");
 
-                  row.innerHTML = `
+          row.innerHTML = `
                       <td>${req.id}</td>
                       <td>${req.amount}</td>
                       <td>${req.date}</td>
@@ -308,44 +291,49 @@
                       <td>${req.category}</td>
                       <td>
                           <select class="statusSelect" name="status">
-                              <option value="Approved" ${req.status === "Approved" ? "selected" : ""}>Approved</option>
-                              <option value="Rejected" ${req.status === "Rejected" ? "selected" : ""}>Rejected</option>
+                              <option value="Approved" ${
+                                req.status === "Approved" ? "selected" : ""
+                              }>Approved</option>
+                              <option value="Rejected" ${
+                                req.status === "Rejected" ? "selected" : ""
+                              }>Rejected</option>
                           </select>
                       </td>
                       <td>
-                          <input type="text" class="managerComment" name="manager_comment" value="${req.manager_comment || ""}">
+                          <input type="text" class="managerComment" name="manager_comment" value="${
+                            req.manager_comment || ""
+                          }">
                       </td>
                       <td>${receiptLinks}</td>
                       <td>
-                          <button type="button" class="updateButton" data-id="${req.id}">Update</button>
+                          <button type="button" class="updateButton" data-id="${
+                            req.id
+                          }">Update</button>
                       </td>
                   `;
 
-                  tbody.appendChild(row);
-              });
+          tbody.appendChild(row);
+        });
 
-              table.appendChild(tbody);
-              container.appendChild(table);
+        table.appendChild(tbody);
+        container.appendChild(table);
 
-              document.querySelectorAll(".updateButton").forEach((button) => {
-                  button.addEventListener("click", function () {
-                      const id = this.getAttribute("data-id");
-                      const row = this.closest("tr");
-                      const status = row.querySelector(".statusSelect").value;
-                      const manager_comment = row.querySelector(".managerComment").value;
-                      updateReimbursementRequest(id, status, manager_comment);
-                  });
-              });
-
-              isTableVisible = true;
-          })
-          .catch((error) => {
-              console.error("Error fetching requests:", error);
+        document.querySelectorAll(".updateButton").forEach((button) => {
+          button.addEventListener("click", function () {
+            const id = this.getAttribute("data-id");
+            const row = this.closest("tr");
+            const status = row.querySelector(".statusSelect").value;
+            const manager_comment = row.querySelector(".managerComment").value;
+            updateReimbursementRequest(id, status, manager_comment);
           });
+        });
+
+        isTableVisible = true;
+      })
+      .catch((error) => {
+        console.error("Error fetching requests:", error);
+      });
   }
-
-
-
 
   function updateReimbursementRequest(id, status, manager_comment) {
     fetch(`/rr/${id}`, {
@@ -378,6 +366,22 @@
   document.addEventListener("DOMContentLoaded", function () {
     fetchReimbursementRequests(user.id); // Pass the manager_id when the page loads
   });
+
+    // Function to toggle the visibility of the reimbursement form
+  function toggleReimbursementForm() {
+    const form = document.getElementById("reimbursementForm");
+    if (form.style.display === "none") {
+      form.style.display = "block";
+    } else {
+      form.style.display = "none";
+    }
+  }
+
+    // Add event listener to the toggle button
+  document.getElementById("toggleReimbursementFormBtn").addEventListener("click", function () {
+    toggleReimbursementForm();
+  });
+
 
   document
     .getElementById("reimbursementForm")
@@ -425,6 +429,7 @@
           if (data.success) {
             alert("Reimbursement request submitted successfully!");
             document.getElementById("reimbursementForm").reset();
+            form.style.display = "none"; // Hide the form after successful submission
           } else {
             alert("Failed to submit request: " + data.error);
           }
@@ -434,53 +439,55 @@
         });
     });
 
-
-
   //manager's own request
   function fetchEmployeeRequests(employee_id, event) {
     toggleContainerVisibility("employeeRequestsContainer");
     fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          const container = document.getElementById(
-            "employeeRequestsContainer"
-          );
-          const tbody = document
-            .getElementById("requestsTable")
-            .getElementsByTagName("tbody")[0];
-          tbody.innerHTML = ""; // Clear existing rows
-          container.style.display = "block"; // Show the table
-          data.data.forEach((req) => {
-            const row = tbody.insertRow();
-            row.insertCell(0).innerText = req.id;
-            row.insertCell(1).innerText = req.amount;
-            row.insertCell(2).innerText = req.date;
-            row.insertCell(3).innerText = req.description;
-            row.insertCell(4).innerText = req.category;
-            row.insertCell(5).innerText = req.status;
-            row.insertCell(6).innerText = req.manager_comment || "";
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                const container = document.getElementById("employeeRequestsContainer");
+                const tbody = document.getElementById("requestsTable").getElementsByTagName("tbody")[0];
+                tbody.innerHTML = ""; // Clear existing rows
+                container.style.display = "block"; // Show the table
+                data.data.forEach((req) => {
+                    const row = tbody.insertRow();
+                    row.insertCell(0).innerText = req.id;
+                    row.insertCell(1).innerText = req.amount;
+                    row.insertCell(2).innerText = req.date;
+                    row.insertCell(3).innerText = req.description;
+                    row.insertCell(4).innerText = req.category;
 
-            const receiptCell = row.insertCell(7);
-            const receiptPaths = req.receipt_path.split(",");
-            receiptPaths.forEach((path) => {
-              const fileName = path.split("/").pop();
-              const link = document.createElement("a");
-              link.href = path;
-              link.innerText = path.substring(path.lastIndexOf("\\") + 1);
-              link.target = "_blank"; // Open in new tab
-              receiptCell.appendChild(link);
-              receiptCell.appendChild(document.createElement("br")); // New line for each link
-            });
-          });
-        } else {
-          console.error("Error fetching requests:", data.error);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching requests:", error);
-      });
-  }
+                    const statusCell = row.insertCell(5);
+                    statusCell.innerText = req.status;
+                    if (req.status === "Approved") {
+                        statusCell.style.color = "green";
+                    } else if (req.status === "Rejected") {
+                        statusCell.style.color = "red";
+                    }
+
+                    row.insertCell(6).innerText = req.manager_comment || "";
+
+                    const receiptCell = row.insertCell(7);
+                    const receiptPaths = req.receipt_path.split(",");
+                    receiptPaths.forEach((path) => {
+                        const fileName = path.split("/").pop();
+                        const link = document.createElement("a");
+                        link.href = path;
+                        link.innerText = path.substring(path.lastIndexOf("\\") + 1);
+                        link.target = "_blank"; // Open in new tab
+                        receiptCell.appendChild(link);
+                        receiptCell.appendChild(document.createElement("br")); // New line for each link
+                    });
+                });
+            } else {
+                console.error("Error fetching requests:", data.error);
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching requests:", error);
+        });
+}
 </script>
 {% else %}
 <h1>Access Denied</h1>
