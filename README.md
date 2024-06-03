@@ -106,4 +106,4 @@ flask run
 Open your browser and navigate to http://127.0.0.1:5000 to see your application in action.
 Enjoy!
 
-Feel free to explore the code, make changes, and contribute. If you have any questions or encounter any issues, don’t hesitate to open an issue on GitHub. Happy coding!
+Feel free to explore the code, make changes, and contribute. If you have any questions or encounter any issues, don’t hesitate to open an issue on https://github.com/gh-gaurav. Happy coding!
