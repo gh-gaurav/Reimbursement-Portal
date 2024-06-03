@@ -179,6 +179,7 @@
           <th>Description</th>
           <th>Category</th>
           <th>Status</th>
+          <th>Manager_id</th>
           <th>Manager Comment</th>
           <th>Receipt Path</th>
         </tr>
@@ -275,10 +276,10 @@
             } else if (req.status === "Rejected") {
               statusCell.style.color = "red";
             }
+            row.insertCell(6).innerText = req.manager_id || "";  
+            row.insertCell(7).innerText = req.manager_comment || "";
 
-            row.insertCell(6).innerText = req.manager_comment || "";
-
-            const receiptCell = row.insertCell(7);
+            const receiptCell = row.insertCell(8);
             const receiptPaths = req.receipt_path.split(",");
             receiptPaths.forEach((path) => {
               const fileName = path.split("/").pop();

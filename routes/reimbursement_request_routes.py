@@ -133,6 +133,7 @@ def get_reimbursement_requests_employee():
             'category': req.category.value,
             'status': req.status.value,
             'employee_id': req.employee_id,
+            'manager_id': req.manager_id,
             'manager_comment': req.manager_comment,
             'receipt_path': req.receipt_path
         })
