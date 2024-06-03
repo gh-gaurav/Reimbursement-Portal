@@ -1,20 +1,37 @@
-{% extends 'base.html' %} 
-{% block content %} 
-{% if user.role == 'Employee' %}
+{% extends 'base.html' %} {% block content %} {% if user.role == 'Employee' %}
 <div class="container mt-4">
-  <h1 class="text-center" style="font-family: 'Times New Roman', Times, serif;">
-    Welcome to the Employee Dashboard, {{ user.username }}
+  <h1 class="text-center" style="font-family: 'Times New Roman', Times, serif">
+    Welcome to the Employee Dashboard, {{ user.first_name }}
   </h1>
   <div class="card mt-3 mb-4">
     <div class="card-body">
-      <p style="font-family: 'Times New Roman', Times, serif;">
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Username:</strong> {{ user.username }}
+      </p>
+
+      <p style="font-family: 'Times New Roman', Times, serif">
         <strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}
       </p>
-      <p style="font-family: 'Times New Roman', Times, serif;"><strong>Email:</strong> {{ user.email }}</p>
-      <p style="font-family: 'Times New Roman', Times, serif;"><strong>Role:</strong> {{ user.role }}</p>
-      <p style="font-family: 'Times New Roman', Times, serif;"><strong>Department ID:</strong> {{ user.department_id }}</p>
-      <p style="font-family: 'Times New Roman', Times, serif;"><strong>Department Name:</strong> {{ user.department_name }}</p>
-      <button type="submit" form="logoutForm" class="btn-logout" style="font-family: 'Times New Roman', Times, serif;">Logout</button>
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Email:</strong> {{ user.email }}
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Role:</strong> {{ user.role }}
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Department ID:</strong> {{ user.department_id }}
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Department Name:</strong> {{ user.department_name }}
+      </p>
+      <button
+        type="submit"
+        form="logoutForm"
+        class="btn-logout"
+        style="font-family: 'Times New Roman', Times, serif"
+      >
+        Logout
+      </button>
     </div>
   </div>
   <form
@@ -24,50 +41,135 @@
     style="display: none"
   ></form>
 
-  <button id="toggleReimbursementFormBtn" class="btn btn-primary" style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;">Submit Reimbursement Request</button>
+  <button
+    id="toggleReimbursementFormBtn"
+    class="btn btn-primary"
+    style="
+      background-color: #010b14;
+      font-family: 'Times New Roman', Times, serif;
+    "
+  >
+    Submit Reimbursement Request
+  </button>
 
-<form id="reimbursementForm" enctype="multipart/form-data" method="post" class="needs-validation" style="display: none;" novalidate>
-  <h2 style="font-family: 'Times New Roman', Times, serif;">Reimbursement Form</h2><br>
-  <div class="mb-3">
-    <label for="amount" class="form-label" style="font-family: 'Times New Roman', Times, serif;">Amount:</label>
-    <input type="number" id="amount" name="amount" class="form-control" required />
-  </div>
-  <div class="mb-3">
-    <label for="date" class="form-label" style="font-family: 'Times New Roman', Times, serif;">Date:</label>
-    <input type="date" id="date" name="date" class="form-control" required />
-  </div>
-  <div class="mb-3">
-    <label for="description" class="form-label" style="font-family: 'Times New Roman', Times, serif;">Description:</label>
-    <textarea id="description" name="description" class="form-control" style="font-family: 'Times New Roman', Times, serif;"></textarea>
-  </div>
-  <div class="mb-3">
-    <label for="category" class="form-label" style="font-family: 'Times New Roman', Times, serif;">Category:</label>
-    <select id="category" name="category" class="form-select" required style="font-family: 'Times New Roman', Times, serif;">
-      <option value="">Select</option>
-      <option value="Travelling" data-max-amount="15000">Travelling</option>
-      <option value="Relocation" data-max-amount="20000">Relocation</option>
-      <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
-    </select>
-  </div>
-  <div class="mb-3">
-    <label for="receipt" class="form-label" style="font-family: 'Times New Roman', Times, serif;">Receipt:</label>
-    <input type="file" id="receipt" name="receipt" multiple="multiple" class="form-control" />
-  </div>
-  <input type="hidden" id="employee_id" name="employee_id" value="{{ user.id }}" />
-  <button type="submit" class="btn btn-primary" style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;">Submit Request</button>
-</form>
-
+  <form
+    id="reimbursementForm"
+    enctype="multipart/form-data"
+    method="post"
+    class="needs-validation"
+    style="display: none"
+    novalidate
+  >
+    <h2 style="font-family: 'Times New Roman', Times, serif">
+      Reimbursement Form
+    </h2>
+    <br />
+    <div class="mb-3">
+      <label
+        for="amount"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Amount:</label
+      >
+      <input
+        type="number"
+        id="amount"
+        name="amount"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label
+        for="date"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Date:</label
+      >
+      <input type="date" id="date" name="date" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label
+        for="description"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Description:</label
+      >
+      <textarea
+        id="description"
+        name="description"
+        class="form-control"
+        style="font-family: 'Times New Roman', Times, serif"
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label
+        for="category"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Category:</label
+      >
+      <select
+        id="category"
+        name="category"
+        class="form-select"
+        required
+        style="font-family: 'Times New Roman', Times, serif"
+      >
+        <option value="">Select</option>
+        <option value="Travelling" data-max-amount="15000">Travelling</option>
+        <option value="Relocation" data-max-amount="20000">Relocation</option>
+        <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label
+        for="receipt"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Receipt:</label
+      >
+      <input
+        type="file"
+        id="receipt"
+        name="receipt"
+        multiple="multiple"
+        class="form-control"
+      />
+    </div>
+    <input
+      type="hidden"
+      id="employee_id"
+      name="employee_id"
+      value="{{ user.id }}"
+    />
+    <button
+      type="submit"
+      class="btn btn-primary"
+      style="
+        background-color: #010b14;
+        font-family: 'Times New Roman', Times, serif;
+      "
+    >
+      Submit Request
+    </button>
+  </form>
 
   <button
-  onclick="handleEmployeeButtonClick('{{user.id}}')"
-  class="btn btn-secondary mt-4"
-  style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;"
+    onclick="handleEmployeeButtonClick('{{user.id}}')"
+    class="btn btn-secondary mt-4"
+    style="
+      background-color: #010b14;
+      font-family: 'Times New Roman', Times, serif;
+    "
   >
     Show my all requests
   </button>
 
   <div id="employeeRequestsContainer" style="display: none" class="mt-4">
-    <h2 style="font-family: 'Times New Roman', Times, serif;">My Reimbursement Requests</h2>
+    <h2 style="font-family: 'Times New Roman', Times, serif">
+      My Reimbursement Requests
+    </h2>
     <table id="requestsTable" class="table table-bordered">
       <thead class="table-dark">
         <tr>
@@ -87,17 +189,14 @@
 </div>
 <!-- Redirect back to home page after logout -->
 <script>
-
-function toggleReimbursementForm() {
-  const form = document.getElementById("reimbursementForm");
-  if (form.style.display === "none") {
-    form.style.display = "block";
-  } else {
-    form.style.display = "none";
+  function toggleReimbursementForm() {
+    const form = document.getElementById("reimbursementForm");
+    if (form.style.display === "none") {
+      form.style.display = "block";
+    } else {
+      form.style.display = "none";
+    }
   }
-}
-
-
 
   // Function to redirect to home page after logout
   function redirectToHome() {
@@ -124,9 +223,8 @@ function toggleReimbursementForm() {
           console.error("Error during logout:", error);
         });
     });
-  
 
-    function toggleContainerVisibility(containerId) {
+  function toggleContainerVisibility(containerId) {
     const container = document.getElementById(containerId);
     if (container.style.display === "none") {
       container.style.display = "block";
@@ -135,7 +233,7 @@ function toggleReimbursementForm() {
     }
   }
 
-//   hide and sshow the table
+  //   hide and sshow the table
   function handleEmployeeButtonClick(employee_id) {
     const event = window.event || arguments.callee.caller.arguments[0];
     event.preventDefault(); // Prevent default action
@@ -148,67 +246,65 @@ function toggleReimbursementForm() {
     }
   }
 
-
-
-
   function fetchEmployeeRequests(employee_id, event) {
     toggleContainerVisibility("employeeRequestsContainer");
     fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.success) {
-                const container = document.getElementById("employeeRequestsContainer");
-                const tbody = document.getElementById("requestsTable").getElementsByTagName("tbody")[0];
-                tbody.innerHTML = ""; // Clear existing rows
-                container.style.display = "block"; // Show the table
-                data.data.forEach((req) => {
-                    const row = tbody.insertRow();
-                    row.insertCell(0).innerText = req.id;
-                    row.insertCell(1).innerText = req.amount;
-                    row.insertCell(2).innerText = req.date;
-                    row.insertCell(3).innerText = req.description;
-                    row.insertCell(4).innerText = req.category;
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          const container = document.getElementById(
+            "employeeRequestsContainer"
+          );
+          const tbody = document
+            .getElementById("requestsTable")
+            .getElementsByTagName("tbody")[0];
+          tbody.innerHTML = ""; // Clear existing rows
+          container.style.display = "block"; // Show the table
+          data.data.forEach((req) => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerText = req.id;
+            row.insertCell(1).innerText = req.amount;
+            row.insertCell(2).innerText = req.date;
+            row.insertCell(3).innerText = req.description;
+            row.insertCell(4).innerText = req.category;
 
-                    const statusCell = row.insertCell(5);
-                    statusCell.innerText = req.status;
-                    if (req.status === "Approved") {
-                        statusCell.style.color = "green";
-                    } else if (req.status === "Rejected") {
-                        statusCell.style.color = "red";
-                    }
-
-                    row.insertCell(6).innerText = req.manager_comment || "";
-
-                    const receiptCell = row.insertCell(7);
-                    const receiptPaths = req.receipt_path.split(",");
-                    receiptPaths.forEach((path) => {
-                        const fileName = path.split("/").pop();
-                        const link = document.createElement("a");
-                        link.href = path;
-                        link.innerText = path.substring(path.lastIndexOf("\\") + 1);
-                        link.target = "_blank"; // Open in new tab
-                        receiptCell.appendChild(link);
-                        receiptCell.appendChild(document.createElement("br")); // New line for each link
-                    });
-                });
-            } else {
-                console.error("Error fetching requests:", data.error);
+            const statusCell = row.insertCell(5);
+            statusCell.innerText = req.status;
+            if (req.status === "Approved") {
+              statusCell.style.color = "green";
+            } else if (req.status === "Rejected") {
+              statusCell.style.color = "red";
             }
-        })
-        .catch((error) => {
-            console.error("Error fetching requests:", error);
-        });
-}
 
+            row.insertCell(6).innerText = req.manager_comment || "";
+
+            const receiptCell = row.insertCell(7);
+            const receiptPaths = req.receipt_path.split(",");
+            receiptPaths.forEach((path) => {
+              const fileName = path.split("/").pop();
+              const link = document.createElement("a");
+              link.href = path;
+              link.innerText = path.substring(path.lastIndexOf("\\") + 1);
+              link.target = "_blank"; // Open in new tab
+              receiptCell.appendChild(link);
+              receiptCell.appendChild(document.createElement("br")); // New line for each link
+            });
+          });
+        } else {
+          console.error("Error fetching requests:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching requests:", error);
+      });
+  }
 
   // Add event listener to the toggle button
-document.getElementById("toggleReimbursementFormBtn").addEventListener("click", function () {
-  toggleReimbursementForm();
-});
-
-
-
-
+  document
+    .getElementById("toggleReimbursementFormBtn")
+    .addEventListener("click", function () {
+      toggleReimbursementForm();
+    });
 
   document
     .getElementById("reimbursementForm")

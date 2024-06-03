@@ -38,6 +38,11 @@ def create_app(config_class=Config):
         app.logger.error('Not Found: %s', error)
         return "Not Found", 404
     
+    #Context processor to make 'user' available in all templates
+    @app.context_processor
+    def inject_user():
+        return {'user': session.get('user')}
+    
     # Frontend routes
     @app.get('/')
     def root():
