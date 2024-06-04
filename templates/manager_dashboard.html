@@ -7,11 +7,13 @@
   <div class="card mt-3 mb-4">
     <div class="card-body">
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Username:</strong> <span id="username">{{ user.username }}</span>
+        <strong>Username:</strong>
+        <span id="username">{{ user.username }}</span>
       </p>
 
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Full Name:</strong> <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
+        <strong>Full Name:</strong>
+        <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
       </p>
       <p style="font-family: 'Times New Roman', Times, serif">
         <strong>Email:</strong> <span id="email">{{ user.email }}</span>
@@ -20,10 +22,12 @@
         <strong>Role:</strong> <span id="role">{{ user.role }}</span>
       </p>
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Department ID:</strong> <span id="department">{{ user.department_id }}</span>
+        <strong>Department ID:</strong>
+        <span id="department">{{ user.department_id }}</span>
       </p>
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Department Name:</strong> <span id="department">{{ user.department_name }}</span>
+        <strong>Department Name:</strong>
+        <span id="department">{{ user.department_name }}</span>
       </p>
       <button
         type="submit"
@@ -34,14 +38,12 @@
         Logout
       </button>
       <button
-      id="editProfileBtn"
-      class="btn btn-primary"
-      style="
-        font-family: 'Times New Roman', Times, serif; width: 8%;
-      "
-    >
-      Edit
-    </button>
+        id="editProfileBtn"
+        class="btn btn-primary"
+        style="font-family: 'Times New Roman', Times, serif; width: 8%"
+      >
+        Edit
+      </button>
     </div>
   </div>
 
@@ -59,9 +61,7 @@
     style="display: none"
     novalidate
   >
-    <h2 style="font-family: 'Times New Roman', Times, serif">
-      Edit Profile
-    </h2>
+    <h2 style="font-family: 'Times New Roman', Times, serif">Edit Profile</h2>
     <br />
     <div class="mb-3">
       <label
@@ -688,8 +688,8 @@
         console.error("Error fetching requests:", error);
       });
   }
-      // Toggle edit profile form visibility
-      document
+  // Toggle edit profile form visibility
+  document
     .getElementById("editProfileBtn")
     .addEventListener("click", function () {
       const form = document.getElementById("editProfileForm");
@@ -730,8 +730,8 @@
           console.error("Error during update:", error);
         });
     });
-        // Function to fetch current user information and update DOM elements
-        function updateCurrentUser() {
+  // Function to fetch current user information and update DOM elements
+  function updateCurrentUser() {
     fetch("/user/current_user")
       .then((response) => response.json())
       .then((data) => {
@@ -739,11 +739,15 @@
           const user = data.data;
           // Update DOM elements with user information
           document.getElementById("username").innerText = user.username;
-          document.getElementById("fullname").innerText = `${user.first_name} ${user.last_name}`;
+          document.getElementById(
+            "fullname"
+          ).innerText = `${user.first_name} ${user.last_name}`;
           document.getElementById("email").innerText = user.email;
           document.getElementById("role").innerText = user.role;
-          document.getElementById("department_id").innerText = user.department_id;
-          document.getElementById("department").innerText = user.department_name;
+          document.getElementById("department_id").innerText =
+            user.department_id;
+          document.getElementById("department").innerText =
+            user.department_name;
         } else {
           console.error("Error fetching current user:", data.error);
         }
@@ -755,7 +759,6 @@
 
   // Call updateCurrentUser function when the page loads
   window.addEventListener("load", updateCurrentUser);
-
 </script>
 {% else %}
 <h1>Access Denied</h1>

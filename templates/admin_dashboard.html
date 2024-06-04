@@ -7,11 +7,13 @@
   <div class="card mt-3 mb-4">
     <div class="card-body">
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Username:</strong> <span id="username">{{ user.username }}</span>
+        <strong>Username:</strong>
+        <span id="username">{{ user.username }}</span>
       </p>
 
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Full Name:</strong> <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
+        <strong>Full Name:</strong>
+        <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
       </p>
       <p style="font-family: 'Times New Roman', Times, serif">
         <strong>Email:</strong> <span id="email">{{ user.email }}</span>
@@ -23,14 +25,12 @@
       <button type="submit" form="logoutForm" class="btn-logout">Logout</button>
       <!-- Delete Button -->
       <button
-      id="editProfileBtn"
-      class="btn btn-primary"
-      style="
-        font-family: 'Times New Roman', Times, serif; width: 8%;
-      "
-    >
-      Edit
-    </button>
+        id="editProfileBtn"
+        class="btn btn-primary"
+        style="font-family: 'Times New Roman', Times, serif; width: 8%"
+      >
+        Edit
+      </button>
     </div>
   </div>
   <form
@@ -47,9 +47,7 @@
     style="display: none"
     novalidate
   >
-    <h2 style="font-family: 'Times New Roman', Times, serif">
-      Edit Profile
-    </h2>
+    <h2 style="font-family: 'Times New Roman', Times, serif">Edit Profile</h2>
     <br />
     <div class="mb-3">
       <label
@@ -284,102 +282,98 @@
   </div>
 
   <!-- Button to toggle the list of unassigned employees -->
-<button
-id="toggleUnassignedEmployeesBtn"
-class="btn btn-primary mb-4"
-style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;"
-onclick="toggleUnassignedEmployees()"
->
-List of Unassigned Employees
-</button>
-
-
-  
-
-  
-
-  <!-- Table to display unassigned employees (initially hidden) -->
-<div id="unassignedEmployeesTableContainer" style="display: none;">
-  <h2>Unassigned Employees</h2>
-  <table class="table table-bordered">
-    <thead class="table-dark">
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-      </tr>
-    </thead>
-    <tbody id="unassignedEmployeesBody">
-      <!-- Unassigned employee data will be dynamically inserted here -->
-    </tbody>
-  </table>
-</div>
-</div>
-<button
-    id="toggleFormBtn"
-    class="btn btn-primary"
+  <button
+    id="toggleUnassignedEmployeesBtn"
+    class="btn btn-primary mb-4"
     style="
       background-color: #010b14;
       font-family: 'Times New Roman', Times, serif;
-      width: 98%;
-      margin-left: 1%;
-    ">
+    "
+    onclick="toggleUnassignedEmployees()"
+  >
+    List of Unassigned Employees
+  </button>
+
+  <!-- Table to display unassigned employees (initially hidden) -->
+  <div id="unassignedEmployeesTableContainer" style="display: none">
+    <h2>Unassigned Employees</h2>
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody id="unassignedEmployeesBody">
+        <!-- Unassigned employee data will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </div>
+</div>
+<button
+  id="toggleFormBtn"
+  class="btn btn-primary"
+  style="
+    background-color: #010b14;
+    font-family: 'Times New Roman', Times, serif;
+    width: 98%;
+    margin-left: 1%;
+  "
+>
+  Assign Manager
+</button>
+<form id="assignForm" class="mt-4" style="display: none">
+  <h3>Assign Manager</h3>
+  <br />
+  <div class="mb-3">
+    <label for="employeeSelect" class="form-label">Select Employee:</label
+    ><br />
+    <select
+      id="employeeSelect"
+      name="employeeSelect"
+      class="form-select"
+      required
+    >
+      <!-- Employees options will be populated dynamically -->
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="managerSelect" class="form-label">Select Manager:</label><br />
+    <select
+      id="managerSelect"
+      name="managerSelect"
+      class="form-select"
+      required
+    >
+      <!-- Managers options will be populated dynamically -->
+    </select>
+  </div>
+  <button
+    type="button"
+    onclick="assignManager()"
+    class="btn btn-primary"
+    style="background-color: #010b14"
+  >
     Assign Manager
   </button>
-  <form id="assignForm" class="mt-4" style="display: none">
-    <h3>Assign Manager</h3>
-    <br />
-    <div class="mb-3">
-      <label for="employeeSelect" class="form-label">Select Employee:</label
-      ><br />
-      <select
-        id="employeeSelect"
-        name="employeeSelect"
-        class="form-select"
-        required
-      >
-        <!-- Employees options will be populated dynamically -->
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="managerSelect" class="form-label">Select Manager:</label
-      ><br />
-      <select
-        id="managerSelect"
-        name="managerSelect"
-        class="form-select"
-        required
-      >
-        <!-- Managers options will be populated dynamically -->
-      </select>
-    </div>
-    <button
-      type="button"
-      onclick="assignManager()"
-      class="btn btn-primary"
-      style="background-color: #010b14"
-    >
-      Assign Manager
-    </button>
-  </form>
+</form>
 
 <!-- Scripts -->
 <script>
-
-function toggleUnassignedEmployees() {
-  const tableContainer = document.getElementById("unassignedEmployeesTableContainer");
-  if (tableContainer.style.display === "none") {
-    // If the table is currently hidden, show it
-    tableContainer.style.display = "block";
-    // Fetch and populate the table with unassigned employees
-    listUnassignedEmp();
-  } else {
-    // If the table is currently visible, hide it
-    tableContainer.style.display = "none";
+  function toggleUnassignedEmployees() {
+    const tableContainer = document.getElementById(
+      "unassignedEmployeesTableContainer"
+    );
+    if (tableContainer.style.display === "none") {
+      // If the table is currently hidden, show it
+      tableContainer.style.display = "block";
+      // Fetch and populate the table with unassigned employees
+      listUnassignedEmp();
+    } else {
+      // If the table is currently visible, hide it
+      tableContainer.style.display = "none";
+    }
   }
-}
-
-
-
 
   function toggleVisibility(elementId) {
     var element = document.getElementById(elementId);
@@ -397,33 +391,33 @@ function toggleUnassignedEmployees() {
 
   listUnassignedEmp();
   // Function to fetch unassigned employees and populate the table
-function listUnassignedEmp() {
-  fetch("/user/unasigned_employees")
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        // Get the table body element
-        const tbody = document.getElementById("unassignedEmployeesBody");
-        tbody.innerHTML = "";
-        // Iterate over the unassigned employee data and generate table rows
-        data.data.forEach((employee) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
+  function listUnassignedEmp() {
+    fetch("/user/unasigned_employees")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // Get the table body element
+          const tbody = document.getElementById("unassignedEmployeesBody");
+          tbody.innerHTML = "";
+          // Iterate over the unassigned employee data and generate table rows
+          data.data.forEach((employee) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
                             <td>${employee.id}</td>
                             <td>${employee.username}</td>
                           `;
-          tbody.appendChild(row);
-        });
-      } else {
-        // Handle error if data retrieval fails
-        console.error("Error:", data.error);
-      }
-    })
-    .catch((error) => {
-      // Handle fetch error
-      console.error("Fetch Error:", error);
-    });
-}
+            tbody.appendChild(row);
+          });
+        } else {
+          // Handle error if data retrieval fails
+          console.error("Error:", data.error);
+        }
+      })
+      .catch((error) => {
+        // Handle fetch error
+        console.error("Fetch Error:", error);
+      });
+  }
 
   function toggleDepartmentForm() {
     const form = document.getElementById("addDepartmentForm");
@@ -657,39 +651,35 @@ function listUnassignedEmp() {
   }
 
   // Function to fetch reimbursement requests for admin
-  function seeRequestsAdmin() {
-    const requestsTableContainer = document.getElementById(
-      "requestsAdminTableContainer"
-    );
-    const requestsTableBody = document.getElementById(
-      "requestsAdminTableContainer"
-    );
+function seeRequestsAdmin() {
+    const requestsTableContainer = document.getElementById("requestsAdminTableContainer");
+    const requestsTableBody = document.getElementById("requestsAdminTableBody");
 
     // Toggle the visibility of the requests table container
     toggleVisibility("requestsAdminTableContainer");
 
     // Fetch and display the requests data only if the container is visible
     if (requestsAdminTableContainer.style.display === "block") {
-      fetch("/rr/get_reimbursement_requests_admin")
-        .then((response) => response.json())
-        .then((data) => {
-          // Clear the existing rows
-          requestsAdminTableBody.innerHTML = "";
+        fetch("/rr/get_reimbursement_requests_admin")
+            .then((response) => response.json())
+            .then((data) => {
+                // Clear the existing rows
+                requestsAdminTableBody.innerHTML = "";
 
-          // Populate the table with reimbursement requests data
-          data.forEach((request) => {
-            const row = document.createElement("tr");
-            const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
-            const receiptLinks = receiptUrls
-              .map(
-                (url) =>
-                  `<a href="${url}" target="_blank">${url.substring(
-                    url.lastIndexOf("\\") + 1
-                  )}</a>`
-              )
-              .join("<br>"); // Creating link tags for each URL
+                // Populate the table with reimbursement requests data
+                data.forEach((request) => {
+                    const row = document.createElement("tr");
+                    const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
+                    const receiptLinks = receiptUrls
+                        .map(
+                            (url) =>
+                                `<a href="${url}" target="_blank">${url.substring(
+                                    url.lastIndexOf("\\") + 1
+                                )}</a>`
+                        )
+                        .join("<br>"); // Creating link tags for each URL
 
-            row.innerHTML = `
+                    row.innerHTML = `
             <td>${request.id}</td>
             <td>${request.amount}</td>
             <td>${request.date}</td>
@@ -709,37 +699,40 @@ function listUnassignedEmp() {
             <td>${request.manager_id}</td>
             <td>
               <input type="text" class="managerComment" name="manager_comment" value="${
-                request.manager_comment || ""
-              }">
+                        request.manager_comment || ""
+                    }">
             </td>
             <td>${receiptLinks}</td>
             <td>
               <button type="button" class="updateButton" data-id="${
-                request.id
-              }">Update</button>
+                        request.id
+                    }">Update</button>
             </td>
           `;
-            requestsAdminTableBody.appendChild(row);
-          });
+                    requestsAdminTableBody.appendChild(row);
+                });
 
-          // Add event listeners to update buttons
-          document.querySelectorAll(".updateButton").forEach((button) => {
-            button.addEventListener("click", function () {
-              const id = this.getAttribute("data-id");
-              const row = this.closest("tr");
-              const status = row.querySelector(".statusSelect").value;
-              const manager_comment =
-                row.querySelector(".managerComment").value;
-              updateReimbursementRequest(id, status, manager_comment);
+                // Add event listeners to update buttons
+                document.querySelectorAll(".updateButton").forEach((button) => {
+                    button.addEventListener("click", function () {
+                        const id = this.getAttribute("data-id");
+                        const row = this.closest("tr");
+                        const status = row.querySelector(".statusSelect").value;
+                        const manager_comment =
+                            row.querySelector(".managerComment").value;
+                        updateReimbursementRequest(id, status, manager_comment);
+                        
+                        // Hide the table container after updating
+                        requestsTableContainer.style.display = "none";
+                    });
+                });
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("An error occurred while fetching reimbursement requests.");
             });
-          });
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("An error occurred while fetching reimbursement requests.");
-        });
     }
-  }
+}
 
   function deleteUser(userId) {
     // const userId = document.getElementById('userId').value;
@@ -949,8 +942,8 @@ function listUnassignedEmp() {
           console.error("Error during update:", error);
         });
     });
-    // Function to fetch current user information and update DOM elements
-    function updateCurrentUser() {
+  // Function to fetch current user information and update DOM elements
+  function updateCurrentUser() {
     fetch("/user/current_user")
       .then((response) => response.json())
       .then((data) => {
@@ -958,7 +951,9 @@ function listUnassignedEmp() {
           const user = data.data;
           // Update DOM elements with user information
           document.getElementById("username").innerText = user.username;
-          document.getElementById("fullname").innerText = `${user.first_name} ${user.last_name}`;
+          document.getElementById(
+            "fullname"
+          ).innerText = `${user.first_name} ${user.last_name}`;
           document.getElementById("email").innerText = user.email;
           document.getElementById("role").innerText = user.role;
         } else {
@@ -972,7 +967,6 @@ function listUnassignedEmp() {
 
   // Call updateCurrentUser function when the page loads
   window.addEventListener("load", updateCurrentUser);
-
 </script>
 {% else %}
 <h1>Access Denied</h1>

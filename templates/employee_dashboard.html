@@ -1,507 +1,507 @@
-  {% extends 'base.html' %} {% block content %} {% if user.role == 'Employee' %}
-  <div class="container mt-4">
-    <h1 class="text-center" style="font-family: 'Times New Roman', Times, serif">
-      Welcome to the Employee Dashboard
-    </h1>
-    <div class="card mt-3 mb-4">
-      <div class="card-body">
-        <p style="font-family: 'Times New Roman', Times, serif">
-          <strong>Username:</strong> <span id="username">{{ user.username }}</span>
-        </p>
+{% extends 'base.html' %} {% block content %} {% if user.role == 'Employee' %}
+<div class="container mt-4">
+  <h1 class="text-center" style="font-family: 'Times New Roman', Times, serif">
+    Welcome to the Employee Dashboard
+  </h1>
+  <div class="card mt-3 mb-4">
+    <div class="card-body">
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Username:</strong>
+        <span id="username">{{ user.username }}</span>
+      </p>
 
-        <p style="font-family: 'Times New Roman', Times, serif">
-          <strong>Full Name:</strong> <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
-        </p>
-        <p style="font-family: 'Times New Roman', Times, serif">
-          <strong>Email:</strong> <span id="email">{{ user.email }}</span>
-        </p>
-        <p style="font-family: 'Times New Roman', Times, serif">
-          <strong>Role:</strong> <span id="role">{{ user.role }}</span>
-        </p>
-        <p style="font-family: 'Times New Roman', Times, serif">
-          <strong>Department ID:</strong> <span id="department">{{ user.department_id }}</span>
-        </p>
-        <p style="font-family: 'Times New Roman', Times, serif">
-          <strong>Department Name:</strong> <span id="department">{{ user.department_name }}</span>
-        </p>
-        
-        <button
-          type="submit"
-          form="logoutForm"
-          class="btn-logout"
-          style="font-family: 'Times New Roman', Times, serif"
-        >
-          Logout
-        </button>
-        <button
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Full Name:</strong>
+        <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Email:</strong> <span id="email">{{ user.email }}</span>
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Role:</strong> <span id="role">{{ user.role }}</span>
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Department ID:</strong>
+        <span id="department">{{ user.department_id }}</span>
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Department Name:</strong>
+        <span id="department">{{ user.department_name }}</span>
+      </p>
+
+      <button
+        type="submit"
+        form="logoutForm"
+        class="btn-logout"
+        style="font-family: 'Times New Roman', Times, serif"
+      >
+        Logout
+      </button>
+      <button
         id="editProfileBtn"
         class="btn btn-primary"
-        style="
-          font-family: 'Times New Roman', Times, serif; width: 8%;
-        "
+        style="font-family: 'Times New Roman', Times, serif; width: 8%"
       >
         Edit
       </button>
-      </div>
     </div>
-    <form
-      id="logoutForm"
-      action="/logout"
-      method="post"
-      style="display: none"
-    ></form>
-    <!-- Edit Profile Form -->
-    <form
-      id="editProfileForm"
-      method="post"
-      class="needs-validation"
-      style="display: none"
-      novalidate
-    >
-      <h2 style="font-family: 'Times New Roman', Times, serif">
-        Edit Profile
-      </h2>
-      <br />
-      <div class="mb-3">
-        <label
-          for="edit_first_name"
-          class="form-label"
-          style="font-family: 'Times New Roman', Times, serif"
-          >First Name:</label
-        >
-        <input
-          type="text"
-          id="edit_first_name"
-          name="first_name"
-          class="form-control"
-          value="{{ user.first_name }}"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label
-          for="edit_last_name"
-          class="form-label"
-          style="font-family: 'Times New Roman', Times, serif"
-          >Last Name:</label
-        >
-        <input
-          type="text"
-          id="edit_last_name"
-          name="last_name"
-          class="form-control"
-          value="{{ user.last_name }}"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label
-          for="edit_username"
-          class="form-label"
-          style="font-family: 'Times New Roman', Times, serif"
-          >Username:</label
-        >
-        <input
-          type="text"
-          id="edit_username"
-          name="username"
-          class="form-control"
-          value="{{ user.username }}"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label
-          for="edit_department_id"
-          class="form-label"
-          style="font-family: 'Times New Roman', Times, serif"
-          >Department ID:</label
-        >
-        <input
-          type="number"
-          id="edit_department_id"
-          name="department_id"
-          class="form-control"
-          value="{{ user.department_id }}"
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        style="
-          background-color: #010b14;
-          font-family: 'Times New Roman', Times, serif;
-        "
+  </div>
+  <form
+    id="logoutForm"
+    action="/logout"
+    method="post"
+    style="display: none"
+  ></form>
+  <!-- Edit Profile Form -->
+  <form
+    id="editProfileForm"
+    method="post"
+    class="needs-validation"
+    style="display: none"
+    novalidate
+  >
+    <h2 style="font-family: 'Times New Roman', Times, serif">Edit Profile</h2>
+    <br />
+    <div class="mb-3">
+      <label
+        for="edit_first_name"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >First Name:</label
       >
-        Save Changes
-      </button>
-    </form>
-
+      <input
+        type="text"
+        id="edit_first_name"
+        name="first_name"
+        class="form-control"
+        value="{{ user.first_name }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label
+        for="edit_last_name"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Last Name:</label
+      >
+      <input
+        type="text"
+        id="edit_last_name"
+        name="last_name"
+        class="form-control"
+        value="{{ user.last_name }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label
+        for="edit_username"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Username:</label
+      >
+      <input
+        type="text"
+        id="edit_username"
+        name="username"
+        class="form-control"
+        value="{{ user.username }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label
+        for="edit_department_id"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Department ID:</label
+      >
+      <input
+        type="number"
+        id="edit_department_id"
+        name="department_id"
+        class="form-control"
+        value="{{ user.department_id }}"
+        required
+      />
+    </div>
     <button
-      id="toggleReimbursementFormBtn"
+      type="submit"
       class="btn btn-primary"
       style="
         background-color: #010b14;
         font-family: 'Times New Roman', Times, serif;
       "
     >
-      Submit Reimbursement Request
+      Save Changes
     </button>
+  </form>
 
-    <form
-      id="reimbursementForm"
-      enctype="multipart/form-data"
-      method="post"
-      class="needs-validation"
-      style="display: none"
-      novalidate
-    >
-      <h2 style="font-family: 'Times New Roman', Times, serif">
-        Reimbursement Form
-      </h2>
-      <br />
-      <div class="mb-3">
-        <label
-          for="amount"
-          class="form-label"
-          style="font-family: 'Times New Roman', Times, serif"
-          >Amount:</label
-        >
-        <input
-          type="number"
-          id="amount"
-          name="amount"
-          class="form-control"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label
-          for="date"
-          class="form-label"
-          style="font-family: 'Times New Roman', Times, serif"
-          >Date:</label
-        >
-        <input type="date" id="date" name="date" class="form-control" required />
-      </div>
-      <div class="mb-3">
-        <label
-          for="description"
-          class="form-label"
-          style="font-family: 'Times New Roman', Times, serif"
-          >Description:</label
-        >
-        <textarea
-          id="description"
-          name="description"
-          class="form-control"
-          style="font-family: 'Times New Roman', Times, serif"
-        ></textarea>
-      </div>
-      <div class="mb-3">
-        <label
-          for="category"
-          class="form-label"
-          style="font-family: 'Times New Roman', Times, serif"
-          >Category:</label
-        >
-        <select
-          id="category"
-          name="category"
-          class="form-select"
-          required
-          style="font-family: 'Times New Roman', Times, serif"
-        >
-          <option value="">Select</option>
-          <option value="Travelling" data-max-amount="15000">Travelling</option>
-          <option value="Relocation" data-max-amount="20000">Relocation</option>
-          <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label
-          for="receipt"
-          class="form-label"
-          style="font-family: 'Times New Roman', Times, serif"
-          >Receipt:</label
-        >
-        <input
-          type="file"
-          id="receipt"
-          name="receipt"
-          multiple="multiple"
-          class="form-control"
-        />
-      </div>
-      <input
-        type="hidden"
-        id="employee_id"
-        name="employee_id"
-        value="{{ user.id }}"
-      />
-      <button
-        type="submit"
-        class="btn btn-primary"
-        style="
-          background-color: #010b14;
-          font-family: 'Times New Roman', Times, serif;
-        "
+  <button
+    id="toggleReimbursementFormBtn"
+    class="btn btn-primary"
+    style="
+      background-color: #010b14;
+      font-family: 'Times New Roman', Times, serif;
+    "
+  >
+    Submit Reimbursement Request
+  </button>
+
+  <form
+    id="reimbursementForm"
+    enctype="multipart/form-data"
+    method="post"
+    class="needs-validation"
+    style="display: none"
+    novalidate
+  >
+    <h2 style="font-family: 'Times New Roman', Times, serif">
+      Reimbursement Form
+    </h2>
+    <br />
+    <div class="mb-3">
+      <label
+        for="amount"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Amount:</label
       >
-        Submit Request
-      </button>
-    </form>
-
+      <input
+        type="number"
+        id="amount"
+        name="amount"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label
+        for="date"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Date:</label
+      >
+      <input type="date" id="date" name="date" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label
+        for="description"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Description:</label
+      >
+      <textarea
+        id="description"
+        name="description"
+        class="form-control"
+        style="font-family: 'Times New Roman', Times, serif"
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label
+        for="category"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Category:</label
+      >
+      <select
+        id="category"
+        name="category"
+        class="form-select"
+        required
+        style="font-family: 'Times New Roman', Times, serif"
+      >
+        <option value="">Select</option>
+        <option value="Travelling" data-max-amount="15000">Travelling</option>
+        <option value="Relocation" data-max-amount="20000">Relocation</option>
+        <option value="TechAssets" data-max-amount="5000">Tech Asset</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label
+        for="receipt"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Receipt:</label
+      >
+      <input
+        type="file"
+        id="receipt"
+        name="receipt"
+        multiple="multiple"
+        class="form-control"
+      />
+    </div>
+    <input
+      type="hidden"
+      id="employee_id"
+      name="employee_id"
+      value="{{ user.id }}"
+    />
     <button
-      onclick="handleEmployeeButtonClick('{{user.id}}')"
-      class="btn btn-secondary mt-4"
+      type="submit"
+      class="btn btn-primary"
       style="
         background-color: #010b14;
         font-family: 'Times New Roman', Times, serif;
       "
     >
-      Show my all requests
+      Submit Request
     </button>
+  </form>
 
-    <div id="employeeRequestsContainer" style="display: none" class="mt-4">
-      <h2 style="font-family: 'Times New Roman', Times, serif">
-        My Reimbursement Requests
-      </h2>
-      <table id="requestsTable" class="table table-bordered">
-        <thead class="table-dark">
-          <tr>
-            <th>ID</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Manager_id</th>
-            <th>Manager Comment</th>
-            <th>Receipt Path</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+  <button
+    onclick="handleEmployeeButtonClick('{{user.id}}')"
+    class="btn btn-secondary mt-4"
+    style="
+      background-color: #010b14;
+      font-family: 'Times New Roman', Times, serif;
+    "
+  >
+    Show my all requests
+  </button>
+
+  <div id="employeeRequestsContainer" style="display: none" class="mt-4">
+    <h2 style="font-family: 'Times New Roman', Times, serif">
+      My Reimbursement Requests
+    </h2>
+    <table id="requestsTable" class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Manager_id</th>
+          <th>Manager Comment</th>
+          <th>Receipt Path</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
-  <!-- Redirect back to home page after logout -->
-  <script>
-    function toggleReimbursementForm() {
-      const form = document.getElementById("reimbursementForm");
-      if (form.style.display === "none") {
-        form.style.display = "block";
-      } else {
-        form.style.display = "none";
-      }
+</div>
+<!-- Redirect back to home page after logout -->
+<script>
+  function toggleReimbursementForm() {
+    const form = document.getElementById("reimbursementForm");
+    if (form.style.display === "none") {
+      form.style.display = "block";
+    } else {
+      form.style.display = "none";
     }
+  }
 
-    // Function to redirect to home page after logout
-    function redirectToHome() {
-      window.location.href = "/";
-    }
+  // Function to redirect to home page after logout
+  function redirectToHome() {
+    window.location.href = "/";
+  }
 
-    // Add event listener to form submission
-    document
-      .getElementById("logoutForm")
-      .addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent default form submission
-        fetch("/logout", { method: "POST" })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              // If logout successful, redirect to home page
-              redirectToHome();
-            } else {
-              // If logout failed, log the error
-              console.error("Logout failed:", data.message);
-            }
-          })
-          .catch((error) => {
-            console.error("Error during logout:", error);
-          });
-      });
-
-    function toggleContainerVisibility(containerId) {
-      const container = document.getElementById(containerId);
-      if (container.style.display === "none") {
-        container.style.display = "block";
-      } else {
-        container.style.display = "none";
-      }
-    }
-
-    //   hide and show the table
-    function handleEmployeeButtonClick(employee_id) {
-      const event = window.event || arguments.callee.caller.arguments[0];
-      event.preventDefault(); // Prevent default action
-      const container = document.getElementById("employeeRequestsContainer");
-      if (container.style.display === "none") {
-        container.style.display = "block";
-        fetchEmployeeRequests(employee_id);
-      } else {
-        container.style.display = "none";
-      }
-    }
-
-    function fetchEmployeeRequests(employee_id, event) {
-      toggleContainerVisibility("employeeRequestsContainer");
-      fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
+  // Add event listener to form submission
+  document
+    .getElementById("logoutForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission
+      fetch("/logout", { method: "POST" })
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
-            const container = document.getElementById(
-              "employeeRequestsContainer"
-            );
-            const tbody = document
-              .getElementById("requestsTable")
-              .getElementsByTagName("tbody")[0];
-            tbody.innerHTML = ""; // Clear existing rows
-            container.style.display = "block"; // Show the table
-            data.data.forEach((req) => {
-              const row = tbody.insertRow();
-              row.insertCell(0).innerText = req.id;
-              row.insertCell(1).innerText = req.amount;
-              row.insertCell(2).innerText = req.date;
-              row.insertCell(3).innerText = req.description;
-              row.insertCell(4).innerText = req.category;
-
-              const statusCell = row.insertCell(5);
-              statusCell.innerText = req.status;
-              if (req.status === "Approved") {
-                statusCell.style.color = "green";
-              } else if (req.status === "Rejected") {
-                statusCell.style.color = "red";
-              }
-              row.insertCell(6).innerText = req.manager_id || "";  
-              row.insertCell(7).innerText = req.manager_comment || "";
-
-              const receiptCell = row.insertCell(8);
-              const receiptPaths = req.receipt_path.split(",");
-              receiptPaths.forEach((path) => {
-                const fileName = path.split("/").pop();
-                const link = document.createElement("a");
-                link.href = path;
-                link.innerText = path.substring(path.lastIndexOf("\\") + 1);
-                link.target = "_blank"; // Open in new tab
-                receiptCell.appendChild(link);
-                receiptCell.appendChild(document.createElement("br")); // New line for each link
-              });
-            });
+            // If logout successful, redirect to home page
+            redirectToHome();
           } else {
-            console.error("Error fetching requests:", data.error);
+            // If logout failed, log the error
+            console.error("Logout failed:", data.message);
           }
         })
         .catch((error) => {
-          console.error("Error fetching requests:", error);
+          console.error("Error during logout:", error);
         });
+    });
+
+  function toggleContainerVisibility(containerId) {
+    const container = document.getElementById(containerId);
+    if (container.style.display === "none") {
+      container.style.display = "block";
+    } else {
+      container.style.display = "none";
     }
+  }
 
-    // Add event listener to the toggle button
-    document
-      .getElementById("toggleReimbursementFormBtn")
-      .addEventListener("click", function () {
-        toggleReimbursementForm();
-      });
+  //   hide and show the table
+  function handleEmployeeButtonClick(employee_id) {
+    const event = window.event || arguments.callee.caller.arguments[0];
+    event.preventDefault(); // Prevent default action
+    const container = document.getElementById("employeeRequestsContainer");
+    if (container.style.display === "none") {
+      container.style.display = "block";
+      fetchEmployeeRequests(employee_id);
+    } else {
+      container.style.display = "none";
+    }
+  }
 
-    document
-      .getElementById("reimbursementForm")
-      .addEventListener("submit", function (event) {
-        event.preventDefault();
+  function fetchEmployeeRequests(employee_id, event) {
+    toggleContainerVisibility("employeeRequestsContainer");
+    fetch(`/rr/get_reimbursement_requests_employee?employee_id=${employee_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          const container = document.getElementById(
+            "employeeRequestsContainer"
+          );
+          const tbody = document
+            .getElementById("requestsTable")
+            .getElementsByTagName("tbody")[0];
+          tbody.innerHTML = ""; // Clear existing rows
+          container.style.display = "block"; // Show the table
+          data.data.forEach((req) => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerText = req.id;
+            row.insertCell(1).innerText = req.amount;
+            row.insertCell(2).innerText = req.date;
+            row.insertCell(3).innerText = req.description;
+            row.insertCell(4).innerText = req.category;
 
-        const amount = parseFloat(document.getElementById("amount").value);
-        const categoryElement = document.getElementById("category");
-        const selectedCategory = categoryElement.value;
-        const maxAmount = parseFloat(
-          categoryElement.options[categoryElement.selectedIndex].getAttribute(
-            "data-max-amount"
-          )
-        );
-
-        if (amount > maxAmount) {
-          alert(`The maximum amount for ${selectedCategory} is ${maxAmount}.`);
-          return;
-        }
-
-        const formData = new FormData();
-        formData.append("amount", amount);
-        formData.append("date", document.getElementById("date").value);
-        formData.append(
-          "description",
-          document.getElementById("description").value
-        );
-        formData.append("category", selectedCategory);
-        formData.append(
-          "employee_id",
-          document.getElementById("employee_id").value
-        );
-
-        const receiptFiles = document.getElementById("receipt").files;
-        for (let i = 0; i < receiptFiles.length; i++) {
-          formData.append("receipt", receiptFiles[i]);
-        }
-
-        fetch("/rr", {
-          method: "POST",
-          body: formData,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              alert("Reimbursement request submitted successfully!");
-              document.getElementById("reimbursementForm").reset();
-              form.style.display = "none"; // Hide the form after successful submission
-            } else {
-              alert("Failed to submit request: " + data.error);
+            const statusCell = row.insertCell(5);
+            statusCell.innerText = req.status;
+            if (req.status === "Approved") {
+              statusCell.style.color = "green";
+            } else if (req.status === "Rejected") {
+              statusCell.style.color = "red";
             }
-          })
-          .catch((error) => {
-            console.error("Error during submission:", error);
+            row.insertCell(6).innerText = req.manager_id || "";
+            row.insertCell(7).innerText = req.manager_comment || "";
+
+            const receiptCell = row.insertCell(8);
+            const receiptPaths = req.receipt_path.split(",");
+            receiptPaths.forEach((path) => {
+              const fileName = path.split("/").pop();
+              const link = document.createElement("a");
+              link.href = path;
+              link.innerText = path.substring(path.lastIndexOf("\\") + 1);
+              link.target = "_blank"; // Open in new tab
+              receiptCell.appendChild(link);
+              receiptCell.appendChild(document.createElement("br")); // New line for each link
+            });
           });
+        } else {
+          console.error("Error fetching requests:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching requests:", error);
       });
-      // Toggle edit profile form visibility
-    document
-      .getElementById("editProfileBtn")
-      .addEventListener("click", function () {
-        const form = document.getElementById("editProfileForm");
-        form.style.display = form.style.display === "none" ? "block" : "none";
-      });
+  }
 
-    // Handle edit profile form submission
-    document
-      .getElementById("editProfileForm")
-      .addEventListener("submit", function (event) {
-        event.preventDefault();
+  // Add event listener to the toggle button
+  document
+    .getElementById("toggleReimbursementFormBtn")
+    .addEventListener("click", function () {
+      toggleReimbursementForm();
+    });
 
-        const payload = {
-          first_name: document.getElementById("edit_first_name").value,
-          last_name: document.getElementById("edit_last_name").value,
-          username: document.getElementById("edit_username").value,
-          department_id: document.getElementById("edit_department_id").value,
-        };
+  document
+    .getElementById("reimbursementForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
 
-        fetch(`/user/${"{{user.id}}"}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
+      const amount = parseFloat(document.getElementById("amount").value);
+      const categoryElement = document.getElementById("category");
+      const selectedCategory = categoryElement.value;
+      const maxAmount = parseFloat(
+        categoryElement.options[categoryElement.selectedIndex].getAttribute(
+          "data-max-amount"
+        )
+      );
+
+      if (amount > maxAmount) {
+        alert(`The maximum amount for ${selectedCategory} is ${maxAmount}.`);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("amount", amount);
+      formData.append("date", document.getElementById("date").value);
+      formData.append(
+        "description",
+        document.getElementById("description").value
+      );
+      formData.append("category", selectedCategory);
+      formData.append(
+        "employee_id",
+        document.getElementById("employee_id").value
+      );
+
+      const receiptFiles = document.getElementById("receipt").files;
+      for (let i = 0; i < receiptFiles.length; i++) {
+        formData.append("receipt", receiptFiles[i]);
+      }
+
+      fetch("/rr", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Reimbursement request submitted successfully!");
+            document.getElementById("reimbursementForm").reset();
+            form.style.display = "none"; // Hide the form after successful submission
+          } else {
+            alert("Failed to submit request: " + data.error);
+          }
         })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              alert("Profile updated successfully!");
-              // Optionally, you can refresh the page or update the displayed values
-              location.reload();
-            } else {
-              alert("Failed to update profile: " + data.error);
-            }
-          })
-          .catch((error) => {
-            console.error("Error during update:", error);
-          });
-      });
-    // Function to fetch current user information and update DOM elements
+        .catch((error) => {
+          console.error("Error during submission:", error);
+        });
+    });
+  // Toggle edit profile form visibility
+  document
+    .getElementById("editProfileBtn")
+    .addEventListener("click", function () {
+      const form = document.getElementById("editProfileForm");
+      form.style.display = form.style.display === "none" ? "block" : "none";
+    });
+
+  // Handle edit profile form submission
+  document
+    .getElementById("editProfileForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const payload = {
+        first_name: document.getElementById("edit_first_name").value,
+        last_name: document.getElementById("edit_last_name").value,
+        username: document.getElementById("edit_username").value,
+        department_id: document.getElementById("edit_department_id").value,
+      };
+
+      fetch(`/user/${"{{user.id}}"}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Profile updated successfully!");
+            // Optionally, you can refresh the page or update the displayed values
+            location.reload();
+          } else {
+            alert("Failed to update profile: " + data.error);
+          }
+        })
+        .catch((error) => {
+          console.error("Error during update:", error);
+        });
+    });
+  // Function to fetch current user information and update DOM elements
   function updateCurrentUser() {
     fetch("/user/current_user")
       .then((response) => response.json())
@@ -510,11 +510,15 @@
           const user = data.data;
           // Update DOM elements with user information
           document.getElementById("username").innerText = user.username;
-          document.getElementById("fullname").innerText = `${user.first_name} ${user.last_name}`;
+          document.getElementById(
+            "fullname"
+          ).innerText = `${user.first_name} ${user.last_name}`;
           document.getElementById("email").innerText = user.email;
           document.getElementById("role").innerText = user.role;
-          document.getElementById("department_id").innerText = user.department_id;
-          document.getElementById("department").innerText = user.department_name;
+          document.getElementById("department_id").innerText =
+            user.department_id;
+          document.getElementById("department").innerText =
+            user.department_name;
         } else {
           console.error("Error fetching current user:", data.error);
         }
@@ -526,10 +530,8 @@
 
   // Call updateCurrentUser function when the page loads
   window.addEventListener("load", updateCurrentUser);
-
-
-  </script>
-  {% else %}
-  <h1>Access Denied</h1>
-  <p>You do not have permission to access this page.</p>
-  {% endif %} {% endblock %}
+</script>
+{% else %}
+<h1>Access Denied</h1>
+<p>You do not have permission to access this page.</p>
+{% endif %} {% endblock %}
