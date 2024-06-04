@@ -8,7 +8,7 @@
 >
   <h1 style="font-family: Georgia, 'Times New Roman', Times, serif">Login</h1>
   <br />
-  <div class="mb-3">
+  <div class="mb-3" style="position: relative;">
     <label for="username" class="form-label">Username or Email:</label>
     <input
       type="text"
@@ -19,7 +19,7 @@
       required
     />
   </div>
-  <div class="mb-3">
+  <div class="mb-3" style="position: relative;">
     <label for="password" class="form-label">Password:</label>
     <input
       type="password"
@@ -27,10 +27,10 @@
       name="password"
       class="form-control"
       required
+      style="padding-right: 40px;" 
     />
     <span class="toggle-password" onclick="togglePasswordVisibility('password')"
-      >&#x1F441;</span
-    >
+      style="position: absolute; right: 10px; top: 80px; cursor: pointer;">&#x1F441;</span>
   </div>
   <button
     type="submit"

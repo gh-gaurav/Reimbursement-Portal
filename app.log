@@ -81,3 +81,44 @@ DROP TABLE reimbursement_requests
 2024-06-04 02:50:10,719 - sqlalchemy.engine.Engine - INFO - ROLLBACK
 2024-06-04 02:50:10,719 - sqlalchemy.engine.Engine - INFO - ROLLBACK
 2024-06-04 02:50:10,719 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-06-04 03:26:17,521 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-06-04 03:26:17,521 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:17,537 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-06-04 03:26:17,537 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:17,537 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-06-04 03:26:17,537 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:17,537 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-04 03:26:17,543 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-06-04 03:26:17,543 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:17,543 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-06-04 03:26:17,543 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:17,543 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-06-04 03:26:17,543 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:17,543 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-06-04 03:26:17,574 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-04 03:26:17,574 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-04 03:26:17,574 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-06-04 03:26:17,574 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-06-04 03:26:17,574 - werkzeug - INFO -  * Restarting with stat
+2024-06-04 03:26:17,574 - werkzeug - INFO -  * Restarting with stat
+2024-06-04 03:26:18,593 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-06-04 03:26:18,593 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:18,593 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-06-04 03:26:18,593 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:18,593 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-06-04 03:26:18,593 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:18,593 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-06-04 03:26:18,608 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-06-04 03:26:18,608 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:18,608 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-06-04 03:26:18,608 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:18,608 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-06-04 03:26:18,608 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-06-04 03:26:18,608 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-06-04 03:26:18,624 - werkzeug - WARNING -  * Debugger is active!
+2024-06-04 03:26:18,624 - werkzeug - WARNING -  * Debugger is active!
+2024-06-04 03:26:18,624 - werkzeug - INFO -  * Debugger PIN: 135-236-840
+2024-06-04 03:26:18,624 - werkzeug - INFO -  * Debugger PIN: 135-236-840
+2024-06-04 03:26:22,189 - main - INFO - Request Body: b''
