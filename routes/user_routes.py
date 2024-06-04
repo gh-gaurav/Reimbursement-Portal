@@ -259,6 +259,42 @@ def get_users():
         return jsonify({'error': str(e)}), 500
 
 
+@user_blueprint.get('/current_user')
+def current_user():
+    try:
+        user_id = session.get('user', {}).get('id')
+        if not user_id:
+            return jsonify({'success': False, 'error': 'User not logged in'}), 401
+
+        user = User.query.get(user_id)
+        if not user:
+            return jsonify({'success': False, 'error': 'User not found'}), 404
+
+        # Fetch department details
+        department = Department.query.get(user.department_id)
+        department_name = department.name if department else None
+
+        return jsonify({
+            'success': True,
+            'data': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'role': user.role.value,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'department_id': user.department_id,
+                'department_name': department_name
+            }
+        }), 200
+    except Exception as e:
+        logging.error(f"Error fetching current user: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+
+
+
 
 
 @user_blueprint.post('/login')

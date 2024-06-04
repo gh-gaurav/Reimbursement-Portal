@@ -2,19 +2,35 @@
 
 <div class="container mt-4">
   <h1 class="text-center" style="font-family: 'Times New Roman', Times, serif">
-    Welcome to the Admin Dashboard, {{ user.first_name }}
+    Welcome to the Admin Dashboard!
   </h1>
   <div class="card mt-3 mb-4">
     <div class="card-body">
-      <p><strong>Username:</strong> {{ user.username }}</p>
-      <p>
-        <strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Username:</strong> <span id="username">{{ user.username }}</span>
       </p>
-      <p><strong>Email:</strong> {{ user.email }}</p>
-      <p><strong>Role:</strong> {{ user.role }}</p>
+
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Full Name:</strong> <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Email:</strong> <span id="email">{{ user.email }}</span>
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Role:</strong> <span id="role">{{ user.role }}</span>
+      </p>
       <!-- Logout Button -->
       <button type="submit" form="logoutForm" class="btn-logout">Logout</button>
       <!-- Delete Button -->
+      <button
+      id="editProfileBtn"
+      class="btn btn-primary"
+      style="
+        font-family: 'Times New Roman', Times, serif; width: 8%;
+      "
+    >
+      Edit
+    </button>
     </div>
   </div>
   <form
@@ -23,6 +39,77 @@
     method="post"
     style="display: none"
   ></form>
+  <!-- Edit Profile Form -->
+  <form
+    id="editProfileForm"
+    method="post"
+    class="needs-validation"
+    style="display: none"
+    novalidate
+  >
+    <h2 style="font-family: 'Times New Roman', Times, serif">
+      Edit Profile
+    </h2>
+    <br />
+    <div class="mb-3">
+      <label
+        for="edit_first_name"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >First Name:</label
+      >
+      <input
+        type="text"
+        id="edit_first_name"
+        name="first_name"
+        class="form-control"
+        value="{{ user.first_name }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label
+        for="edit_last_name"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Last Name:</label
+      >
+      <input
+        type="text"
+        id="edit_last_name"
+        name="last_name"
+        class="form-control"
+        value="{{ user.last_name }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label
+        for="edit_username"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Username:</label
+      >
+      <input
+        type="text"
+        id="edit_username"
+        name="username"
+        class="form-control"
+        value="{{ user.username }}"
+        required
+      />
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      style="
+        background-color: #010b14;
+        font-family: 'Times New Roman', Times, serif;
+      "
+    >
+      Save Changes
+    </button>
+  </form>
 
   <!-- Form to Add Department -->
   <button
@@ -196,17 +283,48 @@
     </table>
   </div>
 
-  <button
+  <!-- Button to toggle the list of unassigned employees -->
+<button
+id="toggleUnassignedEmployeesBtn"
+class="btn btn-primary mb-4"
+style="background-color: #010b14; font-family: 'Times New Roman', Times, serif;"
+onclick="toggleUnassignedEmployees()"
+>
+List of Unassigned Employees
+</button>
+
+
+  
+
+  
+
+  <!-- Table to display unassigned employees (initially hidden) -->
+<div id="unassignedEmployeesTableContainer" style="display: none;">
+  <h2>Unassigned Employees</h2>
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+      </tr>
+    </thead>
+    <tbody id="unassignedEmployeesBody">
+      <!-- Unassigned employee data will be dynamically inserted here -->
+    </tbody>
+  </table>
+</div>
+</div>
+<button
     id="toggleFormBtn"
     class="btn btn-primary"
     style="
       background-color: #010b14;
       font-family: 'Times New Roman', Times, serif;
-    "
-  >
+      width: 98%;
+      margin-left: 1%;
+    ">
     Assign Manager
   </button>
-
   <form id="assignForm" class="mt-4" style="display: none">
     <h3>Assign Manager</h3>
     <br />
@@ -244,22 +362,25 @@
     </button>
   </form>
 
-  <h2 class="mt-4">Unassigned Employees</h2>
-  <table class="table table-bordered">
-    <thead class="table-dark">
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-      </tr>
-    </thead>
-    <tbody id="employeesBody">
-      <!-- Employee data will be dynamically inserted here -->
-    </tbody>
-  </table>
-</div>
-
 <!-- Scripts -->
 <script>
+
+function toggleUnassignedEmployees() {
+  const tableContainer = document.getElementById("unassignedEmployeesTableContainer");
+  if (tableContainer.style.display === "none") {
+    // If the table is currently hidden, show it
+    tableContainer.style.display = "block";
+    // Fetch and populate the table with unassigned employees
+    listUnassignedEmp();
+  } else {
+    // If the table is currently visible, hide it
+    tableContainer.style.display = "none";
+  }
+}
+
+
+
+
   function toggleVisibility(elementId) {
     var element = document.getElementById(elementId);
     element.style.display = element.style.display === "none" ? "block" : "none";
@@ -276,33 +397,33 @@
 
   listUnassignedEmp();
   // Function to fetch unassigned employees and populate the table
-  function listUnassignedEmp() {
-    fetch("/user/unasigned_employees")
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          // Get the table body element
-          const tbody = document.getElementById("employeesBody");
-          tbody.innerHTML = "";
-          // Iterate over the employee data and generate table rows
-          data.data.forEach((employee) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                                <td>${employee.id}</td>
-                                <td>${employee.username}</td>
-                            `;
-            tbody.appendChild(row);
-          });
-        } else {
-          // Handle error if data retrieval fails
-          console.error("Error:", data.error);
-        }
-      })
-      .catch((error) => {
-        // Handle fetch error
-        console.error("Fetch Error:", error);
-      });
-  }
+function listUnassignedEmp() {
+  fetch("/user/unasigned_employees")
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        // Get the table body element
+        const tbody = document.getElementById("unassignedEmployeesBody");
+        tbody.innerHTML = "";
+        // Iterate over the unassigned employee data and generate table rows
+        data.data.forEach((employee) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                            <td>${employee.id}</td>
+                            <td>${employee.username}</td>
+                          `;
+          tbody.appendChild(row);
+        });
+      } else {
+        // Handle error if data retrieval fails
+        console.error("Error:", data.error);
+      }
+    })
+    .catch((error) => {
+      // Handle fetch error
+      console.error("Fetch Error:", error);
+    });
+}
 
   function toggleDepartmentForm() {
     const form = document.getElementById("addDepartmentForm");
@@ -786,6 +907,72 @@
         console.error("Error updating request:", error);
       });
   }
+  // Toggle edit profile form visibility
+  document
+    .getElementById("editProfileBtn")
+    .addEventListener("click", function () {
+      const form = document.getElementById("editProfileForm");
+      form.style.display = form.style.display === "none" ? "block" : "none";
+    });
+
+  // Handle edit profile form submission
+  document
+    .getElementById("editProfileForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const payload = {
+        first_name: document.getElementById("edit_first_name").value,
+        last_name: document.getElementById("edit_last_name").value,
+        username: document.getElementById("edit_username").value,
+        // department_id: document.getElementById("edit_department_id").value,
+      };
+
+      fetch(`/user/${"{{user.id}}"}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Profile updated successfully!");
+            // Optionally, you can refresh the page or update the displayed values
+            location.reload();
+          } else {
+            alert("Failed to update profile: " + data.error);
+          }
+        })
+        .catch((error) => {
+          console.error("Error during update:", error);
+        });
+    });
+    // Function to fetch current user information and update DOM elements
+    function updateCurrentUser() {
+    fetch("/user/current_user")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          const user = data.data;
+          // Update DOM elements with user information
+          document.getElementById("username").innerText = user.username;
+          document.getElementById("fullname").innerText = `${user.first_name} ${user.last_name}`;
+          document.getElementById("email").innerText = user.email;
+          document.getElementById("role").innerText = user.role;
+        } else {
+          console.error("Error fetching current user:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching current user:", error);
+      });
+  }
+
+  // Call updateCurrentUser function when the page loads
+  window.addEventListener("load", updateCurrentUser);
+
 </script>
 {% else %}
 <h1>Access Denied</h1>

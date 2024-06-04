@@ -2,27 +2,28 @@
 
 <div class="container mt-4">
   <h1 class="text-center" style="font-family: 'Times New Roman', Times, serif">
-    Welcome to the Manager Dashboard, {{ user.first_name }}
+    Welcome to the Manager Dashboard
   </h1>
   <div class="card mt-3 mb-4">
     <div class="card-body">
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Username:</strong> {{ user.username }}
+        <strong>Username:</strong> <span id="username">{{ user.username }}</span>
+      </p>
+
+      <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>Full Name:</strong> <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
       </p>
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}
+        <strong>Email:</strong> <span id="email">{{ user.email }}</span>
       </p>
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Email:</strong> {{ user.email }}
+        <strong>Role:</strong> <span id="role">{{ user.role }}</span>
       </p>
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Role:</strong> {{ user.role }}
+        <strong>Department ID:</strong> <span id="department">{{ user.department_id }}</span>
       </p>
       <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Department ID:</strong> {{ user.department_id }}
-      </p>
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Department Name:</strong> {{ user.department_name }}
+        <strong>Department Name:</strong> <span id="department">{{ user.department_name }}</span>
       </p>
       <button
         type="submit"
@@ -32,6 +33,15 @@
       >
         Logout
       </button>
+      <button
+      id="editProfileBtn"
+      class="btn btn-primary"
+      style="
+        font-family: 'Times New Roman', Times, serif; width: 8%;
+      "
+    >
+      Edit
+    </button>
     </div>
   </div>
 
@@ -41,7 +51,93 @@
     method="post"
     style="display: none"
   ></form>
-
+  <!-- Edit Profile Form -->
+  <form
+    id="editProfileForm"
+    method="post"
+    class="needs-validation"
+    style="display: none"
+    novalidate
+  >
+    <h2 style="font-family: 'Times New Roman', Times, serif">
+      Edit Profile
+    </h2>
+    <br />
+    <div class="mb-3">
+      <label
+        for="edit_first_name"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >First Name:</label
+      >
+      <input
+        type="text"
+        id="edit_first_name"
+        name="first_name"
+        class="form-control"
+        value="{{ user.first_name }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label
+        for="edit_last_name"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Last Name:</label
+      >
+      <input
+        type="text"
+        id="edit_last_name"
+        name="last_name"
+        class="form-control"
+        value="{{ user.last_name }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label
+        for="edit_username"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Username:</label
+      >
+      <input
+        type="text"
+        id="edit_username"
+        name="username"
+        class="form-control"
+        value="{{ user.username }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label
+        for="edit_department_id"
+        class="form-label"
+        style="font-family: 'Times New Roman', Times, serif"
+        >Department ID:</label
+      >
+      <input
+        type="number"
+        id="edit_department_id"
+        name="department_id"
+        class="form-control"
+        value="{{ user.department_id }}"
+        required
+      />
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      style="
+        background-color: #010b14;
+        font-family: 'Times New Roman', Times, serif;
+      "
+    >
+      Save Changes
+    </button>
+  </form>
   <button
     id="toggleReimbursementFormBtn"
     class="btn btn-primary"
@@ -592,6 +688,74 @@
         console.error("Error fetching requests:", error);
       });
   }
+      // Toggle edit profile form visibility
+      document
+    .getElementById("editProfileBtn")
+    .addEventListener("click", function () {
+      const form = document.getElementById("editProfileForm");
+      form.style.display = form.style.display === "none" ? "block" : "none";
+    });
+
+  // Handle edit profile form submission
+  document
+    .getElementById("editProfileForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const payload = {
+        first_name: document.getElementById("edit_first_name").value,
+        last_name: document.getElementById("edit_last_name").value,
+        username: document.getElementById("edit_username").value,
+        department_id: document.getElementById("edit_department_id").value,
+      };
+
+      fetch(`/user/${"{{user.id}}"}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Profile updated successfully!");
+            // Optionally, you can refresh the page or update the displayed values
+            location.reload();
+          } else {
+            alert("Failed to update profile: " + data.error);
+          }
+        })
+        .catch((error) => {
+          console.error("Error during update:", error);
+        });
+    });
+        // Function to fetch current user information and update DOM elements
+        function updateCurrentUser() {
+    fetch("/user/current_user")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          const user = data.data;
+          // Update DOM elements with user information
+          document.getElementById("username").innerText = user.username;
+          document.getElementById("fullname").innerText = `${user.first_name} ${user.last_name}`;
+          document.getElementById("email").innerText = user.email;
+          document.getElementById("role").innerText = user.role;
+          document.getElementById("department_id").innerText = user.department_id;
+          document.getElementById("department").innerText = user.department_name;
+        } else {
+          console.error("Error fetching current user:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching current user:", error);
+      });
+  }
+
+  // Call updateCurrentUser function when the page loads
+  window.addEventListener("load", updateCurrentUser);
+
 </script>
 {% else %}
 <h1>Access Denied</h1>
