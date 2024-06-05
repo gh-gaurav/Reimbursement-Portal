@@ -16,7 +16,7 @@ def create_department():
     db.session.add(new_department)
     db.session.commit()
 
-    return jsonify({'message': 'Department created successfully'}), 201
+    return jsonify({'message': 'Department created successfully', 'department': {'id': new_department.id, 'name': new_department.name}}), 201
 
 @department_blueprint.route('/', methods=['GET'])
 def get_departments():
