@@ -415,120 +415,124 @@
   let isTableVisible = false;
 
   function fetchReimbursementRequests(manager_id, status) {
-    const container = document.getElementById("requestsContainer");
+  const container = document.getElementById("requestsContainer");
 
-    // Toggle visibility
-    if (isTableVisible) {
-      container.innerHTML = "";
-      isTableVisible = false;
-      return;
-    }
-
-    let url = `/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`;
-    if (status) {
-      url += `&status=${status}`;
-    }
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        container.innerHTML = "";
-
-        const table = document.createElement("table");
-        table.setAttribute("id", "requestsTable"); // Added to match the initial table's ID
-        table.classList.add("table", "table-bordered");
-
-        const thead = document.createElement("thead");
-        thead.classList.add("table-dark");
-        const headerRow = document.createElement("tr");
-
-        const headers = [
-          "ID",
-          "Amount",
-          "Date",
-          "Description",
-          "Category",
-          "Status",
-          "Manager Comment",
-          "Receipts",
-          "Action",
-        ];
-
-        headers.forEach((headerText) => {
-          const th = document.createElement("th");
-          th.innerText = headerText;
-          headerRow.appendChild(th);
-        });
-
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-
-        const tbody = document.createElement("tbody");
-
-        data.forEach((req) => {
-          const row = document.createElement("tr");
-
-          const receiptLinks = req.receipt_path
-            .split(",")
-            .map((path) => {
-              const fileName = path.split("/").pop();
-              return `<div><a href="${path}" target="_blank">${fileName.substring(
-                fileName.lastIndexOf("\\") + 1
-              )}</a></div>`;
-            })
-            .join("");
-
-          row.innerHTML = `
-                      <td>${req.id}</td>
-                      <td>${req.amount}</td>
-                      <td>${req.date}</td>
-                      <td>${req.description}</td>
-                      <td>${req.category}</td>
-                      <td>
-                          <select class="statusSelect" name="status">
-                              <option value="Approved" ${
-                                req.status === "Approved" ? "selected" : ""
-                              }>Approved</option>
-                              <option value="Rejected" ${
-                                req.status === "Rejected" ? "selected" : ""
-                              }>Rejected</option>
-                          </select>
-                      </td>
-                      <td>
-                          <input type="text" class="managerComment" name="manager_comment" value="${
-                            req.manager_comment || ""
-                          }">
-                      </td>
-                      <td>${receiptLinks}</td>
-                      <td>
-                          <button type="button" class="updateButton" data-id="${
-                            req.id
-                          }">Update</button>
-                      </td>
-                  `;
-
-          tbody.appendChild(row);
-        });
-
-        table.appendChild(tbody);
-        container.appendChild(table);
-
-        document.querySelectorAll(".updateButton").forEach((button) => {
-          button.addEventListener("click", function () {
-            const id = this.getAttribute("data-id");
-            const row = this.closest("tr");
-            const status = row.querySelector(".statusSelect").value;
-            const manager_comment = row.querySelector(".managerComment").value;
-            updateReimbursementRequest(id, status, manager_comment);
-          });
-        });
-
-        isTableVisible = true;
-      })
-      .catch((error) => {
-        console.error("Error fetching requests:", error);
-      });
+  // Toggle visibility
+  if (isTableVisible) {
+    container.innerHTML = "";
+    isTableVisible = false;
+    return;
   }
+
+  let url = `/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`;
+  if (status) {
+    url += `&status=${status}`;
+  }
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      container.innerHTML = "";
+
+      const table = document.createElement("table");
+      table.setAttribute("id", "requestsTable"); // Added to match the initial table's ID
+      table.classList.add("table", "table-bordered");
+
+      const thead = document.createElement("thead");
+      thead.classList.add("table-dark");
+      const headerRow = document.createElement("tr");
+
+      const headers = [
+        "ID",
+        "Amount",
+        "Date",
+        "Description",
+        "Category",
+        "Status",
+        "Manager Comment",
+        "Receipts",
+        "Action",
+      ];
+
+      headers.forEach((headerText) => {
+        const th = document.createElement("th");
+        th.innerText = headerText;
+        headerRow.appendChild(th);
+      });
+
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+
+      data.forEach((req) => {
+        const row = document.createElement("tr");
+
+        const receiptLinks = req.receipt_path
+          .split(",")
+          .map((path) => {
+            const fileName = path.split("/").pop();
+            return `<div><a href="${path}" target="_blank">${fileName.substring(
+              fileName.lastIndexOf("\\") + 1
+            )}</a></div>`;
+          })
+          .join("");
+
+        row.innerHTML = `
+                    <td>${req.id}</td>
+                    <td>${req.amount}</td>
+                    <td>${req.date}</td>
+                    <td>${req.description}</td>
+                    <td>${req.category}</td>
+                    <td>
+                        <select class="statusSelect" name="status">
+                            <option value="Approved" ${
+                              req.status === "Approved" ? "selected" : ""
+                            }>Approved</option>
+                            <option value="Rejected" ${
+                              req.status === "Rejected" ? "selected" : ""
+                            }>Rejected</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="managerComment" name="manager_comment" value="${
+                          req.manager_comment || ""
+                        }">
+                    </td>
+                    <td>${receiptLinks}</td>
+                    <td>
+                        <button type="button" class="updateButton" data-id="${
+                          req.id
+                        }">Update</button>
+                    </td>
+                `;
+
+        tbody.appendChild(row);
+      });
+
+      table.appendChild(tbody);
+      container.appendChild(table);
+
+      document.querySelectorAll(".updateButton").forEach((button) => {
+        button.addEventListener("click", function () {
+          const id = this.getAttribute("data-id");
+          const row = this.closest("tr");
+          const status = row.querySelector(".statusSelect").value;
+          const manager_comment = row.querySelector(".managerComment").value;
+          updateReimbursementRequest(id, status, manager_comment);
+          // Hide the table after the update operation
+          container.innerHTML = ""; // Clear the table
+          isTableVisible = false;
+          // Optionally, you can reload the reimbursement requests here
+        });
+      });
+
+      isTableVisible = true;
+    })
+    .catch((error) => {
+      console.error("Error fetching requests:", error);
+    });
+}
 
   function updateReimbursementRequest(id, status, manager_comment) {
     fetch(`/rr/${id}`, {

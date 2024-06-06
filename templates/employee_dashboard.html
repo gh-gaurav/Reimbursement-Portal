@@ -464,7 +464,11 @@
     .getElementById("editProfileBtn")
     .addEventListener("click", function () {
       const form = document.getElementById("editProfileForm");
-      form.style.display = form.style.display === "none" ? "block" : "none";
+      if (editProfileForm.style.display === 'none' || editProfileForm.style.display === '') {
+        editProfileForm.style.display = 'block';
+      } else {
+        editProfileForm.style.display = 'none';
+      }
     });
 
   // Handle edit profile form submission

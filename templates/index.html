@@ -1,5 +1,16 @@
 {% extends 'base.html' %} {% block title %}Home - Reimbursement Portal{%
 endblock %} {% block content %}
+
+
+{% if user %}
+<script>
+  const role = "{{ user.role }}"
+  console.log(234, role)
+  window.location.href = "/" + role.toLowerCase() + "_dashboard";
+</script>
+{% else %}
+
+
 <div class="container mt-4">
   <section class="mb-5">
     <h2
@@ -149,4 +160,5 @@ endblock %} {% block content %}
     </p>
   </section>
 </div>
+{% endif %}
 {% endblock %}

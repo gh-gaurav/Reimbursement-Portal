@@ -1,93 +1,102 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
 
-<form
-  id="loginForm"
-  onsubmit="login(event)"
-  class="needs-validation"
-  novalidate
->
-  <h1 style="font-family: Georgia, 'Times New Roman', Times, serif">Login</h1>
-  <br />
-  <div class="mb-3" style="position: relative;">
-    <label for="username" class="form-label">Username or Email:</label>
-    <input
-      type="text"
-      id="username"
-      name="username"
-      class="form-control"
-      placeholder="Enter username or email"
-      required
-    />
-  </div>
-  <div class="mb-3" style="position: relative;">
-    <label for="password" class="form-label">Password:</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      class="form-control"
-      required
-      style="padding-right: 40px;" 
-    />
-    <span class="toggle-password" onclick="togglePasswordVisibility('password')"
-      style="position: absolute; right: 10px; top: 80px; cursor: pointer;">&#x1F441;</span>
-  </div>
-  <button
-    type="submit"
-    class="btn btn-primary"
-    style="background-color: #010b14"
-  >
-    Login
-  </button>
-  <p class="mt-3">
-    Don't have an account? <a href="/register">Register Here</a>
-  </p>
-</form>
+{% block content %}
+  {% if user %}
+    <script>
+      const role = "{{ user.role }}"
+      console.log(234, role)
+  window.location.href = "{{ url_for(user.role.lower() + '_dashboard') }}";
+    </script>
+  {% else %}
+    <form
+      id="loginForm"
+      onsubmit="login(event)"
+      class="needs-validation"
+      novalidate
+    >
+      <h1 style="font-family: Georgia, 'Times New Roman', Times, serif">Login</h1>
+      <br />
+      <div class="mb-3" style="position: relative;">
+        <label for="username" class="form-label">Username or Email:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-control"
+          placeholder="Enter username or email"
+          required
+        />
+      </div>
+      <div class="mb-3" style="position: relative;">
+        <label for="password" class="form-label">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          required
+          style="padding-right: 40px;" 
+        />
+        <span class="toggle-password" onclick="togglePasswordVisibility('password')"
+          style="position: absolute; right: 10px; top: 80px; cursor: pointer;">&#x1F441;</span>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        style="background-color: #010b14"
+      >
+        Login
+      </button>
+      <p class="mt-3">
+        Don't have an account? <a href="/register">Register Here</a>
+      </p>
+    </form>
 
-<script>
-  function togglePasswordVisibility(inputId) {
-    var input = document.getElementById(inputId);
-    var icon = document.querySelector("#" + inputId).nextElementSibling;
+    <script>
+      function togglePasswordVisibility(inputId) {
+        var input = document.getElementById(inputId);
+        var icon = document.querySelector("#" + inputId).nextElementSibling;
 
-    if (input.type === "password") {
-      input.type = "text";
-      icon.innerHTML = "&#x1F440;"; // Show open eye
-    } else {
-      input.type = "password";
-      icon.innerHTML = "&#x1F441;"; // Show closed eye
-    }
-  }
-
-  function login(event) {
-    event.preventDefault(); // Prevent the default form submission
-    var form = document.getElementById("loginForm");
-    var formData = new FormData(form);
-    var json = {};
-
-    formData.forEach(function (value, key) {
-      json[key] = value;
-    });
-
-    fetch("/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(json),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          // Redirect to the appropriate dashboard based on the received redirect URL
-          window.location.href = data.redirect;
+        if (input.type === "password") {
+          input.type = "text";
+          icon.innerHTML = "&#x1F440;"; // Show open eye
         } else {
-          alert(data.error); // Show error message
+          input.type = "password";
+          icon.innerHTML = "&#x1F441;"; // Show closed eye
         }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("An error occurred. Please try again."); // Show generic error message
-      });
-  }
-</script>
+      }
+
+      function login(event) {
+        event.preventDefault(); // Prevent the default form submission
+        var form = document.getElementById("loginForm");
+        var formData = new FormData(form);
+        var json = {};
+
+        formData.forEach(function (value, key) {
+          json[key] = value;
+        });
+
+        fetch("/user/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(json),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              // Redirect to the appropriate dashboard based on the received redirect URL
+              window.location.href = data.redirect;
+            } else {
+              alert(data.error); // Show error message
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again."); // Show generic error message
+          });
+      }
+    </script>
+  {% endif %}
 {% endblock %}
