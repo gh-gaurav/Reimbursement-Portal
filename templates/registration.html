@@ -145,12 +145,31 @@
       return; // Stop registration process
     }
 
-    // Validate username for "@" symbol
+    // Validate username for "@" symbol and not empty
     var usernameInput = document.getElementById("username");
-    if (usernameInput.value.includes("@")) {
+    if (usernameInput.value === "") {
+      alert("Username can't be empty");
+      return; // Stop registration process
+    } else if (usernameInput.value.includes("@")) {
       alert("You can't put '@' symbol in username");
       return; // Stop registration process
     }
+
+    // Validate first name not empty
+    var firstNameInput = document.getElementById("first_name");
+    if (firstNameInput.value === "") {
+      alert("First name can't be empty");
+      return; // Stop registration process
+    }
+
+    // Validate last name not empty
+    var lastNameInput = document.getElementById("last_name");
+    if (lastNameInput.value === "") {
+      alert("Last name can't be empty");
+      return; // Stop registration process
+    }
+
+
 
     fetch("/user", {
       method: "POST",
@@ -181,11 +200,13 @@
       });
   }
 
-  // Custom email validation function
-  function validateEmail(email) {
-    return email.endsWith("@nucleusteq.com");
+ // Custom email validation function
+ function validateEmail(email) {
+    // Ensure email ends with "@nucleusteq.com" and has some text before "@"
+    const regex = /^[^\s@]+@nucleusteq\.com$/;
+    return regex.test(email);
   }
-
+  
   // Function to populate department options
   function populateDepartments() {
     fetch("/department")
