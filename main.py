@@ -56,6 +56,8 @@ def create_app(config_class=Config):
     def register():
         return render_template('registration.html') 
 
+    #session things
+
     @app.get('/manager_dashboard')
     def manager_dashboard():
         user = session.get('user')
