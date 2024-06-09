@@ -187,7 +187,9 @@ def get_reimbursement_requests():
                 'employee_id': req.employee_id,
                 'manager_id': req.manager_id,
                 'manager_comment': req.manager_comment,
-                'receipt_path': req.receipt_path
+                'receipt_path': req.receipt_path,
+                'created_on': req.created_on.strftime('%Y-%m-%d %H:%M:%S') if req.created_on else None,
+                'updated_on': req.updated_on.strftime('%Y-%m-%d %H:%M:%S') if req.updated_on else None
             })
         return jsonify(result), 200
     except Exception as e:

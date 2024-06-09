@@ -441,7 +441,7 @@
         formData.append("receipt", receiptFiles[i]);
       }
 
-      fetch("/rr", {
+      fetch("/rr/", {
         method: "POST",
         body: formData,
       })
@@ -464,10 +464,13 @@
     .getElementById("editProfileBtn")
     .addEventListener("click", function () {
       const form = document.getElementById("editProfileForm");
-      if (editProfileForm.style.display === 'none' || editProfileForm.style.display === '') {
-        editProfileForm.style.display = 'block';
+      if (
+        editProfileForm.style.display === "none" ||
+        editProfileForm.style.display === ""
+      ) {
+        editProfileForm.style.display = "block";
       } else {
-        editProfileForm.style.display = 'none';
+        editProfileForm.style.display = "none";
       }
     });
 

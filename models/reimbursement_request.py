@@ -1,5 +1,7 @@
 from enum import Enum
 from db import db
+from datetime import datetime
+from sqlalchemy import event
 
 class Category(Enum):
     Travelling = "Travelling"
@@ -24,6 +26,9 @@ class ReimbursementRequest(db.Model):
     manager_id = db.Column(db.Integer, nullable=False)  # Ensure 'users.id' is correct
     manager_comment = db.Column(db.String(255))  # Added for manager comments
     receipt_path = db.Column(db.String(255))  # Optional field for receipt storage path
+    created_on = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    updated_on = db.Column(db.DateTime, nullable = True)
+
     is_active = db.Column(db.Boolean, default=True, nullable=False)  # Soft delete column
 
     # Define relationship with user (one-to-many)
@@ -46,4 +51,13 @@ class ReimbursementRequest(db.Model):
         return f"ReimbursementRequest('{self.amount}', '{self.date}', '{self.category.name}', '{self.status}')"
 
     
+# Event listener to set created_on timestamp
+@event.listens_for(ReimbursementRequest, 'before_insert')
+def before_user_insert(mapper, connection, target):
+    target.created_on = datetime.now()
     
+# Event listener to set handled_on timestamp
+@event.listens_for(ReimbursementRequest, 'before_update')
+def before_user_update(mapper, connection, target):
+    if target.status != "Pending" and not target.updated_on:
+        target.updated_on = datetime.now()

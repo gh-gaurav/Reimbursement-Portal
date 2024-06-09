@@ -1,12 +1,10 @@
-{% extends 'base.html' %} {% block content %}
-
-{% if user %}
+{% extends 'base.html' %} {% block content %} {% if user %}
 <script>
-  const role = "{{ user.role }}"
-  console.log(234, role)
+  const role = "{{ user.role }}";
+  console.log(234, role);
   // window.location.href = "/" + role.toLowerCase() + "_dashboard";
   window.location.href = "{{ url_for(user.role.lower() + '_dashboard') }}";
-  </script>
+</script>
 {% else %}
 
 <form
@@ -15,7 +13,11 @@
   class="needs-validation"
   novalidate
 >
-  <h1 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+  <h1
+    style="
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    "
+  >
     Registration
   </h1>
   <br />
@@ -34,7 +36,7 @@
     <label for="email" class="form-label">Email:</label>
     <input type="email" id="email" name="email" class="form-control" required />
   </div>
-  <div class="mb-3" style="position: relative;">
+  <div class="mb-3" style="position: relative">
     <label for="password" class="form-label">Password:</label>
     <input
       type="password"
@@ -42,14 +44,16 @@
       name="password"
       class="form-control"
       required
-      style="padding-right: 40px;"
+      style="padding-right: 40px"
     />
     <span
       class="toggle-password"
       onclick="togglePasswordVisibility('password')"
-      style="position: absolute; right: 10px; top: 80px; cursor: pointer;">&#x1F441;</span>
+      style="position: absolute; right: 10px; top: 80px; cursor: pointer"
+      >&#x1F441;</span
+    >
   </div>
-  <div class="mb-3" style="position: relative;">
+  <div class="mb-3" style="position: relative">
     <label for="confirm_password" class="form-label">Confirm Password:</label>
     <input
       type="password"
@@ -57,12 +61,14 @@
       name="confirm_password"
       class="form-control"
       required
-      style="padding-right: 40px;"
+      style="padding-right: 40px"
     />
     <span
       class="toggle-password"
       onclick="togglePasswordVisibility('confirm_password')"
-      style="position: absolute; right: 10px; top: 80px; cursor: pointer;">&#x1F441;</span>
+      style="position: absolute; right: 10px; top: 80px; cursor: pointer"
+      >&#x1F441;</span
+    >
   </div>
   <div class="mb-3">
     <label for="role" class="form-label">Role:</label>
@@ -99,7 +105,11 @@
       <!-- Department options will be populated dynamically -->
     </select>
   </div>
-  <button type="submit" class="btn btn-primary" style="background-color: #010b14">
+  <button
+    type="submit"
+    class="btn btn-primary"
+    style="background-color: #010b14"
+  >
     Register
   </button>
   <p class="mt-3">Have an account? <a href="/login">Login</a></p>
@@ -169,9 +179,7 @@
       return; // Stop registration process
     }
 
-
-
-    fetch("/user", {
+    fetch("/user/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -200,16 +208,16 @@
       });
   }
 
- // Custom email validation function
- function validateEmail(email) {
+  // Custom email validation function
+  function validateEmail(email) {
     // Ensure email ends with "@nucleusteq.com" and has some text before "@"
     const regex = /^[^\s@]+@nucleusteq\.com$/;
     return regex.test(email);
   }
-  
+
   // Function to populate department options
   function populateDepartments() {
-    fetch("/department")
+    fetch("/department/")
       .then((response) => response.json())
       .then((data) => {
         const departmentSelect = document.getElementById("department");
@@ -231,5 +239,4 @@
   };
 </script>
 
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}

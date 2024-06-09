@@ -340,4 +340,27 @@ def login():
         return jsonify({'success': False, 'error': 'Login failed. Please check your credentials.'}), 401
     
     
-    
+@user_blueprint.get('/user_audit_trail')
+def user_audit_trail():
+    try:
+        # Fetch users including both active and inactive
+        users = User.query.filter(User.role != Role.Admin).all()        
+        # Initialize an empty list to store the audit trail data
+        audit_trail = []
+
+        # Iterate through the users and construct the audit trail data
+        for user in users:
+            audit_trail.append({
+                'id': user.id,
+                'username': user.username,
+                'role':user.role.value,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'created_on': user.created_on.strftime("%Y-%m-%d %H:%M:%S") if user.created_on else None,
+                'deleted_on': user.deleted_on.strftime("%Y-%m-%d %H:%M:%S") if user.deleted_on else None
+            })
+
+        return jsonify({'success': True, 'data': audit_trail}), 200
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500

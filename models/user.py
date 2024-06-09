@@ -1,6 +1,8 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
 from enum import Enum
+from datetime import datetime
+from sqlalchemy import event
 
 # Defining Role for the User
 class Role(Enum):
@@ -21,6 +23,9 @@ class User(db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     is_active = db.Column(db.Boolean, default=True, nullable=False)  # Soft delete column
+    created_on = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    deleted_on = db.Column(db.DateTime, nullable = True)
+    
     # Relationship
     department = db.relationship('Department', backref='users')
     manager = db.relationship('User', remote_side=[id], backref='employees')
@@ -52,3 +57,15 @@ class User(db.Model):
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.role.name}')"
+    
+    # Event listener to set created_on timestamp
+@event.listens_for(User, 'before_insert')
+def before_user_insert(mapper, connection, target):
+    target.created_on = datetime.now()
+
+# Event listener to set deleted_on timestamp
+@event.listens_for(User, 'before_update')
+def before_user_update(mapper, connection, target):
+    # print("Updating deleted_on for user:", target.id)
+    if not target.is_active and not target.deleted_on:
+        target.deleted_on = datetime.now()
