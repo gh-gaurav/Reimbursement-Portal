@@ -237,6 +237,8 @@
           <th>Manager ID</th>
           <th>Manager Comment</th>
           <th>Receipt Path</th>
+          <th>CREATED_ON</th>
+          <th>UPDATED_ON</th>
         </tr>
       </thead>
       <tbody id="requestsTableBody">
@@ -358,6 +360,37 @@
   </button>
 </form>
 
+<!-- Add the "Audit User Trail" button -->
+<button
+  onclick="toggleUserTrail()"
+  class="btn btn-secondary mt-4"
+  style="
+    background-color: #010b14;
+    font-family: 'Times New Roman', Times, serif;
+    width: 98%;
+    margin-left: 0.3cm;
+  "
+>
+  User History
+</button>
+<div id="userTrailContainer" style="display: none" class="mt-4">
+  <h2 style="font-family: 'Times New Roman', Times, serif">User History</h2>
+  <table id="userTrailTable" class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>ROLE</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Created On</th>
+        <th>Deleted On</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
 <!-- Scripts -->
 <script>
   function toggleUnassignedEmployees() {
@@ -386,6 +419,16 @@
       form.style.display = "block";
     } else {
       form.style.display = "none";
+    }
+  }
+  //kimjongun
+  function toggleUserTrail() {
+    const container = document.getElementById("userTrailContainer");
+    if (container.style.display === "none") {
+      container.style.display = "block";
+      fetchUserTrail();
+    } else {
+      container.style.display = "none";
     }
   }
 
@@ -511,6 +554,41 @@
     }
   }
 
+  //kimjongun
+  function fetchUserTrail() {
+    fetch("/user/user_audit_trail") // Update the endpoint to match your Flask route
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          const tbody = document
+            .getElementById("userTrailTable")
+            .getElementsByTagName("tbody")[0];
+          tbody.innerHTML = ""; // Clear existing rows
+          data.data.forEach((entry) => {
+            // Update data.trail to data.data
+            const row = tbody.insertRow();
+            row.insertCell(0).innerText = entry.id;
+            row.insertCell(1).innerText = entry.username;
+            row.insertCell(2).innerText = entry.role;
+            row.insertCell(3).innerText = entry.first_name;
+            row.insertCell(4).innerText = entry.last_name;
+            row.insertCell(5).innerText = entry.created_on;
+            row.insertCell(6).innerText = entry.deleted_on;
+          });
+        } else {
+          console.error("Error fetching user trail:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user trail:", error);
+      });
+  }
+
   // Function to delete a department
   function deleteDepartment(departmentId) {
     // var departmentId = document.getElementById("departmentId").value;
@@ -538,7 +616,7 @@
 
   // Function to list departments
   function seeDepartments() {
-    fetch("/department")
+    fetch("/department/")
       .then((response) => response.json())
       .then((data) => {
         const departmentsTableContainer = document.getElementById(
@@ -626,6 +704,8 @@
                         <td>${request.manager_id}</td>
                         <td>${request.manager_comment}</td>
                         <td>${receiptLinks}</td>
+                        <td>${request.created_on}</td>
+                        <td>${request.updated_on}</td>
                     `;
 
             // Append the row to the table body
@@ -651,8 +731,10 @@
   }
 
   // Function to fetch reimbursement requests for admin
-function seeRequestsAdmin() {
-    const requestsTableContainer = document.getElementById("requestsAdminTableContainer");
+  function seeRequestsAdmin() {
+    const requestsTableContainer = document.getElementById(
+      "requestsAdminTableContainer"
+    );
     const requestsTableBody = document.getElementById("requestsAdminTableBody");
 
     // Toggle the visibility of the requests table container
@@ -660,26 +742,26 @@ function seeRequestsAdmin() {
 
     // Fetch and display the requests data only if the container is visible
     if (requestsAdminTableContainer.style.display === "block") {
-        fetch("/rr/get_reimbursement_requests_admin")
-            .then((response) => response.json())
-            .then((data) => {
-                // Clear the existing rows
-                requestsAdminTableBody.innerHTML = "";
+      fetch("/rr/get_reimbursement_requests_admin")
+        .then((response) => response.json())
+        .then((data) => {
+          // Clear the existing rows
+          requestsAdminTableBody.innerHTML = "";
 
-                // Populate the table with reimbursement requests data
-                data.forEach((request) => {
-                    const row = document.createElement("tr");
-                    const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
-                    const receiptLinks = receiptUrls
-                        .map(
-                            (url) =>
-                                `<a href="${url}" target="_blank">${url.substring(
-                                    url.lastIndexOf("\\") + 1
-                                )}</a>`
-                        )
-                        .join("<br>"); // Creating link tags for each URL
+          // Populate the table with reimbursement requests data
+          data.forEach((request) => {
+            const row = document.createElement("tr");
+            const receiptUrls = request.receipt_path.split(","); // Splitting receipt paths by comma
+            const receiptLinks = receiptUrls
+              .map(
+                (url) =>
+                  `<a href="${url}" target="_blank">${url.substring(
+                    url.lastIndexOf("\\") + 1
+                  )}</a>`
+              )
+              .join("<br>"); // Creating link tags for each URL
 
-                    row.innerHTML = `
+            row.innerHTML = `
             <td>${request.id}</td>
             <td>${request.amount}</td>
             <td>${request.date}</td>
@@ -699,40 +781,40 @@ function seeRequestsAdmin() {
             <td>${request.manager_id}</td>
             <td>
               <input type="text" class="managerComment" name="manager_comment" value="${
-                        request.manager_comment || ""
-                    }">
+                request.manager_comment || ""
+              }">
             </td>
             <td>${receiptLinks}</td>
             <td>
               <button type="button" class="updateButton" data-id="${
-                        request.id
-                    }">Update</button>
+                request.id
+              }">Update</button>
             </td>
           `;
-                    requestsAdminTableBody.appendChild(row);
-                });
+            requestsAdminTableBody.appendChild(row);
+          });
 
-                // Add event listeners to update buttons
-                document.querySelectorAll(".updateButton").forEach((button) => {
-                    button.addEventListener("click", function () {
-                        const id = this.getAttribute("data-id");
-                        const row = this.closest("tr");
-                        const status = row.querySelector(".statusSelect").value;
-                        const manager_comment =
-                            row.querySelector(".managerComment").value;
-                        updateReimbursementRequest(id, status, manager_comment);
-                        
-                        // Hide the table container after updating
-                        requestsTableContainer.style.display = "none";
-                    });
-                });
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-                alert("An error occurred while fetching reimbursement requests.");
+          // Add event listeners to update buttons
+          document.querySelectorAll(".updateButton").forEach((button) => {
+            button.addEventListener("click", function () {
+              const id = this.getAttribute("data-id");
+              const row = this.closest("tr");
+              const status = row.querySelector(".statusSelect").value;
+              const manager_comment =
+                row.querySelector(".managerComment").value;
+              updateReimbursementRequest(id, status, manager_comment);
+
+              // Hide the table container after updating
+              requestsTableContainer.style.display = "none";
             });
+          });
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("An error occurred while fetching reimbursement requests.");
+        });
     }
-}
+  }
 
   function deleteUser(userId) {
     // const userId = document.getElementById('userId').value;
