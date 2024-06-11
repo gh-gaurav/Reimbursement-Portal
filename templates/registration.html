@@ -147,6 +147,14 @@
       return; // Stop registration process
     }
 
+
+    // Validate password not empty
+    var passwordInput = document.getElementById("password");
+    if (passwordInput.value === "") {
+      alert("Password can't be empty");
+      return; // Stop registration process
+    }
+
     // Validate password confirmation
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirm_password").value;
@@ -179,6 +187,14 @@
       return; // Stop registration process
     }
 
+     // Validate department selection
+    var departmentSelect = document.getElementById("department");
+    if (departmentSelect.value === "") {
+        alert("Please select a department");
+        return; // Stop registration process
+    }
+
+
     fetch("/user/", {
       method: "POST",
       headers: {
@@ -190,7 +206,9 @@
         if (response.ok) {
           return response.json(); // Parse the response JSON
         } else {
-          throw new Error("Registration failed. Please try again."); // Error response
+          return response.json().then((data) => {
+          throw new Error(data.error || "Registration failed. Please try again."); // Error response
+        });
         }
       })
       .then((data) => {

@@ -7,6 +7,10 @@
   <div class="card mt-3 mb-4">
     <div class="card-body">
       <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>UserID:</strong>
+        <span id="id">{{ user.id }}</span>
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
         <strong>Username:</strong>
         <span id="username">{{ user.username }}</span>
       </p>
@@ -81,7 +85,7 @@
         required
       />
     </div>
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label
         for="edit_username"
         class="form-label"
@@ -96,7 +100,7 @@
         value="{{ user.username }}"
         required
       />
-    </div>
+    </div> -->
     <button
       type="submit"
       class="btn btn-primary"
@@ -996,10 +1000,25 @@
     .addEventListener("submit", function (event) {
       event.preventDefault();
 
+    const firstName = document.getElementById("edit_first_name").value.trim();
+    const lastName = document.getElementById("edit_last_name").value.trim();
+
+    // Validate that the first name is not empty
+    if (firstName === "") {
+      alert("First name cannot be empty.");
+      return;
+    }
+
+    // Validate that the last name is not empty
+    if (lastName === "") {
+      alert("Last name cannot be empty.");
+      return;
+    }
+
       const payload = {
         first_name: document.getElementById("edit_first_name").value,
         last_name: document.getElementById("edit_last_name").value,
-        username: document.getElementById("edit_username").value,
+        // username: document.getElementById("edit_username").value,
         // department_id: document.getElementById("edit_department_id").value,
       };
 

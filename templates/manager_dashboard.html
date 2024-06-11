@@ -7,6 +7,10 @@
   <div class="card mt-3 mb-4">
     <div class="card-body">
       <p style="font-family: 'Times New Roman', Times, serif">
+        <strong>UserID:</strong>
+        <span id="id">{{ user.id }}</span>
+      </p>
+      <p style="font-family: 'Times New Roman', Times, serif">
         <strong>Username:</strong>
         <span id="username">{{ user.username }}</span>
       </p>
@@ -94,7 +98,7 @@
         value="{{ user.last_name }}"
         required
       />
-    </div>
+    <!-- </div>
     <div class="mb-3">
       <label
         for="edit_username"
@@ -126,7 +130,7 @@
         value="{{ user.department_id }}"
         required
       />
-    </div>
+    </div> -->
     <button
       type="submit"
       class="btn btn-primary"
@@ -424,6 +428,7 @@
       return;
     }
 
+    //manager's employee requests for updation
     let url = `/rr/get_reimbursement_requests_manager?manager_id=${manager_id}`;
     if (status) {
       url += `&status=${status}`;
@@ -448,6 +453,7 @@
           "Date",
           "Description",
           "Category",
+          "Employee_ID",
           "Status",
           "Manager Comment",
           "Receipts",
@@ -484,6 +490,7 @@
                     <td>${req.date}</td>
                     <td>${req.description}</td>
                     <td>${req.category}</td>
+                    <td>${req.employee_id}</td>
                     <td>
                         <select class="statusSelect" name="status">
                             <option value="Approved" ${
@@ -588,19 +595,45 @@
     .addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const amount = parseFloat(document.getElementById("amount").value);
-      const categoryElement = document.getElementById("category");
-      const selectedCategory = categoryElement.value;
-      const maxAmount = parseFloat(
-        categoryElement.options[categoryElement.selectedIndex].getAttribute(
-          "data-max-amount"
-        )
-      );
+    const amountElement = document.getElementById("amount");
+    const amount = parseFloat(amountElement.value);
+    const dateElement = document.getElementById("date");
+    const categoryElement = document.getElementById("category");
+    const selectedCategory = categoryElement.value;
+    const receiptElement = document.getElementById("receipt");
+    const receiptFiles = receiptElement.files;
+    const maxAmount = parseFloat(
+      categoryElement.options[categoryElement.selectedIndex].getAttribute("data-max-amount")
+    );
 
-      if (amount > maxAmount) {
-        alert(`The maximum amount for ${selectedCategory} is ${maxAmount}.`);
-        return;
-      }
+    // Check if the amount field is empty
+    if (isNaN(amount) || amountElement.value.trim() === "") {
+      alert("Amount can't be empty.");
+      return;
+    }
+
+    // Check if the date field is empty
+    if (dateElement.value.trim() === "") {
+      alert("Date can't be empty.");
+      return;
+    }
+
+    // Check if the category field is empty
+    if (selectedCategory.trim() === "") {
+      alert("Category can't be empty.");
+      return;
+    }
+
+    // Check if the receipt field is empty
+    if (receiptFiles.length === 0) {
+      alert("Please upload at least one receipt.");
+      return;
+    }
+
+    if (amount > maxAmount) {
+      alert(`The maximum amount for ${selectedCategory} is ${maxAmount}.`);
+      return;
+    }
 
       const formData = new FormData();
       formData.append("amount", amount);
@@ -615,7 +648,7 @@
         document.getElementById("employee_id").value
       );
 
-      const receiptFiles = document.getElementById("receipt").files;
+      // const receiptFiles = document.getElementById("receipt").files;
       for (let i = 0; i < receiptFiles.length; i++) {
         formData.append("receipt", receiptFiles[i]);
       }
@@ -706,11 +739,26 @@
     .addEventListener("submit", function (event) {
       event.preventDefault();
 
+    const firstName = document.getElementById("edit_first_name").value.trim();
+    const lastName = document.getElementById("edit_last_name").value.trim();
+
+    // Validate that the first name is not empty
+    if (firstName === "") {
+      alert("First name cannot be empty.");
+      return;
+    }
+
+    // Validate that the last name is not empty
+    if (lastName === "") {
+      alert("Last name cannot be empty.");
+      return;
+    }
+
       const payload = {
         first_name: document.getElementById("edit_first_name").value,
         last_name: document.getElementById("edit_last_name").value,
-        username: document.getElementById("edit_username").value,
-        department_id: document.getElementById("edit_department_id").value,
+        // username: document.getElementById("edit_username").value,
+        // department_id: document.getElementById("edit_department_id").value,
       };
 
       fetch(`/user/${"{{user.id}}"}`, {
