@@ -140,6 +140,18 @@
       json[key] = value;
     });
 
+
+    // Validate username for "@" symbol and not empty
+    var usernameInput = document.getElementById("username");
+    if (usernameInput.value === "") {
+      alert("Username can't be empty");
+      return; // Stop registration process
+    } else if (usernameInput.value.includes("@")) {
+      alert("You can't put '@' symbol in username");
+      return; // Stop registration process
+    }
+
+
     // Validate email
     var emailInput = document.getElementById("email");
     if (!validateEmail(emailInput.value)) {
@@ -163,13 +175,12 @@
       return; // Stop registration process
     }
 
-    // Validate username for "@" symbol and not empty
-    var usernameInput = document.getElementById("username");
-    if (usernameInput.value === "") {
-      alert("Username can't be empty");
-      return; // Stop registration process
-    } else if (usernameInput.value.includes("@")) {
-      alert("You can't put '@' symbol in username");
+    
+
+    // Validate role not empty
+    var roleInput = document.getElementById("role");
+    if (roleInput.value === "") {
+      alert("Please select the role");
       return; // Stop registration process
     }
 

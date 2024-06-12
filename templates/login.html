@@ -68,6 +68,22 @@
 
       function login(event) {
         event.preventDefault(); // Prevent the default form submission
+
+        
+        // Get the username/email and password input fields
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        // Check if the fields are empty
+        if (username === "") {
+          alert("Username or email cannot be empty.");
+          return;
+        }
+
+        if (password === "") {
+          alert("Password cannot be empty.");
+          return;
+        }
         var form = document.getElementById("loginForm");
         var formData = new FormData(form);
         var json = {};
