@@ -5,6 +5,11 @@ import logging
 
 user_blueprint = Blueprint('user', __name__)
 
+# def validate_email(email):
+#     # Ensure email ends with "@nucleusteq.com" and has some text before "@"
+#     regex = r'^[^\s@]+@nucleusteq\.com$'
+#     return re.match(regex, email) is not None
+
 @user_blueprint.post('/')
 def create_user():
     try:
@@ -17,6 +22,12 @@ def create_user():
         last_name = payload.get('last_name')
         department_id = payload.get('department_id')
         
+        # # Email validation
+        # if not validate_email(email):
+        #     return jsonify({
+        #         'success': False,
+        #         'error': 'Invalid email. Email must end with @nucleusteq.com'
+        #     }), 400
         
         # Fetch the admin user to get the admin's ID
         admin_user = User.query.filter_by(role=Role.Admin).first()
@@ -29,8 +40,7 @@ def create_user():
         # Set the default manager_id to the admin's ID
         manager_id = admin_user.id
         
-        # validate data
-
+        
         user = User(
             username=username,
             email=email,
