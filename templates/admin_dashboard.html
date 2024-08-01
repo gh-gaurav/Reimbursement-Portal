@@ -1,145 +1,286 @@
-{% extends 'base.html' %} {% block content %} {% if user.role == 'Admin' %}
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if user.role == 'Admin' %}
 
 <div class="container mt-4">
   <h1 class="text-center" style="font-family: 'Times New Roman', Times, serif">
-    Welcome to the Admin Dashboard!
+    Welcome to the Admin Dashboard
   </h1>
   <div class="card mt-3 mb-4">
     <div class="card-body">
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>UserID:</strong>
-        <span id="id">{{ user.id }}</span>
-      </p>
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Username:</strong>
-        <span id="username">{{ user.username }}</span>
-      </p>
-
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Full Name:</strong>
-        <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
-      </p>
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Email:</strong> <span id="email">{{ user.email }}</span>
-      </p>
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Role:</strong> <span id="role">{{ user.role }}</span>
-      </p>
-      <!-- Logout Button -->
-      <button type="submit" form="logoutForm" class="btn-logout">Logout</button>
-      <!-- Delete Button -->
+      <div class="row">
+        <div class="col-md-6">
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>UserID:</strong>
+            <span id="id">{{ user.id }}</span>
+          </p>
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>Username:</strong>
+            <span id="username">{{ user.username }}</span>
+          </p>
+          
+          <button
+        type="submit"
+        form="logoutForm"
+        class="btn-logout"
+        style="font-family: 'Times New Roman', Times, serif"
+      >
+        Logout
+      </button>
       <button
         id="editProfileBtn"
         class="btn btn-primary"
-        style="font-family: 'Times New Roman', Times, serif; width: 8%"
+        style="
+          display: inline-block;
+          width: auto;
+          padding: 4px 20px;
+          background-color: #007bff; 
+          border-radius: 3px;
+          cursor: pointer;
+          margin-top: -3px;
+          font-family: 'Times New Roman', Times, serif;
+        "
       >
         Edit
       </button>
+        </div>
+        <div class="col-md-6">
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>Full Name:</strong>
+            <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
+          </p>
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>Email:</strong> 
+            <span id="email">{{ user.email }}</span>
+          </p>
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>Role:</strong> 
+            <span id="role">{{ user.role }}</span>
+          </p>
+        </div>
+      </div>
+
+      
+      
     </div>
   </div>
-  <form
-    id="logoutForm"
-    action="/logout"
-    method="post"
-    style="display: none"
-  ></form>
-  <!-- Edit Profile Form -->
-  <form
-    id="editProfileForm"
-    method="post"
-    class="needs-validation"
-    style="display: none"
-    novalidate
-  >
-    <h2 style="font-family: 'Times New Roman', Times, serif">Edit Profile</h2>
-    <br />
-    <div class="mb-3">
-      <label
-        for="edit_first_name"
-        class="form-label"
-        style="font-family: 'Times New Roman', Times, serif"
-        >First Name:</label
-      >
-      <input
-        type="text"
-        id="edit_first_name"
-        name="first_name"
-        class="form-control"
-        value="{{ user.first_name }}"
-        required
-      />
-    </div>
-    <div class="mb-3">
-      <label
-        for="edit_last_name"
-        class="form-label"
-        style="font-family: 'Times New Roman', Times, serif"
-        >Last Name:</label
-      >
-      <input
-        type="text"
-        id="edit_last_name"
-        name="last_name"
-        class="form-control"
-        value="{{ user.last_name }}"
-        required
-      />
-    </div>
-    <!-- <div class="mb-3">
-      <label
-        for="edit_username"
-        class="form-label"
-        style="font-family: 'Times New Roman', Times, serif"
-        >Username:</label
-      >
-      <input
-        type="text"
-        id="edit_username"
-        name="username"
-        class="form-control"
-        value="{{ user.username }}"
-        required
-      />
-    </div> -->
-    <button
-      type="submit"
-      class="btn btn-primary"
-      style="
-        background-color: #010b14;
-        font-family: 'Times New Roman', Times, serif;
-      "
-    >
-      Save Changes
-    </button>
-  </form>
+      <div class="card mt-3 mb-4">
+        <div class="card-body">
+          <div class="row">
+            <!-- First column for the first 4 buttons -->
+            <div class="col-md-6">
+              <!-- Button to add a new department -->
+              <button
+                id="toggleDepartmentFormBtn"
+                class="btn btn-primary mb-4"
+                style="
+                  background-color: #010b14;
+                  font-family: 'Times New Roman', Times, serif;
+                  width: 100%;
+                "
+              >
+                Add a New Department
+              </button>
 
-  <!-- Form to Add Department -->
-  <button
-    id="toggleDepartmentFormBtn"
-    class="btn btn-primary"
-    style="
-      margin-bottom: 20px;
-      background-color: #010b14;
-      font-family: 'Times New Roman', Times, serif;
-    "
-  >
-    Add a New Department
-  </button>
-  <form id="addDepartmentForm" class="mb-4" style="display: none">
-    <h2>Add a Department</h2>
-    <br />
-    <div class="mb-3">
-      <label for="departmentName" class="form-label">Department Name:</label
-      ><br />
-      <input
-        type="text"
-        id="departmentName"
-        name="departmentName"
-        class="form-control"
-        required
-      />
-    </div>
-    <button
+              <!-- Button to see department list -->
+              <button
+                type="button"
+                onclick="seeDepartments()"
+                class="btn btn-secondary mb-4"
+                style="
+                  background-color: #010b14;
+                  font-family: 'Times New Roman', Times, serif;
+                  width: 100%;
+                "
+              >
+                See Department List
+              </button>
+
+              <!-- Button to see user list -->
+              <button
+                type="button"
+                onclick="seeUsers()"
+                class="btn btn-secondary mb-4"
+                style="
+                  background-color: #010b14;
+                  font-family: 'Times New Roman', Times, serif;
+                  width: 100%;
+                "
+              >
+                See User List
+              </button>
+
+              <!-- Button to see requests list -->
+              <button
+                type="button"
+                onclick="seeRequests()"
+                class="btn btn-secondary mb-4"
+                style="
+                  background-color: #010b14;
+                  font-family: 'Times New Roman', Times, serif;
+                  width: 100%;
+                "
+              >
+                See Requests List
+              </button>
+            </div>
+
+            <!-- Second column for the remaining 4 buttons -->
+            <div class="col-md-6">
+              <!-- Button to see user history -->
+              <button
+                onclick="toggleUserTrail()"
+                class="btn btn-secondary mb-4"
+                style="
+                  background-color: #010b14;
+                  font-family: 'Times New Roman', Times, serif;
+                  width: 100%;
+                "
+              >
+                User History
+              </button>
+
+              <!-- Button to see reimbursement requests list for admin -->
+              <button
+                type="button"
+                onclick="seeRequestsAdmin()"
+                class="btn btn-secondary mb-4"
+                style="
+                  background-color: #010b14;
+                  font-family: 'Times New Roman', Times, serif;
+                  width: 100%;
+                "
+              >
+                Show Requests for Updation
+              </button>
+
+              <!-- Button to toggle the list of unassigned employees -->
+              <button
+                id="toggleUnassignedEmployeesBtn"
+                class="btn btn-primary mb-4"
+                style="
+                  background-color: #010b14;
+                  font-family: 'Times New Roman', Times, serif;
+                  width: 100%;
+                "
+                onclick="toggleUnassignedEmployees()"
+              >
+                List of Unassigned Employees
+              </button>
+              <button
+        id="toggleFormBtn"
+        class="btn btn-primary mb-4"
+        style="
+          background-color: #010b14;
+          font-family: 'Times New Roman', Times, serif;
+          width: 100%;
+        "
+      >
+        Assign Manager
+      </button>
+
+              <!-- Add more buttons here if needed -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form to logout -->
+      <form
+        id="logoutForm"
+        action="/logout"
+        method="post"
+        style="display: none"
+      ></form>
+
+      <!-- Edit Profile Form -->
+      <form
+        id="editProfileForm"
+        method="post"
+        class="needs-validation"
+        style="display: none"
+        novalidate
+      >
+        <h2 style="font-family: 'Times New Roman', Times, serif">Edit Profile</h2>
+        <br />
+        <div class="mb-3">
+          <label
+            for="edit_first_name"
+            class="form-label"
+            style="font-family: 'Times New Roman', Times, serif"
+            >First Name:</label
+          >
+          <input
+            type="text"
+            id="edit_first_name"
+            name="first_name"
+            class="form-control"
+            value="{{ user.first_name }}"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label
+            for="edit_last_name"
+            class="form-label"
+            style="font-family: 'Times New Roman', Times, serif"
+            >Last Name:</label
+          >
+          <input
+            type="text"
+            id="edit_last_name"
+            name="last_name"
+            class="form-control"
+            value="{{ user.last_name }}"
+            required
+          />
+        </div>
+        <!-- <div class="mb-3">
+          <label
+            for="edit_username"
+            class="form-label"
+            style="font-family: 'Times New Roman', Times, serif"
+            >Username:</label
+          >
+          <input
+            type="text"
+            id="edit_username"
+            name="username"
+            class="form-control"
+            value="{{ user.username }}"
+            required
+          />
+        </div> -->
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="
+            background-color: #010b14;
+            font-family: 'Times New Roman', Times, serif;
+          "
+        >
+          Save Changes
+        </button>
+      </form>
+
+      <!-- Form to Add Department -->
+      
+      <form id="addDepartmentForm" class="mb-4" style="display: none">
+        <h2>Add a Department</h2>
+        <br />
+        <div class="mb-3">
+          <label for="departmentName" class="form-label">Department Name:</label
+          ><br />
+          <input
+            type="text"
+            id="departmentName"
+            name="departmentName"
+            class="form-control"
+            required
+          />
+          <button
       type="button"
       onclick="addDepartment()"
       class="btn btn-primary"
@@ -147,253 +288,186 @@
     >
       Add Department
     </button>
-  </form>
+        </div>
+    
+      </form>
 
-  <!-- Button to see all departments -->
-  <button
-    type="button"
-    onclick="seeDepartments()"
-    class="btn btn-secondary mb-4"
-    style="
-      background-color: #010b14;
-      font-family: 'Times New Roman', Times, serif;
-    "
-  >
-    See Department List
-  </button>
-  <div id="departmentsTableContainer" style="display: none">
-    <!-- Table of Departments -->
-    <h3>Departments List</h3>
-    <table class="table table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>Department ID</th>
-          <th>Department Name</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="departmentsTableBody">
-        <!-- Departments will be populated here -->
-      </tbody>
-    </table>
-  </div>
+     
+      <div id="departmentsTableContainer" style="display: none">
+        <!-- Table of Departments -->
+        <h3>Departments List</h3>
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Department ID</th>
+              <th>Department Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="departmentsTableBody">
+            <!-- Departments will be populated here -->
+          </tbody>
+        </table>
+      </div>
 
-  <!-- Button to see all users -->
-  <button
-    type="button"
-    onclick="seeUsers()"
-    class="btn btn-secondary mb-4"
-    style="
-      background-color: #010b14;
-      font-family: 'Times New Roman', Times, serif;
-    "
-  >
-    See User List
-  </button>
-  <div id="usersTableContainer" style="display: none">
-    <!-- Table to display users -->
-    <h3>Users list</h3>
-    <table class="table table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>User ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Dept ID</th>
-          <th>Manager ID</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="usersTableBody">
-        <!-- Users will be populated here -->
-      </tbody>
-    </table>
-  </div>
+      <!-- Button to see all users -->
+      
+      <div id="usersTableContainer" style="display: none">
+        <!-- Table to display users -->
+        <h3>Users list</h3>
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>User ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Dept ID</th>
+              <th>Manager ID</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <!-- Users will be populated here -->
+          </tbody>
+        </table>
+      </div>
 
-  <!-- Button to see reimbursement requests list -->
-  <button
-    type="button"
-    onclick="seeRequests()"
-    class="btn btn-secondary mb-4"
-    style="
-      background-color: #010b14;
-      font-family: 'Times New Roman', Times, serif;
-    "
-  >
-    See Requests List
-  </button>
-  <div id="requestsTableContainer" style="display: none">
-    <!-- Table to display reimbursement requests -->
-    <h3>Reimbursement Requests List</h3>
-    <table class="table table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>Request ID</th>
-          <th>Amount</th>
-          <th>Date</th>
-          <th>Description</th>
-          <th>Category</th>
-          <th>Status</th>
-          <th>Employee ID</th>
-          <th>Manager ID</th>
-          <th>Manager Comment</th>
-          <th>Receipt Path</th>
-          <th>CREATED_ON</th>
-          <th>UPDATED_ON</th>
-        </tr>
-      </thead>
-      <tbody id="requestsTableBody">
-        <!-- Reimbursement requests will be populated here -->
-      </tbody>
-    </table>
-  </div>
+      <!-- Button to see reimbursement requests list -->
+    
+      <div id="requestsTableContainer" style="display: none">
+        <!-- Table to display reimbursement requests -->
+        <h3>Reimbursement Requests List</h3>
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Request ID</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Employee ID</th>
+              <th>Manager ID</th>
+              <th>Manager Comment</th>
+              <th>Receipt Path</th>
+              <th>CREATED_ON</th>
+              <th>UPDATED_ON</th>
+            </tr>
+          </thead>
+          <tbody id="requestsTableBody">
+            <!-- Reimbursement requests will be populated here -->
+          </tbody>
+        </table>
+      </div>
 
-  <!-- Button to fetch reimbursement requests list for admin -->
-  <button
-    type="button"
-    onclick="seeRequestsAdmin()"
-    class="btn btn-secondary mb-4"
-    style="
-      background-color: #010b14;
-      font-family: 'Times New Roman', Times, serif;
-    "
-  >
-    Show Requests for Updation
-  </button>
-  <div id="requestsAdminTableContainer" style="display: none">
-    <!-- Table to display reimbursement requests -->
-    <h3>Reimbursement Requests List</h3>
-    <table class="table table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>Request ID</th>
-          <th>Amount</th>
-          <th>Date</th>
-          <th>Description</th>
-          <th>Category</th>
-          <th>Status</th>
-          <th>Employee ID</th>
-          <th>Manager ID</th>
-          <th>Manager Comment</th>
-          <th>Receipt Path</th>
-        </tr>
-      </thead>
-      <tbody id="requestsAdminTableBody">
-        <!-- Reimbursement requests will be populated here -->
-      </tbody>
-    </table>
-  </div>
+      <!-- Button to fetch reimbursement requests list for admin -->
+    
+      <div id="requestsAdminTableContainer" style="display: none">
+        <!-- Table to display reimbursement requests -->
+        <h3>Reimbursement Requests List</h3>
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Request ID</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Employee ID</th>
+              <th>Manager ID</th>
+              <th>Manager Comment</th>
+              <th>Receipt Path</th>
+            </tr>
+          </thead>
+          <tbody id="requestsAdminTableBody">
+            <!-- Reimbursement requests will be populated here -->
+          </tbody>
+        </table>
+      </div>
 
-  <!-- Button to toggle the list of unassigned employees -->
-  <button
-    id="toggleUnassignedEmployeesBtn"
-    class="btn btn-primary mb-4"
-    style="
-      background-color: #010b14;
-      font-family: 'Times New Roman', Times, serif;
-    "
-    onclick="toggleUnassignedEmployees()"
-  >
-    List of Unassigned Employees
-  </button>
+      <!-- Button to toggle the list of unassigned employees -->
+     
+      <!-- Table to display unassigned employees (initially hidden) -->
+      <div id="unassignedEmployeesTableContainer" style="display: none">
+        <h2>Unassigned Employees</h2>
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody id="unassignedEmployeesBody">
+            <!-- Unassigned employee data will be dynamically inserted here -->
+          </tbody>
+        </table>
+      </div>
+      
 
-  <!-- Table to display unassigned employees (initially hidden) -->
-  <div id="unassignedEmployeesTableContainer" style="display: none">
-    <h2>Unassigned Employees</h2>
-    <table class="table table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>ID</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody id="unassignedEmployeesBody">
-        <!-- Unassigned employee data will be dynamically inserted here -->
-      </tbody>
-    </table>
-  </div>
-</div>
-<button
-  id="toggleFormBtn"
-  class="btn btn-primary"
-  style="
-    background-color: #010b14;
-    font-family: 'Times New Roman', Times, serif;
-    width: 98%;
-    margin-left: 1%;
-  "
->
-  Assign Manager
-</button>
-<form id="assignForm" class="mt-4" style="display: none">
-  <h3>Assign Manager</h3>
-  <br />
-  <div class="mb-3">
-    <label for="employeeSelect" class="form-label">Select Employee:</label
-    ><br />
-    <select
-      id="employeeSelect"
-      name="employeeSelect"
-      class="form-select"
-      required
-    >
-      <!-- Employees options will be populated dynamically -->
-    </select>
-  </div>
-  <div class="mb-3">
-    <label for="managerSelect" class="form-label">Select Manager:</label><br />
-    <select
-      id="managerSelect"
-      name="managerSelect"
-      class="form-select"
-      required
-    >
-      <!-- Managers options will be populated dynamically -->
-    </select>
-  </div>
-  <button
-    type="button"
-    onclick="assignManager()"
-    class="btn btn-primary"
-    style="background-color: #010b14"
-  >
-    Assign Manager
-  </button>
-</form>
+      <!-- Button to assign manager -->
+   
+      <form id="assignForm" class="mt-4" style="display: none">
+        <h3>Assign Manager</h3>
+        <br />
+        <div class="mb-3">
+          <label for="employeeSelect" class="form-label">Select Employee:</label
+          ><br />
+          <select
+            id="employeeSelect"
+            name="employeeSelect"
+            class="form-select"
+            required
+          >
+          
+            <!-- Employees options will be populated dynamically -->
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="managerSelect" class="form-label">Select Manager:</label
+          ><br />
+          <select
+            id="managerSelect"
+            name="managerSelect"
+            class="form-select"
+            required
+          >
+            <!-- Managers options will be populated dynamically -->
+          </select>
+        </div>
+        <button
+        type="button"
+        onclick="assignManager()"
+        class="btn btn-primary"
+        style="background-color: #010b14"
+      >
+        Assign Manager
+      </button>
+      </form>
 
-<!-- Add the "Audit User Trail" button -->
-<button
-  onclick="toggleUserTrail()"
-  class="btn btn-secondary mt-4"
-  style="
-    background-color: #010b14;
-    font-family: 'Times New Roman', Times, serif;
-    width: 98%;
-    margin-left: 0.3cm;
-  "
->
-  User History
-</button>
-<div id="userTrailContainer" style="display: none" class="mt-4">
-  <h2 style="font-family: 'Times New Roman', Times, serif">User History</h2>
-  <table id="userTrailTable" class="table table-bordered">
-    <thead class="table-dark">
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>ROLE</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Created On</th>
-        <th>Deleted On</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
+      <!-- Audit User Trail button -->
+      
+      <div id="userTrailContainer" style="display: none" class="mt-4">
+        <h2 style="font-family: 'Times New Roman', Times, serif">User History</h2>
+        <table id="userTrailTable" class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>ROLE</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Created On</th>
+              <th>Deleted On</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
 
 <!-- Scripts -->
 <script>

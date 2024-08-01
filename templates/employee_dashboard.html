@@ -1,39 +1,28 @@
-{% extends 'base.html' %} {% block content %} {% if user.role == 'Employee' %}
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.role == 'Employee' %}
 <div class="container mt-4">
   <h1 class="text-center" style="font-family: 'Times New Roman', Times, serif">
     Welcome to the Employee Dashboard
   </h1>
   <div class="card mt-3 mb-4">
     <div class="card-body">
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>UserID:</strong>
-        <span id="id">{{ user.id }}</span>
-      </p>
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Username:</strong>
-        <span id="username">{{ user.username }}</span>
-      </p>
-
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Full Name:</strong>
-        <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
-      </p>
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Email:</strong> <span id="email">{{ user.email }}</span>
-      </p>
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Role:</strong> <span id="role">{{ user.role }}</span>
-      </p>
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Department ID:</strong>
-        <span id="department">{{ user.department_id }}</span>
-      </p>
-      <p style="font-family: 'Times New Roman', Times, serif">
-        <strong>Department Name:</strong>
-        <span id="department">{{ user.department_name }}</span>
-      </p>
-
-      <button
+      <div class="row">
+        <div class="col-md-6">
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>UserID:</strong>
+            <span id="id">{{ user.id }}</span>
+          </p>
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>Username:</strong>
+            <span id="username">{{ user.username }}</span>
+          </p>
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>Full Name:</strong>
+            <span id="fullname">{{ user.first_name }} {{ user.last_name }}</span>
+          </p>
+          <button
         type="submit"
         form="logoutForm"
         class="btn-logout"
@@ -44,10 +33,42 @@
       <button
         id="editProfileBtn"
         class="btn btn-primary"
-        style="font-family: 'Times New Roman', Times, serif; width: 8%"
+        style="
+          display: inline-block;
+          width: auto;
+          padding: 4px 20px;
+          background-color: #007bff; 
+          border-radius: 3px;
+          cursor: pointer;
+          margin-top: -3px;
+          font-family: 'Times New Roman', Times, serif;
+        "
       >
         Edit
       </button>
+        </div>
+        <div class="col-md-6">
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>Email:</strong> 
+            <span id="email">{{ user.email }}</span>
+          </p>
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>Role:</strong> 
+            <span id="role">{{ user.role }}</span>
+          </p>
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>Department ID:</strong>
+            <span id="department">{{ user.department_id }}</span>
+          </p>
+          <p style="font-family: 'Times New Roman', Times, serif">
+            <strong>Department Name:</strong>
+            <span id="department">{{ user.department_name }}</span>
+          </p>
+        </div>
+      </div>
+      
+      
+      
     </div>
   </div>
   <form
