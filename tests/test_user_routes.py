@@ -47,13 +47,15 @@ class TestUserRoutes(unittest.TestCase):
         response = self.client.post('/user/', json=payload)
 
         # Parse the response data
-        data = response.get_json()
+        data = response.get_json()  #Parses the JSON response data
 
         # Assert the response status code and message
+        
+        #In the context of a unit test, assertions are used to check if the code is behaving as expected
         self.assertEqual(response.status_code, 201)
         self.assertTrue(data['success'])
         self.assertEqual(data['message'], 'User created successfully')
-        self.assertIn('data', data)
+        self.assertIn('data', data) #Asserts that the data field is present in the response data.     
         self.assertEqual(data['data']['username'], 'testuser')
         self.assertEqual(data['data']['email'], 'testuser@nucleusteq.com')
         self.assertEqual(data['data']['role'], 'Employee')

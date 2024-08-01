@@ -1,142 +1,159 @@
-2024-06-13 19:33:17,734 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
-2024-06-13 19:33:17,734 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:17,749 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
-2024-06-13 19:33:17,749 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:17,749 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
-2024-06-13 19:33:17,749 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:17,749 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-13 19:33:17,749 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-13 19:33:17,749 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:17,803 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
-2024-06-13 19:33:17,803 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:17,818 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
-2024-06-13 19:33:17,818 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:17,818 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-13 19:33:17,849 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2024-08-02 01:05:11,083 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-08-02 01:05:11,093 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:11,114 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-08-02 01:05:11,152 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:11,154 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-08-02 01:05:11,199 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:11,199 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-08-02 01:05:11,216 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-08-02 01:05:11,220 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:11,636 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-08-02 01:05:11,636 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:11,652 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-08-02 01:05:11,652 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:11,666 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-08-02 01:05:11,996 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
-2024-06-13 19:33:17,849 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2024-08-02 01:05:11,996 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
-2024-06-13 19:33:17,849 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2024-06-13 19:33:17,849 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2024-06-13 19:33:17,865 - werkzeug - INFO -  * Restarting with stat
-2024-06-13 19:33:17,865 - werkzeug - INFO -  * Restarting with stat
-2024-06-13 19:33:19,454 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
-2024-06-13 19:33:19,469 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:19,469 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
-2024-06-13 19:33:19,469 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:19,469 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
-2024-06-13 19:33:19,469 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:19,469 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-13 19:33:19,469 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-13 19:33:19,469 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:19,485 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
-2024-06-13 19:33:19,485 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:19,485 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
-2024-06-13 19:33:19,485 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-13 19:33:19,485 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-13 19:33:19,507 - werkzeug - WARNING -  * Debugger is active!
-2024-06-13 19:33:19,507 - werkzeug - WARNING -  * Debugger is active!
-2024-06-13 19:33:19,507 - werkzeug - INFO -  * Debugger PIN: 135-236-840
-2024-06-13 19:33:19,507 - werkzeug - INFO -  * Debugger PIN: 135-236-840
-2024-06-13 19:33:29,949 - main - INFO - Request Headers: Host: localhost:5000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+2024-08-02 01:05:11,998 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-08-02 01:05:11,998 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-08-02 01:05:12,008 - werkzeug - INFO -  * Restarting with stat
+2024-08-02 01:05:12,008 - werkzeug - INFO -  * Restarting with stat
+2024-08-02 01:05:24,742 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+2024-08-02 01:05:24,781 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:24,843 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+2024-08-02 01:05:25,121 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:25,324 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+2024-08-02 01:05:25,423 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:25,537 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-08-02 01:05:25,537 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
+2024-08-02 01:05:25,546 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:25,556 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
+2024-08-02 01:05:25,563 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:25,570 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
+2024-08-02 01:05:25,570 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-08-02 01:05:25,580 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-08-02 01:05:25,608 - werkzeug - WARNING -  * Debugger is active!
+2024-08-02 01:05:25,608 - werkzeug - WARNING -  * Debugger is active!
+2024-08-02 01:05:25,673 - werkzeug - INFO -  * Debugger PIN: 144-750-894
+2024-08-02 01:05:25,673 - werkzeug - INFO -  * Debugger PIN: 144-750-894
+2024-08-02 01:05:33,418 - main - INFO - Request Headers: Host: 127.0.0.1:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br, zstd
 Connection: keep-alive
-Referer: http://localhost:5000/
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+Priority: u=0, i
+
+
+2024-08-02 01:05:33,475 - main - INFO - Request Body: b''
+2024-08-02 01:05:34,984 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:34] "GET / HTTP/1.1" 200 -
+2024-08-02 01:05:34,984 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:34] "GET / HTTP/1.1" 200 -
+2024-08-02 01:05:35,383 - main - INFO - Request Headers: Host: 127.0.0.1:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Connection: keep-alive
+Referer: http://127.0.0.1:5000/
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Priority: u=2
+
+
+2024-08-02 01:05:35,412 - main - INFO - Request Body: b''
+2024-08-02 01:05:35,825 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:35] "GET /static/css/style.css HTTP/1.1" 200 -
+2024-08-02 01:05:35,825 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:35] "GET /static/css/style.css HTTP/1.1" 200 -
+2024-08-02 01:05:36,034 - main - INFO - Request Headers: Host: 127.0.0.1:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0
+Accept: image/avif,image/webp,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Connection: keep-alive
+Referer: http://127.0.0.1:5000/
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Priority: u=6
+
+
+2024-08-02 01:05:36,046 - main - INFO - Request Body: b''
+2024-08-02 01:05:36,118 - main - ERROR - Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2024-08-02 01:05:36,148 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-08-02 01:05:36,148 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-08-02 01:05:40,252 - main - INFO - Request Headers: Host: 127.0.0.1:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Connection: keep-alive
+Referer: http://127.0.0.1:5000/
 Upgrade-Insecure-Requests: 1
 Sec-Fetch-Dest: document
 Sec-Fetch-Mode: navigate
 Sec-Fetch-Site: same-origin
 Sec-Fetch-User: ?1
-Priority: u=1
+Priority: u=0, i
 
 
-2024-06-13 19:33:29,965 - main - INFO - Request Body: b''
-2024-06-13 19:33:29,981 - werkzeug - INFO - 127.0.0.1 - - [13/Jun/2024 19:33:29] "GET /register HTTP/1.1" 200 -
-2024-06-13 19:33:29,981 - werkzeug - INFO - 127.0.0.1 - - [13/Jun/2024 19:33:29] "GET /register HTTP/1.1" 200 -
-2024-06-13 19:33:30,297 - main - INFO - Request Headers: Host: localhost:5000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
+2024-08-02 01:05:40,264 - main - INFO - Request Body: b''
+2024-08-02 01:05:40,540 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:40] "GET /login HTTP/1.1" 200 -
+2024-08-02 01:05:40,540 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:40] "GET /login HTTP/1.1" 200 -
+2024-08-02 01:05:40,766 - main - INFO - Request Headers: Host: 127.0.0.1:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0
 Accept: text/css,*/*;q=0.1
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br, zstd
 Connection: keep-alive
-Referer: http://localhost:5000/register
+Referer: http://127.0.0.1:5000/login
 Sec-Fetch-Dest: style
 Sec-Fetch-Mode: no-cors
 Sec-Fetch-Site: same-origin
-If-Modified-Since: Wed, 05 Jun 2024 06:29:35 GMT
-If-None-Match: "1717568975.6805782-2582-1611339191"
 Priority: u=2
 
 
-2024-06-13 19:33:30,297 - main - INFO - Request Body: b''
-2024-06-13 19:33:30,413 - werkzeug - INFO - 127.0.0.1 - - [13/Jun/2024 19:33:30] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-2024-06-13 19:33:30,413 - werkzeug - INFO - 127.0.0.1 - - [13/Jun/2024 19:33:30] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-2024-06-13 19:33:30,616 - main - INFO - Request Headers: Host: localhost:5000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0
+2024-08-02 01:05:40,795 - main - INFO - Request Body: b''
+2024-08-02 01:05:40,815 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:40] "GET /static/css/style.css HTTP/1.1" 200 -
+2024-08-02 01:05:40,815 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:40] "GET /static/css/style.css HTTP/1.1" 200 -
+2024-08-02 01:05:43,069 - main - INFO - Request Headers: Host: 127.0.0.1:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0
 Accept: */*
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br, zstd
-Referer: http://localhost:5000/register
+Referer: http://127.0.0.1:5000/login
+Content-Type: application/json
+Content-Length: 45
+Origin: http://127.0.0.1:5000
 Connection: keep-alive
 Sec-Fetch-Dest: empty
 Sec-Fetch-Mode: cors
 Sec-Fetch-Site: same-origin
-Priority: u=4
+Priority: u=0
 
 
-2024-06-13 19:33:30,616 - main - INFO - Request Body: b''
-2024-06-13 19:33:30,667 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-13 19:33:30,667 - sqlalchemy.engine.Engine - INFO - SELECT departments.id AS departments_id, departments.name AS departments_name 
-FROM departments
-2024-06-13 19:33:30,667 - sqlalchemy.engine.Engine - INFO - [generated in 0.00097s] {}
-2024-06-13 19:33:30,682 - sqlalchemy.engine.Engine - INFO - ROLLBACK
-2024-06-13 19:33:30,698 - werkzeug - INFO - 127.0.0.1 - - [13/Jun/2024 19:33:30] "GET /department/ HTTP/1.1" 200 -
-2024-06-13 19:33:30,698 - werkzeug - INFO - 127.0.0.1 - - [13/Jun/2024 19:33:30] "GET /department/ HTTP/1.1" 200 -
-2024-06-14 06:49:54,444 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
-2024-06-14 06:49:54,444 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:54,460 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
-2024-06-14 06:49:54,460 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:54,460 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
-2024-06-14 06:49:54,460 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:54,460 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-14 06:49:54,460 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-14 06:49:54,476 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:54,491 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
-2024-06-14 06:49:54,491 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:54,507 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
-2024-06-14 06:49:54,507 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:54,523 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-14 06:49:54,592 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-2024-06-14 06:49:54,592 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-2024-06-14 06:49:54,592 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2024-06-14 06:49:54,592 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2024-06-14 06:49:54,607 - werkzeug - INFO -  * Restarting with stat
-2024-06-14 06:49:54,607 - werkzeug - INFO -  * Restarting with stat
-2024-06-14 06:49:56,579 - sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
-2024-06-14 06:49:56,579 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:56,579 - sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
-2024-06-14 06:49:56,610 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:56,626 - sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
-2024-06-14 06:49:56,632 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:56,648 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2024-06-14 06:49:56,679 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`users`
-2024-06-14 06:49:56,679 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:56,733 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`departments`
-2024-06-14 06:49:56,745 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:56,755 - sqlalchemy.engine.Engine - INFO - DESCRIBE `reimbursement_portal`.`reimbursement_requests`
-2024-06-14 06:49:56,765 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
-2024-06-14 06:49:56,775 - sqlalchemy.engine.Engine - INFO - COMMIT
-2024-06-14 06:49:56,806 - werkzeug - WARNING -  * Debugger is active!
-2024-06-14 06:49:56,806 - werkzeug - WARNING -  * Debugger is active!
-2024-06-14 06:49:56,847 - werkzeug - INFO -  * Debugger PIN: 135-236-840
-2024-06-14 06:49:56,847 - werkzeug - INFO -  * Debugger PIN: 135-236-840
-2024-06-14 06:50:00,332 - main - INFO - Request Body: b''
-2024-06-14 06:50:00,569 - werkzeug - INFO - 127.0.0.1 - - [14/Jun/2024 06:50:00] "GET / HTTP/1.1" 200 -
-2024-06-14 06:50:00,569 - werkzeug - INFO - 127.0.0.1 - - [14/Jun/2024 06:50:00] "GET / HTTP/1.1" 200 -
-2024-06-14 06:50:01,033 - main - INFO - Request Body: b''
-2024-06-14 06:50:01,273 - werkzeug - INFO - 127.0.0.1 - - [14/Jun/2024 06:50:01] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2024-08-02 01:05:43,079 - main - INFO - Request Body: b'{"username":"gaurav","password":"Gaurav@123"}'
+2024-08-02 01:05:43,181 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-08-02 01:05:43,202 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.`role` AS users_role, users.password_hash AS users_password_hash, users.department_id AS users_department_id, users.manager_id AS users_manager_id, users.first_name AS users_first_name, users.last_name AS users_last_name, users.is_active AS users_is_active, users.created_on AS users_created_on, users.deleted_on AS users_deleted_on 
+FROM users 
+WHERE users.username = %(username_1)s 
+ LIMIT %(param_1)s
+2024-08-02 01:05:43,202 - sqlalchemy.engine.Engine - INFO - [generated in 0.00498s] {'username_1': 'gaurav', 'param_1': 1}
+2024-08-02 01:05:43,765 - sqlalchemy.engine.Engine - INFO - SELECT departments.id AS departments_id, departments.name AS departments_name 
+FROM departments 
+WHERE departments.id IS NULL
+2024-08-02 01:05:43,765 - sqlalchemy.engine.Engine - INFO - [generated in 0.00241s] {}
+2024-08-02 01:05:43,799 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-08-02 01:05:43,799 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:43] "POST /user/login HTTP/1.1" 200 -
+2024-08-02 01:05:43,799 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:43] "POST /user/login HTTP/1.1" 200 -
+2024-08-02 01:05:45,557 - main - INFO - Request Body: b''
+2024-08-02 01:05:45,740 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:45] "GET /admin_dashboard HTTP/1.1" 200 -
+2024-08-02 01:05:45,740 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:45] "GET /admin_dashboard HTTP/1.1" 200 -
+2024-08-02 01:05:46,018 - main - INFO - Request Body: b''
+2024-08-02 01:05:46,026 - werkzeug - INFO - 127.0.0.1 - - [02/Aug/2024 01:05:46] "GET /static/css/style.css HTTP/1.1" 200 -
